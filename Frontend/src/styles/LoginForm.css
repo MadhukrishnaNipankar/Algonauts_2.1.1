@@ -282,7 +282,9 @@
   font-weight: 600;
   color: var(--text);
 }
-
+.mockup{
+  mix-blend-mode: multiply;
+}
 @media (max-width: 720px) {
   .form-wrapper {
       grid-template-columns: 1fr;

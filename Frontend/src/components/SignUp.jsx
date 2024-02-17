@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import googleLogo from "../assests/google.png";
 import signupimage from "../assests/signupimage.jpg";
 import "../styles/LoginForm.css";
+import { NavLink, useNavigate } from 'react-router-dom';
+
 
 // Import the signupUser function from signupController.js
 import { signupUser } from "../../controllers/SignupController"; // Update the path as per your project structure
@@ -10,6 +12,7 @@ import Spinner from "./Spinner";
 // Update the path as per your project structure
 
 const SignUp = () => {
+  const navigate = useNavigate();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -52,6 +55,7 @@ const SignUp = () => {
       alert(response.message);
       // Additional logic after successful signup, if needed
       console.log("User signed up successfully!", response);
+      navigate("/login")
     } catch (error) {
       alert(error.message);
       console.error("Error signing up:", error.message);
@@ -174,8 +178,18 @@ const SignUp = () => {
 
           <div className="my-form__actions">
             <a href="#" className="create-account-link">
-              Already have an account? Login
             </a>
+
+            <NavLink
+              to="/login"
+              className={({ isActive }) =>
+                `${isActive ? "active-nav" : null} nav-link`
+              }
+            >
+              <a title="Create Account" className="create-account-link">
+                Already have an account? <strong>Login</strong>
+              </a>
+            </NavLink>
           </div>
 
           <div className="divider">
@@ -192,7 +206,7 @@ const SignUp = () => {
         </form>
       </div>
       <div className="info-side">
-        <img src={signupimage} alt="signupimage" className="signupimage" />
+        <img src={signupimage} alt="signupimage" className="mockup" />
       </div>
     </div>
   );

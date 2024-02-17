@@ -1,13 +1,17 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { NavLink } from "react-router-dom";
 import googleLogo from "../assests/google.png";
 import mockImage from "../assests/mock.jpg";
 import "../styles/LoginForm.css";
+import {useNavigate} from 'react-router-dom';
 
 import { loginUser } from "../../controllers/LoginController";
 import Spinner from "./Spinner";
+import { LoginContext } from "../context/LoginContext";
 
 const LoginForm = () => {
+  const navigate = useNavigate();
+  const {setIsLoggedIn} = useContext(LoginContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -34,6 +38,8 @@ const LoginForm = () => {
       sessionStorage.setItem("token", response.token);
       // Additional logic after successful login, if needed
       console.log("User logged in successfully!", response);
+      setIsLoggedIn(true)
+      navigate("/");
     } catch (error) {
       alert(error.message);
       console.error("Error logging in:", error.message);

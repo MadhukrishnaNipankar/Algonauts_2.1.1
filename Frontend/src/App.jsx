@@ -1,7 +1,9 @@
-import React from 'react'
-import {Home, Layout, AboutUs, ContactUs, NotFound, LoginForm, SignUp} from './components/Index.js'
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import {useState} from 'react'
+import {Home, Layout, AboutUs, ContactUs, NotFound, LoginForm, SignUp, ProfileDetails, EditProfile} from './components/Index.js'
 
+import {LoginContext} from './context/LoginContext.js'
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import './App.css'
 
 const router = createBrowserRouter([
   {
@@ -31,15 +33,25 @@ const router = createBrowserRouter([
       {
         path: "/signup",
         element: <SignUp />,
-
-
+      },
+      {
+        path: "/profile-details",
+        element: <ProfileDetails />,
+      },
+      {
+        path: "/edit-profile",
+        element: <EditProfile />,
       },
     ],
   },
 ]);
 const App = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(sessionStorage.getItem("token")?true:false);
+
   return (
+  <LoginContext.Provider value={{isLoggedIn, setIsLoggedIn}}>
     <RouterProvider router={router} />
+  </LoginContext.Provider>
   )
 }
 
