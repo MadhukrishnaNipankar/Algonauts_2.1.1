@@ -1,12 +1,19 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
+const path = require("path");
 
 // Middleware to parse JSON
 app.use(express.json());
 app.use(cors());
 
 app.use(express.urlencoded({ extended: false }));
+
+// Serve uploaded images statically
+app.use(
+  "/data/users/profileImages",
+  express.static(path.join(__dirname, "data/users/profileImages"))
+);
 
 // Routes Import
 const userRoutes = require("./Routes/UserRoutes");

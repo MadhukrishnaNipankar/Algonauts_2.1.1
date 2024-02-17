@@ -45,7 +45,6 @@ exports.updateUserProfile = async (req, res) => {
     // Only take allowed fields for profile updation
     const filteredBody = filterObjectForUpdation(
       req.body,
-      "profilePhotoURL",
       "bio",
       "links",
       "pastExperiences",
@@ -137,5 +136,40 @@ exports.viewUserProfile = async (req, res) => {
       message: "Something went wrong at our side!",
       exception: exception.message,
     });
+  }
+};
+
+exports.updateUserProfileImage = async (req, res) => {
+  try {
+    // Check if file is present in the request
+    if (!req.file) {
+      return res.status(400).json({ message: "No file uploaded" });
+    }
+    console.log(req.file, "request");
+    // Update the profile photo URL in the database
+    const updatedProfile = await Profile.findOneAndUpdate(
+      { user: req.user.id },
+      { profilePhotoURL: `/data/users/profileImages/${req.file.filename}` },
+      { new: true }
+    );
+
+    if (!updatedProfile) {
+      return res.status(404).json({ message: "Profile not found" });
+    }
+
+    // Return success response with the updated profile
+    res.status(200).json({
+      message: "Image uploaded successfully",
+      profile: {
+        _id: updatedProfile._id,
+        profilePhotoURL: updatedProfile.profilePhotoURL,
+        // Add any other relevant fields you want to return
+      },
+    });
+  } catch (error) {
+    console.error("Error uploading image:", error);
+    res
+      .status(500)
+      .json({ message: "Something went wrong", error: error.message });
   }
 };
