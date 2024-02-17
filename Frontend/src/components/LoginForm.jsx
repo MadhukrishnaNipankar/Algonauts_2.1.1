@@ -4,9 +4,13 @@ import googleLogo from "../assests/google.png";
 import mockImage from "../assests/mock.jpg";
 import "../styles/LoginForm.css";
 
+import { loginUser } from "../../controllers/LoginController";
+import Spinner from "./Spinner";
+
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -16,16 +20,33 @@ const LoginForm = () => {
     setPassword(e.target.value);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Email:", email);
-    console.log("Password:", password);
+  const handleUserLogin = async (e) => {
+    setLoading(true); // Set loading to true before making the API call
+    try {
+      console.log("Email:", email);
+      console.log("Password:", password);
+      const userData = {
+        emailId: email,
+        password: password,
+      };
+      const response = await loginUser(userData);
+      alert(response.message);
+      sessionStorage.setItem("token", response.token);
+      // Additional logic after successful login, if needed
+      console.log("User logged in successfully!", response);
+    } catch (error) {
+      alert(error.message);
+      console.error("Error logging in:", error.message);
+      // Additional error handling logic if needed
+    } finally {
+      setLoading(false); // Set loading back to false after the API call completes
+    }
   };
 
   return (
     <div className="form-wrapper">
       <div className="form-side">
-        <form className="my-form" onSubmit={handleSubmit}>
+        <form className="my-form">
           <div className="form-welcome-row">
             <h1>Welcome Back! &#x1F44F;</h1>
             <h2>Login with your account!</h2>
@@ -62,13 +83,25 @@ const LoginForm = () => {
             />
           </div>
 
-    
-            <button
-             type="button" 
-             class="btn btn-dark">
-              Login
-            </button>
-      
+          <button
+            style={{ display: loading ? "none" : "block" }}
+            onClick={handleUserLogin}
+            type="button"
+            class="btn btn-dark"
+          >
+            Login
+          </button>
+          <div
+            className="spinner"
+            style={{
+              margin: "auto",
+              justifyContent: "center",
+              display: loading ? "block" : "none",
+            }}
+          >
+            <Spinner />
+          </div>
+
           <div className="my-form__actions">
             <NavLink
               to="/Signup"
@@ -76,10 +109,7 @@ const LoginForm = () => {
                 `${isActive ? "active-nav" : null} nav-link`
               }
             >
-              <a
-                title="Create Account"
-                className="create-account-link"
-              >
+              <a title="Create Account" className="create-account-link">
                 Don't have an account? <strong>Sign Up</strong>
               </a>
             </NavLink>

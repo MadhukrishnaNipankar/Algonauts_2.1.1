@@ -1,8 +1,13 @@
 import React, { useState } from "react";
 import googleLogo from "../assests/google.png";
 import signupimage from "../assests/signupimage.jpg";
-import '../styles/LoginForm.css';
+import "../styles/LoginForm.css";
 
+// Import the signupUser function from signupController.js
+import { signupUser } from "../../controllers/SignupController"; // Update the path as per your project structure
+import Spinner from "./Spinner";
+
+// Update the path as per your project structure
 
 const SignUp = () => {
   const [name, setName] = useState("");
@@ -10,6 +15,7 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [contactNumber, setContactNumber] = useState("");
   const [role, setRole] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleNameChange = (e) => {
     setName(e.target.value);
@@ -27,30 +33,42 @@ const SignUp = () => {
     setContactNumber(e.target.value);
   };
 
-  const handleRoleChange=(e)=>{
-    setRole(e.target.value)
-  }
-  
+  const handleRoleChange = (e) => {
+    setRole(e.target.value);
+  };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Name:", name);
-    console.log("Email:", email);
-    console.log("Password:", password);
-    console.log("Contact Number:", contactNumber);
-    // Additional logic for signup submission
+  const handleUserRegistration = async () => {
+    // // Call the signupUser function from signupController.js
+    try {
+      const userData = {
+        name: name,
+        phoneNumber: contactNumber,
+        emailId: email,
+        password: password,
+      };
+      setLoading(true);
+      const response = await signupUser(userData);
+
+      alert(response.message);
+      // Additional logic after successful signup, if needed
+      console.log("User signed up successfully!", response);
+    } catch (error) {
+      alert(error.message);
+      console.error("Error signing up:", error.message);
+      // Additional error handling logic if needed
+    }
+    setLoading(false);
   };
 
   return (
     <div className="form-wrapper">
       <div className="form-side">
-        <form className="my-form" onSubmit={handleSubmit}>
+        <form className="my-form">
           <div className="form-welcome-row">
             <h1>Create an Account! &#x1F603;</h1>
             <h2>Sign up to continue</h2>
           </div>
-         
-        
+
           <div className="text-field">
             <label htmlFor="name">Name</label>
             <input
@@ -112,30 +130,51 @@ const SignUp = () => {
               value={role}
               onChange={handleRoleChange}
               style={{
-                height:"2.8rem",
-                borderRadius:"0.5rem",
-                backgroundColor:"#f1f2f3",
-                border:"1px solid #dfe3e6"
-
+                height: "2.8rem",
+                borderRadius: "0.5rem",
+                backgroundColor: "#f1f2f3",
+                border: "1px solid #dfe3e6",
               }}
               required
             >
-              <option className="text-field" value="">Select your role</option>
-              <option className="text-field" value="Entrepreneur">Entrepreneur</option>
-              <option className="text-field" value="Startup">Startup</option>
-              <option className="text-field" value="Guest">Investor</option>
+              <option className="text-field" value="">
+                Select your role
+              </option>
+              <option className="text-field" value="Entrepreneur">
+                Entrepreneur
+              </option>
+              <option className="text-field" value="Startup">
+                Startup
+              </option>
+              <option className="text-field" value="Guest">
+                Investor
+              </option>
             </select>
           </div>
 
-        
-          <button type="button"
-           class="btn btn-dark"
-           >Register
-           </button>
-          
+          <button
+            onClick={handleUserRegistration}
+            type="button"
+            className="btn btn-dark"
+            style={{ display: loading ? "none" : "block" }}
+          >
+            Register
+          </button>
+
+          <div
+            className="spinner"
+            style={{
+              margin: "auto",
+              justifyContent: "center",
+              display: loading ? "block" : "none",
+            }}
+          >
+            <Spinner />
+          </div>
+
           <div className="my-form__actions">
-              <a href="#" className="create-account-link">
-                Already have an account? Login
+            <a href="#" className="create-account-link">
+              Already have an account? Login
             </a>
           </div>
 
@@ -150,7 +189,6 @@ const SignUp = () => {
               <span>Continue with Google</span>
             </a>
           </div>
-
         </form>
       </div>
       <div className="info-side">
