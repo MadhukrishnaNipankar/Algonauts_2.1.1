@@ -10,6 +10,7 @@ app.use(express.urlencoded({ extended: false }));
 
 // Routes Import
 const userRoutes = require("./Routes/UserRoutes");
+const profileRoutes = require("./Routes/ProfileRoutes");
 
 const connectDb = require("./Config/db");
 
@@ -21,6 +22,7 @@ const CONNECTION_STRING = process.env.CONNECTION_STRING;
 
 // Defining API's
 app.use("/api/v1/user", userRoutes);
+app.use("/api/v1/profile", profileRoutes);
 
 // Database Connection
 connectDb(CONNECTION_STRING);
