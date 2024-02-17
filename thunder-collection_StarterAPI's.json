@@ -1,0 +1,148 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "StarterAPI's",
+    "dateExported": "2024-02-16T13:17:20.636Z",
+    "version": "1.1",
+    "folders": [
+        {
+            "_id": "d5ae705d-28f9-4acd-886c-5409585303bc",
+            "name": "User",
+            "containerId": "",
+            "created": "2024-02-16T12:44:05.808Z",
+            "sortNum": 10000
+        },
+        {
+            "_id": "9e5c7a10-b69a-4645-9894-9f3359beb62e",
+            "name": "UserAuth",
+            "containerId": "d5ae705d-28f9-4acd-886c-5409585303bc",
+            "created": "2024-02-16T12:44:19.979Z",
+            "sortNum": 20000
+        }
+    ],
+    "requests": [
+        {
+            "_id": "cc7aa775-528d-4399-bad4-6fc30f24c6f8",
+            "colId": "5f59adb7-0151-4fe0-ad42-b7c561a65472",
+            "containerId": "9e5c7a10-b69a-4645-9894-9f3359beb62e",
+            "name": "Create User Account",
+            "url": "http://localhost:8000/api/v1/user/",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2024-02-16T12:44:44.153Z",
+            "modified": "2024-02-16T12:47:15.921Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"name\": \"Madhukrishna Nipankar\",\n  \"phoneNumber\": \"9518311216\",\n  \"emailId\": \"mn@gmail.com\",\n  \"password\": \"madhukrishna\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "67706d69-fb5f-4d90-ae14-3854281bf9f3",
+            "colId": "5f59adb7-0151-4fe0-ad42-b7c561a65472",
+            "containerId": "9e5c7a10-b69a-4645-9894-9f3359beb62e",
+            "name": "Login User",
+            "url": "http://localhost:8000/api/v1/user/login",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2024-02-16T12:48:45.718Z",
+            "modified": "2024-02-16T12:57:18.163Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"emailId\":\"mn@gmail.com\",\n  \"password\":\"madhukrishna\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "60e3e84c-4d96-46ec-8aa5-b75389b7dbed",
+            "colId": "5f59adb7-0151-4fe0-ad42-b7c561a65472",
+            "containerId": "9e5c7a10-b69a-4645-9894-9f3359beb62e",
+            "name": "Update User Password",
+            "url": "http://localhost:8000/api/v1/user/password",
+            "method": "PATCH",
+            "sortNum": 30000,
+            "created": "2024-02-16T12:50:26.535Z",
+            "modified": "2024-02-16T13:15:43.813Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1Y2Y1OTUyYTliNTA1ZjM4YTI5ODgxOCIsImlhdCI6MTcwODA4NzgwNCwiZXhwIjoxNzA5ODE1ODA0fQ.GAdutlC0X2ORXeY-am52xDX8rogH9rTcVjMg4x8ho5I"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"password\":\"new_password_here\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "a301ec6f-723d-4c15-acb6-2d409734166b",
+            "colId": "5f59adb7-0151-4fe0-ad42-b7c561a65472",
+            "containerId": "9e5c7a10-b69a-4645-9894-9f3359beb62e",
+            "name": "Update User Account",
+            "url": "http://localhost:8000/api/v1/user/",
+            "method": "PATCH",
+            "sortNum": 40000,
+            "created": "2024-02-16T12:57:59.565Z",
+            "modified": "2024-02-16T13:01:39.579Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1Y2Y1OTUyYTliNTA1ZjM4YTI5ODgxOCIsImlhdCI6MTcwODA4ODIzOCwiZXhwIjoxNzA5ODE2MjM4fQ.FGnbkxjaHHasJFPB91Cv1BHu2yKW3A6NpfMNc1dZ-BM"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"name\": \"Madhukrishna Nipankar\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "cfa14e56-77b4-44a8-965c-af425d2ef342",
+            "colId": "5f59adb7-0151-4fe0-ad42-b7c561a65472",
+            "containerId": "9e5c7a10-b69a-4645-9894-9f3359beb62e",
+            "name": "View User Profile",
+            "url": "http://localhost:8000/api/v1/user/",
+            "method": "GET",
+            "sortNum": 50000,
+            "created": "2024-02-16T13:02:03.081Z",
+            "modified": "2024-02-16T13:15:28.556Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1Y2Y1ZmRkYTliNTA1ZjM4YTI5ODgzZiIsImlhdCI6MTcwODA4OTMxNSwiZXhwIjoxNzA5ODE3MzE1fQ.5RgSLtorJITq8T9SgCXXQwZWgdGQ_GFI0-U1rda4Hgk"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "bf7e3a2b-9df5-417a-b2f3-dd2dd6d2c468",
+            "colId": "5f59adb7-0151-4fe0-ad42-b7c561a65472",
+            "containerId": "9e5c7a10-b69a-4645-9894-9f3359beb62e",
+            "name": "Delete User Account",
+            "url": "http://localhost:8000/api/v1/user/",
+            "method": "DELETE",
+            "sortNum": 60000,
+            "created": "2024-02-16T13:13:58.486Z",
+            "modified": "2024-02-16T13:15:38.454Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1Y2Y1ZmRkYTliNTA1ZjM4YTI5ODgzZiIsImlhdCI6MTcwODA4OTMxNSwiZXhwIjoxNzA5ODE3MzE1fQ.5RgSLtorJITq8T9SgCXXQwZWgdGQ_GFI0-U1rda4Hgk"
+                }
+            ],
+            "params": [],
+            "tests": []
+        }
+    ]
+}
