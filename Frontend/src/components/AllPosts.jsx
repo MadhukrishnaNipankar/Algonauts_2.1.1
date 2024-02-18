@@ -130,22 +130,23 @@ const styles = {
 
 const UserPost = ({ post, index }) => {
   return (
-    
+
     <Card style={{ ...styles.card, ...styles.cardHover }}>
       <CardBody>
-        <div style={styles.postNumber}>Post {index + 1}</div>
-        <hr style={{ margin: "0.5rem 0" }} />
-        <div style={styles.title}>{post.title}</div>
+        <div style={styles.postNumber}>Post{post.title}</div>
+        {/* <hr style={{ margin: "0.5rem 0" }} /> */}
+        {/* <div style={styles.title}></div> */}
         <div className="mb-3">
-        <hr style={{ margin: "0.5rem 0" }} />
-        <div style={styles.tags}>
+        {/* <hr style={{ margin: "0.5rem 0" }} /> */}
+        {/* <div style={styles.tags}>
           {post.tags.map((tag, index) => (
             <Badge color="success" className="me-2" key={index}>
              {post.tags.join(", ")}
             </Badge>
           ))}
+        </div> */}
         </div>
-        </div>
+        {/* <i>{post.createdAt}</i> */}
       </CardBody>
     </Card>
   );
