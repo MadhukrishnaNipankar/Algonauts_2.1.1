@@ -1,5 +1,5 @@
 import {useState} from 'react'
-import {Home, Layout, AboutUs, ContactUs, NotFound, LoginForm, SignUp, ProfileDetails, EditProfile} from './components/Index.js'
+import {Home, Layout, AboutUs, ContactUs, NotFound, LoginForm, SignUp, ProfileDetails, EditProfile, Blog} from './components/Index.js'
 
 import {LoginContext} from './context/LoginContext.js'
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
@@ -42,6 +42,10 @@ const router = createBrowserRouter([
         path: "/edit-profile",
         element: <EditProfile />,
       },
+      {
+        path: "/blog",
+        element:<Blog/>
+      }
     ],
   },
 ]);
