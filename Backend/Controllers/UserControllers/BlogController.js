@@ -214,8 +214,6 @@ exports.deleteBlogPost = async (req, res) => {
   }
 };
 
-const mongoose = require("mongoose");
-
 // Get Feed
 exports.getFeed = async (req, res) => {
   try {
