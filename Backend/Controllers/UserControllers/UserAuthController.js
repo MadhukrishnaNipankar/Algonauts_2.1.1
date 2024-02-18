@@ -1,6 +1,6 @@
 // Model Imports
 const User = require("../../Models/UserModel/UserModel");
-
+const Profile = require("../../Models/UserModel/ProfileModel");
 // Utility Libraries
 const jwt = require("jsonwebtoken");
 const { promisify } = require("util");
@@ -62,10 +62,10 @@ exports.createUserAccount = async (req, res) => {
     await Profile.create({
       user: newUser._id, // Assuming your user model uses _id as the primary key
       bio: "",
-      links: "",
-      pastExperiences: "",
-      skills: "",
-      interests: "",
+      links: [],
+      pastExperiences: [],
+      skills: [],
+      interests: [],
       // Add other profile fields with default values if needed
     });
 

@@ -1,75 +1,242 @@
-// import React, { useEffect, useState } from 'react'
-// import Spinner from "./Spinner";
-// import { useNavigate } from 'react-router-dom';
-// import { MdEdit } from "react-icons/md";
+import React, { useEffect, useState } from 'react'
+import Spinner from "./Spinner";
+import { useNavigate } from 'react-router-dom';
+import { MdEdit } from "react-icons/md";
+import { Divider, Box, AbsoluteCenter } from '@chakra-ui/react'
 
-// const StartupProfile = () => {
-//     const navigate = useNavigate();
-//     const [loading, setLoading] = useState(false);
-//     const [data, setData] = useState(null);
-//     // useEffect(() => {
-//     //     const fetchData = async () => {
-//     //         const token = sessionStorage.getItem("token");
-//     //         setLoading(true); // Set loading to true before making the API call
 
-//     //         try {
-//     //             const response = await viewProfile(token);
-//     //             setData(response.data)
-//     //         } catch (error) {
-//     //             alert(error.message);
-//     //         } finally {
-//     //             setLoading(false); // Set loading back to false after the API call completes
-//     //         }
-//     //     }
+const StartupProfile = () => {
+    const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
+    const [data, setData] = useState({
+        "startupName": "Tech Startup Inc.",
+        "description": "A tech startup focused on developing innovative solutions.",
+        "missionStatement": "Our mission is to revolutionize the tech industry.",
+        "offerings": ["Software Development", "Consulting Services", "Digital Marketing"],
+        "founders": [
+            {
+                "name": "John Doe",
+                "role": "CEO",
+                "bio": "John Doe is a visionary leader with extensive experience in technology."
+            },
+            {
+                "name": "Jane Smith",
+                "role": "CTO",
+                "bio": "Jane Smith is an experienced technologist specializing in software engineering."
+            }
+        ],
+        "industry": "Technology",
+        "location": "San Francisco, CA",
+        "websiteUrl": "https://techstartup.com",
+        "contactInformation": {
+            "email": "info@techstartup.com",
+            "phone": "1234567890",
+            "socialMedia": {
+                "twitter": "https://twitter.com/techstartup",
+                "linkedin": "https://linkedin.com/company/techstartup"
+            }
+        },
+        "logoUrl": "https://example.com/logo.png"
+    });
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         const token = sessionStorage.getItem("token");
+    //         setLoading(true); // Set loading to true before making the API call
 
-//     //     fetchData()
-//     // }, [])
-//     return (
-//         <>
-//             <div className="container">
-//                 <div
-//                     className="spinner text-center"
-//                     style={{
-//                         margin: "auto",
-//                         justifyContent: "center",
-//                         display: loading ? "block" : "none",
-//                     }}
-//                 >
-//                     <Spinner />
-//                 </div>
+    //         try {
+    //             const response = await viewProfile(token);
+    //             setData(response.data)
+    //         } catch (error) {
+    //             alert(error.message);
+    //         } finally {
+    //             setLoading(false); // Set loading back to false after the API call completes
+    //         }
+    //     }
 
-//             </div>
-//             {
-//                 data && <div className='animate__animated animate__fadeIn'>
-//                     <div style={styles.profileImageContainer} className='container'>
-//                         <img className='bg-light' src={data?.profilePhotoURL} style={styles.profileImage}></img>
-//                     </div>
+    //     fetchData()
+    // }, [])
+    return (
+        <>
+            <div className="container">
+                <div
+                    className="spinner text-center"
+                    style={{
+                        margin: "auto",
+                        justifyContent: "center",
+                        display: loading ? "block" : "none",
+                    }}
+                >
+                    <Spinner />
+                </div>
 
-//                     <div style={styles.profileDetailsSection} className='container'>
-//                         <div>
-//                             <h2 className='text-center'>{data?.name}</h2>
-//                             <p>{data?.bio}</p>
-//                             <div className="d-flex gap-3 links">
-//                                 {
-//                                     data?.links.map((link, index) => {
-//                                         return (
-//                                             <a href={link} key={index} target="_blank" rel="noopener noreferrer" className='link'>Link</a>
-//                                         )
-//                                     })
-//                                 }
-//                             </div>
-//                         </div>
-//                     </div>
+            </div>
+            {
+                data && <div className='animate__animated animate__fadeIn'>
+                    <div style={styles.profileImageContainer} className='container'>
+                        <img className='bg-light' src={data?.logoUrl} style={styles.profileImage}></img>
+                    </div>
 
-//                     <div className="container">
-//                     <ProfileOptionsTab firstTab={<RenderProfileDetails data={data}/>} secondTab={<AllPosts/>}/>
-//                     </div>
-                    
-//                     <button className='btn btn-success' data-bs-toggle="tooltip" data-bs-title="Edit Profie" style={styles.editBtn} onClick={() => { navigate("/edit-profile") }}><MdEdit /></button>
-//                 </div>
-//             }
-//         </>
-//     )
-// }
+                    <div style={styles.profileDetailsSection} className='container'>
+                        <div>
+                            <h2 className='text-center'>{data?.startupName}</h2>
+                            <p className='text-center'>{data?.missionStatement}</p>
+                            <Divider orientation='horizontal' />
+                            <p>{data?.description}</p>
+                            <a href={data?.websiteUrl} target="_blank" rel="noopener noreferrer" className='link'>Vist Website</a>
 
-// export default StartupProfile
+                            <div className='mt-3'>
+                                <h4>Social Media</h4>
+                                <div className="d-flex gap-3 links">
+                                    {Object.entries(data?.contactInformation?.socialMedia).map(([platform, url]) => (
+                                        <a href={url} key={platform} target="_blank" rel="noopener noreferrer" className='link'>{platform}</a>
+                                    ))}
+                                </div>
+                            </div>
+
+
+                            <Box position='relative'>
+                                <Divider />
+                                <AbsoluteCenter bg="white" px='4'>
+                                    <span className='fw-bold'>Contact</span>
+                                </AbsoluteCenter>
+                            </Box>
+                            <div className="d-flex flex-wrap gap-2">
+                                <p><span className='fw-bold'>Address:</span> {data?.location}</p>
+                                <p><span className='fw-bold'> • Phone:</span> {data?.contactInformation?.phone}</p>
+                                <p><span className='fw-bold'> • Email:</span> {data?.contactInformation?.email}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* <div className="container">
+                    <ProfileOptionsTab firstTab={<RenderProfileDetails data={data}/>} secondTab={<AllPosts/>}/>
+                    </div> */}
+
+                    <RenderProfileDetails data={data} />
+
+                    <button className='btn btn-success' data-bs-toggle="tooltip" data-bs-title="Edit Profie" style={styles.editBtn} onClick={() => { navigate("/edit-startup-profile") }}><MdEdit /></button>
+                </div>
+            }
+        </>
+    )
+}
+
+export default StartupProfile
+const RenderProfileDetails = ({ data }) => {
+    return (
+        <div className="container p-0">
+            <div>
+                {data && (
+                    <>
+                        {data?.founders && data?.founders?.length > 0 ? (
+                            <div style={styles.section}>
+                                <h4>Founders</h4>
+                                <div className="d-flex gap-2 flex-wrap">
+                                    {data?.founders.map((founder, index) => (
+                                        <div
+                                            key={index}
+                                            className="card p-2"
+                                            style={{ width: "13rem" }}
+                                        >
+                                            <h5>{founder?.name} • <span className='fs-6 fw-normal'>{founder?.role}</span> </h5>
+                                            <p>{founder?.bio}</p>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        ) : (
+                            <div style={styles.section}>
+                                <h4>Founders</h4>
+                                <div className="d-flex gap-2 flex-wrap">
+                                    No Founders to show
+                                </div>
+                            </div>
+                        )}
+
+                        {data?.offerings && data?.offerings?.length > 0 ? (
+                            <div style={styles.section}>
+                                <h4>Offerings</h4>
+                                <div className="d-flex flex-wrap gap-2">
+                                    {data.offerings.map((offering, index) => (
+                                        <h5 key={index}>
+                                            <span className="badge bg-secondary">{offering}</span>
+                                        </h5>
+                                    ))}
+                                </div>
+                            </div>
+                        ) : (
+                            <div style={styles.section}>
+                                <h4>Offerings</h4>
+                                <div className="d-flex gap-2 flex-wrap">No Offerings to show</div>
+                            </div>
+                        )}
+
+                        {/* {data?.founders && data?.founders?.length > 0 ? (
+                <div style={styles.section}>
+                  <h4>Founders</h4>
+                  <div className="d-flex flex-wrap gap-2">
+                    {data.founders.map((founder, index) => (
+                      <h5 key={index}>
+                        <p>Name: {founder.name}</p>
+                        <p>Role: {founder.Role}</p>
+                        <p>Bio: {founder.Bio}</p>
+                      </h5>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <div style={styles.section}>
+                  <h4>Founders</h4>
+                  <div className="d-flex gap-2 flex-wrap">
+                    No Founders to show
+                  </div>
+                </div>
+              )} */}
+                    </>
+                )}
+            </div>
+        </div>
+    );
+};
+
+
+const styles = {
+    profileImage: {
+        borderRadius: "50%",
+        width: "200px",
+        height: "200px",
+        objectFit: "cover",
+        position: "relative",
+        bottom: "-5rem",
+        border: ".3rem solid white",
+    },
+    profileImageContainer: {
+        backgroundColor: "black",
+        display: "flex",
+        justifyContent: "center",
+        backgroundImage: `url("https://t3.ftcdn.net/jpg/00/32/43/82/360_F_32438200_oMeluL7Q2cR50GALrJQMCwgYImFK7hkl.jpg")`,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        height: "15rem",
+    },
+    profileDetailsSection: {
+        padding: "3rem 1rem 1rem 1rem",
+        backgroundColor: "white",
+        border: "1px solid rgb(219, 219, 219)",
+        borderRadius: "0 0 1rem 1rem",
+    },
+    section: {
+        border: "1px solid rgb(219, 219, 219)",
+        backgroundColor: "white",
+        padding: "1rem",
+        margin: "1rem 0",
+        borderRadius: "1rem",
+    },
+    editBtn: {
+        position: "fixed",
+        bottom: "4rem",
+        right: "2rem",
+        borderRadius: "10rem",
+        fontSize: "1.3rem",
+    },
+};

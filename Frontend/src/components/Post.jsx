@@ -1,22 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { Card, CardBody, Badge } from "reactstrap";
 import { FaHeart } from "react-icons/fa";
-import { useLocation, useSearchParams } from 'react-router-dom';
+import { useLocation, useSearchParams } from "react-router-dom";
 import { getPost } from "../../controllers/PostController";
 import Spinner from "./Spinner";
-import {formatDateTime} from '../utils/dateConversion.js'
+import { formatDateTime } from "../utils/dateConversion.js";
 
 const Post = () => {
-
   const location = useLocation();
 
   const postID = location.state?.postId;
 
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(false);
-
-
-
 
   useEffect(() => {
     const fetchData = async () => {
@@ -25,31 +21,26 @@ const Post = () => {
 
       try {
         const response = await getPost(postID, token);
-        setPost([response.data])
-        console.log(response.data)
+        setPost([response.data]);
+        console.log(response.data, "data");
       } catch (error) {
         alert(error.message);
       } finally {
         setLoading(false); // Set loading back to false after the API call completes
       }
-    }
-    fetchData()
-  }, [])
+    };
+    fetchData();
+  }, []);
   return (
     <div style={styles.wrapper}>
-
-      {
-        post == null && "Loding"
-      }
-      {
-        post &&
+      {post == null && "Loading"}
+      {post &&
         post?.map((p) => (
           <div key={p._id} style={styles.postContainer}>
             <UserPost post={p} />
             <Comments comments={p.comments} />
           </div>
-        ))
-      }
+        ))}
     </div>
   );
 };
@@ -104,7 +95,6 @@ const styles = {
 };
 
 const UserPost = ({ post }) => {
-
   return (
     <Card style={{ ...styles.card, ...styles.postContainer }}>
       <CardBody>
@@ -117,7 +107,9 @@ const UserPost = ({ post }) => {
             </Badge>
           ))}
         </div>
-        <p><strong>Category:</strong> {post.category}</p>
+        <p>
+          <strong>Category:</strong> {post.category}
+        </p>
         <div dangerouslySetInnerHTML={{ __html: post.content }} />
         <div style={styles.likeCount}>
           <FaHeart style={styles.heartIcon} />

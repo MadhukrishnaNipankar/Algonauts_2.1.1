@@ -1,5 +1,5 @@
 import { React, useState, useEffect } from "react";
-import { Card, CardBody, Col } from "reactstrap";
+import { Card, CardBody } from "reactstrap";
 import { getAllPosts } from '../../controllers/PostController.js'
 import Spinner from "./Spinner";
 import { formatDateTime } from '../utils/dateConversion.js'

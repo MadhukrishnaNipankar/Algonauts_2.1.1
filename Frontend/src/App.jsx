@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Home, Layout, AboutUs, ContactUs, NotFound, LoginForm, SignUp, ProfileDetails, EditProfile, Blog, Post, AllPosts, Feed } from './components/Index.js'
+import { Home, Layout, AboutUs, ContactUs, NotFound, LoginForm, SignUp, ProfileDetails, EditProfile, Blog, Post, AllPosts, Feed, StartupProfile, EditStartUpProfile } from './components/Index.js'
 
 import { ProtectedRoute } from './utils/ProtectedRoute.jsx';
 import { LoginContext } from './context/LoginContext.js';
@@ -64,7 +64,32 @@ const router = createBrowserRouter([
       {
         path: "/feed",
         element: <Feed />
-      }
+      },
+      // {
+      //   path: "/startup-profile",
+      //   element: (
+      //     <ProtectedRoute allowedRoles={['startup']}>
+      //      <StartupProfile />
+      //     </ProtectedRoute>
+      //   ),
+      // },
+      {
+        path: "/startup-profile",
+        element: <StartupProfile/>
+      },
+            // {
+      //   path: "/edit-startup-profile",
+      //   element: (
+      //     <ProtectedRoute allowedRoles={['startup']}>
+      //      <EditStartUpProfile />
+      //     </ProtectedRoute>
+      //   ),
+      // },
+      {
+        path: "/edit-startup-profile",
+        element: <EditStartUpProfile/>
+      },
+
     ],
   },
 ]);

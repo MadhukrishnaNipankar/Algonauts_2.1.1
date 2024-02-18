@@ -1,32 +1,47 @@
-import React from "react";
+import { React, useState, useEffect } from "react";
 import { Card, CardBody, Badge } from "reactstrap";
+import { useNavigate } from 'react-router-dom';
 import { FaUserCircle } from "react-icons/fa";
+import { getFeeds } from '../../controllers/PostController.js'
+import Spinner from "./Spinner";
+import { formatDateTime } from '../utils/dateConversion.js'
 
 const Feed = () => {
-  const feeds = [
-    {
-      id: 1,
-      username: "Gandharv_K_2003",
-      post: "arrrrr mix ae re te, he bg ek cook ae he pani ghetl ani atta he testing",
-      tags: ["GG", "Gilbi", "dhadi"],
-    },
-    {
-      id: 2,
-      username: "Siddc.11",
-      post: "Tr namaskar mandali, kasa kay baki kasa sagl ayush... In feugiat elit quis justo ultricies viverra.",
-      tags: ["kalakar", "shant", "sabhya"],
-    },
-    {
-        id: 3,
-        username: "Madhukrishnan",
-        post: "aaighalya ho arr salya hoooo.",
-        tags: ["haaa", "okkkk", "brrrr"],
-      },
-  ];
+
+  const navigate = useNavigate();
+  const [feeds, setFeeds] = useState();
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const token = sessionStorage.getItem("token");
+      setLoading(true); // Set loading to true before making the API call
+
+      try {
+        const response = await getFeeds(token);
+        setFeeds(response.data)
+      } catch (error) {
+        alert(error.message);
+      } finally {
+        setLoading(false); // Set loading back to false after the API call completes
+      }
+    }
+    fetchData()
+  }, [])
 
   return (
     <div style={styles.wrapper}>
-      {feeds.map((feed) => (
+      <div
+        className="spinner text-center"
+        style={{
+          margin: "auto",
+          justifyContent: "center",
+          display: loading ? "block" : "none",
+        }}
+      >
+        <Spinner />
+      </div>
+      {feeds?.map((feed) => (
         <div key={feed.id} style={styles.feedContainer}>
           <UserFeed feed={feed} />
         </div>
@@ -76,10 +91,10 @@ const UserFeed = ({ feed }) => {
       <CardBody>
         <div style={styles.username}>
           <FaUserCircle style={styles.userProfileIcon} />
-          <span>{feed.username}</span>
+          <span>{feed.author}</span>
         </div>
-        <p>{feed.post}</p>
-        <div className="mb-3">
+        <div dangerouslySetInnerHTML={{ __html: feed.content }} />
+        <div>
           {feed.tags.map((tag, index) => (
             <Badge color="success" className="me-2" key={index}>
               {tag}

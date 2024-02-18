@@ -1,7 +1,7 @@
 {
     "client": "Thunder Client",
     "collectionName": "StarterAPI's",
-    "dateExported": "2024-02-18T06:30:16.748Z",
+    "dateExported": "2024-02-18T16:02:14.121Z",
     "version": "1.1",
     "folders": [
         {
@@ -331,6 +331,25 @@
                 {
                     "name": "Authorization",
                     "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZDBjNWJiMDhlZjg0ZDA4MWE1Y2I2ZiIsImlhdCI6MTcwODIwMjAxNSwiZXhwIjoxNzA5OTMwMDE1fQ.0uisAfMxtVINAuC2pBmXKZ6elVQCjNfu4OQIh2UqmGU"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "2c78cb0a-b479-4e92-a916-aaa76f17e6eb",
+            "colId": "5f59adb7-0151-4fe0-ad42-b7c561a65472",
+            "containerId": "80fe0921-2080-4ce7-b791-09ed8725057a",
+            "name": "Get Feed",
+            "url": "http://localhost:8000/api/v1/blog/feed",
+            "method": "GET",
+            "sortNum": 170000,
+            "created": "2024-02-18T15:18:15.534Z",
+            "modified": "2024-02-18T15:18:56.818Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZDBjNWJiMDhlZjg0ZDA4MWE1Y2I2ZiIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzA4MjY5NTIyLCJleHAiOjE3MDk5OTc1MjJ9.a15iIB3eyG0B1RXP39seT4mEZz759KgmfYehGZKtV6M"
                 }
             ],
             "params": [],

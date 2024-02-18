@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import googleLogo from "../assests/google.png";
 import signupimage from "../assests/signupimage.jpg";
 import "../styles/LoginForm.css";
-import { NavLink, useNavigate } from 'react-router-dom';
-
+import { NavLink, useNavigate } from "react-router-dom";
 
 // Import the signupUser function from signupController.js
 import { signupUser } from "../../controllers/SignupController"; // Update the path as per your project structure
@@ -48,14 +47,16 @@ const SignUp = () => {
         phoneNumber: contactNumber,
         emailId: email,
         password: password,
+        role: role,
       };
+      console.log(userData);
       setLoading(true);
       const response = await signupUser(userData);
 
       alert(response.message);
       // Additional logic after successful signup, if needed
       console.log("User signed up successfully!", response);
-      navigate("/login")
+      navigate("/login");
     } catch (error) {
       alert(error.message);
       console.error("Error signing up:", error.message);
@@ -144,14 +145,11 @@ const SignUp = () => {
               <option className="text-field" value="">
                 Select your role
               </option>
-              <option className="text-field" value="Entrepreneur">
-                Entrepreneur
+              <option className="text-field" value="user">
+                user
               </option>
-              <option className="text-field" value="Startup">
-                Startup
-              </option>
-              <option className="text-field" value="Guest">
-                Investor
+              <option className="text-field" value="startup">
+                startup
               </option>
             </select>
           </div>
@@ -177,8 +175,7 @@ const SignUp = () => {
           </div>
 
           <div className="my-form__actions">
-            <a href="#" className="create-account-link">
-            </a>
+            <a href="#" className="create-account-link"></a>
 
             <NavLink
               to="/login"

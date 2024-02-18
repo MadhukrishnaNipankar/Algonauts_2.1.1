@@ -138,6 +138,7 @@ exports.viewUserProfile = async (req, res) => {
         name: userProfile.user.name,
         emailId: userProfile.user.emailId,
         phoneNumber: userProfile.user.phoneNumber,
+        profilePhotoURL: `http://localhost:8000${userProfile.profilePhotoURL}`,
       },
       message: "Profile fetched successfully!",
     });

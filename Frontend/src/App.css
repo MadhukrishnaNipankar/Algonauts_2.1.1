@@ -2,6 +2,9 @@ body{
     background-color: #f3f3f3;
 }
 
+.col-primary{
+    color: #004182;
+}
 
 .link{
     text-decoration: none;

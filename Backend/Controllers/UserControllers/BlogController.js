@@ -1,5 +1,6 @@
 // Model Imports
 const Blog = require("../../Models/UserModel/BlogModel");
+const Profile = require("../../Models/UserModel/ProfileModel");
 
 // Create A Blog Post
 exports.createBlogPost = async (req, res) => {
@@ -208,6 +209,69 @@ exports.deleteBlogPost = async (req, res) => {
       status: "fail",
       data: null,
       message: "Something went wrong while deleting the blog post.",
+      error: error.message,
+    });
+  }
+};
+
+const mongoose = require("mongoose");
+
+// Get Feed
+exports.getFeed = async (req, res) => {
+  try {
+    // Extract user ID from request
+    const userId = req.user.id;
+    console.log("User ID:", userId);
+
+    // Fetch user's profile to access interests, pastExperiences, and skills
+    const userProfile = await Profile.findOne({ user: userId });
+    console.log("User Profile:", userProfile);
+
+    // Extract user's interests, past experiences, and skills
+    const userInterests = userProfile.interests;
+    const userPastExperiences = userProfile.pastExperiences.map(
+      (exp) => exp.jobTitle
+    );
+
+    const userSkills = userProfile.skills;
+
+    // Find relevant blog posts based on user's interests, past experiences, skills, tags, content, and category
+    const relevantBlogPosts = await Blog.find({
+      $or: [
+        { category: { $in: userInterests } },
+        { "pastExperiences.jobTitle": { $in: userPastExperiences } },
+        { tags: { $in: userSkills } },
+        { tags: { $in: userInterests } },
+        { content: { $regex: new RegExp(req.query.search, "i") } },
+        { title: { $regex: new RegExp(req.query.search, "i") } },
+        { category: { $regex: new RegExp(req.query.search, "i") } },
+      ],
+    }).sort({ createdAt: -1 });
+
+    console.log("Relevant Blog Posts:", relevantBlogPosts);
+
+    // Find all other blog posts that do not match the above criteria
+    const otherBlogPosts = await Blog.find({
+      _id: { $nin: relevantBlogPosts.map((post) => post._id) }, // Exclude relevant blog posts
+    }).sort({ createdAt: -1 });
+
+    console.log("Other Blog Posts:", otherBlogPosts);
+
+    // Combine relevant and other blog posts into a single feed array
+    const feed = [...relevantBlogPosts, ...otherBlogPosts];
+
+    // Return the feed
+    return res.status(200).json({
+      status: "success",
+      data: feed,
+      message: "Feed fetched successfully!",
+    });
+  } catch (error) {
+    console.error("Error fetching feed:", error);
+    return res.status(500).json({
+      status: "fail",
+      data: null,
+      message: "Something went wrong while fetching the feed.",
       error: error.message,
     });
   }

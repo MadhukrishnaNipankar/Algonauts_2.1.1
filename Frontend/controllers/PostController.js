@@ -46,3 +46,26 @@ export const getPost = async (postId, authToken) => {
   }
 };
 
+export const getFeeds = async (authToken) => {
+  try {
+    const response = await fetch("http://localhost:8000/api/v1/blog/feed", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${authToken}`
+      }
+    });
+
+    const responseData = await response.json();
+
+    if (!response.ok) {
+      throw new Error(responseData.message || "Failed to fetch feeds");
+    }
+
+    console.log("Feeds fetched successfully!");
+    return responseData;
+  } catch (error) {
+    console.error("Error while fetching feeds:", error.message);
+    throw error;
+  }
+};

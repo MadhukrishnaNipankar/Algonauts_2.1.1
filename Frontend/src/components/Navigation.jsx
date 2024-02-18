@@ -33,7 +33,7 @@ const Navigation = () => {
 
                         <li className="nav-item">
                                     { isLoggedIn && <NavLink
-                                        to="/Blog"
+                                        to="/blog"
                                         className={({ isActive }) =>
                                             `${isActive ? "active-nav" : null} nav-link`
                                         }
@@ -44,7 +44,7 @@ const Navigation = () => {
 
                         <li className="nav-item">
                                     { isLoggedIn && <NavLink
-                                        to="/Feed"
+                                        to="/feed"
                                         className={({ isActive }) =>
                                             `${isActive ? "active-nav" : null} nav-link`
                                         }
