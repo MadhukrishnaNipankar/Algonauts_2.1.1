@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Home, Layout, AboutUs, ContactUs, NotFound, LoginForm, SignUp, ProfileDetails, EditProfile, Blog, Post, AllPosts } from './components/Index.js'
+import { Home, Layout, AboutUs, ContactUs, NotFound, LoginForm, SignUp, ProfileDetails, EditProfile, Blog, Post, AllPosts, Feed } from './components/Index.js'
 
 import { LoginContext } from './context/LoginContext.js'
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
@@ -55,6 +55,10 @@ const router = createBrowserRouter([
       {
         path: "/all-posts",
         element: <AllPosts />
+      },
+      {
+        path: "/feed",
+        element:<Feed/>
       }
     ],
   },
