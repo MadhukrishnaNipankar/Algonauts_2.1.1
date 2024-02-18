@@ -1,6 +1,7 @@
 // Model Imports
 const Profile = require("../../Models/UserModel/ProfileModel");
 const User = require("../../Models/UserModel/UserModel");
+const SProfile = require("../../Models/StartupModel/ProfileModel");
 
 // Utility function which filters only the allowed data for updation
 const filterObjectForUpdation = (obj, ...allowedFields) => {
@@ -184,5 +185,83 @@ exports.updateUserProfileImage = async (req, res) => {
     res
       .status(500)
       .json({ message: "Something went wrong", error: error.message });
+  }
+};
+
+exports.searchUserProfile = async (req, res) => {
+  try {
+    const searchQuery = req.body.searchQuery;
+
+    // Split the search query into individual words
+    const searchWords = searchQuery.split(" ");
+
+    // Search in Profile model
+    const userProfileResults = await Profile.find({
+      $or: [
+        { bio: { $in: searchWords.map((word) => new RegExp(word, "i")) } }, // Case-insensitive search for each word in bio
+        { links: { $in: searchWords.map((word) => new RegExp(word, "i")) } }, // Case-insensitive search for each word in links array
+        {
+          "pastExperiences.company": {
+            $in: searchWords.map((word) => new RegExp(word, "i")),
+          },
+        }, // Case-insensitive search for each word in pastExperiences array
+        { skills: { $in: searchWords.map((word) => new RegExp(word, "i")) } }, // Case-insensitive search for each word in skills array
+        {
+          interests: { $in: searchWords.map((word) => new RegExp(word, "i")) },
+        }, // Case-insensitive search for each word in interests array
+      ],
+    }).populate("user", "name emailId role"); // Populate user field with name, emailId, and role from User model
+
+    // Search in SProfile model
+    const startupProfileResults = await SProfile.find({
+      $or: [
+        {
+          startupName: {
+            $in: searchWords.map((word) => new RegExp(word, "i")),
+          },
+        }, // Case-insensitive search for each word in startupName
+        {
+          description: {
+            $in: searchWords.map((word) => new RegExp(word, "i")),
+          },
+        }, // Case-insensitive search for each word in description
+        {
+          missionStatement: {
+            $in: searchWords.map((word) => new RegExp(word, "i")),
+          },
+        }, // Case-insensitive search for each word in missionStatement
+        {
+          founders: {
+            $elemMatch: {
+              name: { $in: searchWords.map((word) => new RegExp(word, "i")) },
+            },
+          },
+        }, // Case-insensitive search for each word in founders array
+        { industry: { $in: searchWords.map((word) => new RegExp(word, "i")) } }, // Case-insensitive search for each word in industry
+        { location: { $in: searchWords.map((word) => new RegExp(word, "i")) } }, // Case-insensitive search for each word in location
+      ],
+    }).populate("user", "name emailId role");
+
+    // Combine and sort the results by relevance
+    const allResults = [...userProfileResults, ...startupProfileResults];
+
+    return res.status(200).json({
+      status: "success",
+      data: allResults.map((result) => ({
+        ...result.toObject(),
+        name: result.user.name,
+        email: result.user.emailId,
+        role: result.user.role,
+      })),
+      message: "Search results fetched successfully!",
+    });
+  } catch (error) {
+    console.error("Error searching user profiles:", error);
+    return res.status(500).json({
+      status: "fail",
+      data: null,
+      message: "Something went wrong while searching user profiles.",
+      error: error.message,
+    });
   }
 };
