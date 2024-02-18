@@ -12,7 +12,8 @@ import Blog from './Blog.jsx'
 import Post from './Post.jsx'
 import AllPosts from './AllPosts.jsx' 
 import Feed from './Feed.jsx'
+import StartupProfile from './StartupProfile.jsx'
+import EditStartUpProfile from './EditStartUpProfile.jsx'
 
 
-
-export {Home, AboutUs, ContactUs, Layout, Navigation, NotFound, LoginForm, SignUp, ProfileDetails, EditProfile, Blog, Post, AllPosts, Feed}
+export {Home, AboutUs, ContactUs, Layout, Navigation, NotFound, LoginForm, SignUp, ProfileDetails, EditProfile, Blog, Post, AllPosts, Feed, StartupProfile, EditStartUpProfile}

@@ -4,6 +4,8 @@ import googleLogo from "../assests/google.png";
 import mockImage from "../assests/mock.jpg";
 import "../styles/LoginForm.css";
 import { useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
+
 import { loginUser } from "../../controllers/LoginController";
 import Spinner from "./Spinner";
 import { LoginContext } from "../context/LoginContext";
@@ -26,8 +28,6 @@ const LoginForm = () => {
   const handleUserLogin = async (e) => {
     setLoading(true); // Set loading to true before making the API call
     try {
-      console.log("Email:", email);
-      console.log("Password:", password);
       const userData = {
         emailId: email,
         password: password,
@@ -35,6 +35,7 @@ const LoginForm = () => {
       const response = await loginUser(userData);
       alert(response.message);
       sessionStorage.setItem("token", response.token);
+      sessionStorage.setItem("role", jwtDecode(response.token).role);
       // Additional logic after successful login, if needed
       console.log("User logged in successfully!", response);
       setIsLoggedIn(true);
@@ -92,7 +93,7 @@ const LoginForm = () => {
             style={{ display: loading ? "none" : "block" }}
             onClick={handleUserLogin}
             type="button"
-            class="btn btn-dark"
+            className="btn btn-dark"
           >
             Login
           </button>

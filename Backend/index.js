@@ -17,8 +17,9 @@ app.use(
 
 // Routes Import
 const userRoutes = require("./Routes/User/UserRoutes");
-const profileRoutes = require("./Routes/User/ProfileRoutes");
+const userProfileRoutes = require("./Routes/User/ProfileRoutes");
 const blogRoutes = require("./Routes/User/BlogRoutes");
+const startupRoutes = require("./Routes/Startup/ProfileRoutes");
 
 const connectDb = require("./Config/db");
 
@@ -30,8 +31,10 @@ const CONNECTION_STRING = process.env.CONNECTION_STRING;
 
 // Defining API's
 app.use("/api/v1/user", userRoutes);
-app.use("/api/v1/profile", profileRoutes);
+app.use("/api/v1/profile", userProfileRoutes);
 app.use("/api/v1/blog", blogRoutes);
+
+app.use("/api/v1/startup", startupRoutes);
 
 // Database Connection
 connectDb(CONNECTION_STRING);

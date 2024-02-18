@@ -49,18 +49,18 @@ const styles = {
 };
 
 const ProfileDetails = () => {
-  const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
-
-  const [data, setData] = useState(null);
-  useEffect(() => {
-    const fetchData = async () => {
-      const token = sessionStorage.getItem("token");
-      setLoading(true); // Set loading to true before making the API call
+    const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
+    const [data, setData] = useState(null);
+    useEffect(() => {
+        const fetchData = async () => {
+            const token = sessionStorage.getItem("token");
+            setLoading(true); // Set loading to true before making the API call
 
       try {
         const response = await viewProfile(token);
         setData(response.data);
+        console.log(response.data.profilePhotoURL)
       } catch (error) {
         alert(error.message);
       } finally {

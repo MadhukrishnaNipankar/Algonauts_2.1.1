@@ -8,15 +8,13 @@ import Spinner from "./Spinner";
 const EditProfile = () => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState(null);
-  
+
   // Initial skills array
   const [bio, setBio] = useState();
   const [skills, setSkills] = useState();
   const [links, setLinks] = useState();
   const [experiences, setExperiences] = useState();
   const [interests, setInterests] = useState();
-
-
 
   // Function to update a skill
   const updateSkill = (index, newValue) => {
@@ -31,7 +29,6 @@ const EditProfile = () => {
     setSkills(filteredSkills);
   };
 
-
   // Function to update a interests
   const updateLinks = (index, newValue) => {
     const updatedLinks = [...links];
@@ -44,7 +41,6 @@ const EditProfile = () => {
     const filteredLinks = links.filter((_, i) => i !== index);
     setLinks(filteredLinks);
   };
-
 
   const [selectedExperienceIndex, setSelectedExperienceIndex] = useState(null);
   const [isAdding, setIsAdding] = useState(false);
@@ -200,7 +196,6 @@ const EditProfile = () => {
               </div>
               <button className='btn btn-primary btn-sm w-50 m-auto' onClick={() => setSkills([...skills, ''])}>Add New Skill</button>
             </div>
-
           </div>
 
           {/* experiences */}
