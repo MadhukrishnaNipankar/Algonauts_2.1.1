@@ -45,7 +45,7 @@ const ProfileDetails = () => {
 
 
     return (
-        <div>
+        <div className='animate__animated animate__fadeIn'>
             <div style={styles.profileImageContainer} className='container'>
                 <img src='https://media.licdn.com/dms/image/D4D35AQGiDWGuJ5Vuug/profile-framedphoto-shrink_200_200/0/1700740384484?e=1708801200&v=beta&t=gP4mEMy7RTxgz-wh6vZhR0ZlEglYdCtp4Hy3zOXo_Uw' style={styles.profileImage}></img>
             </div>
