@@ -48,6 +48,12 @@ const EditProfile = () => {
     closeModal();
   };
 
+  // Function to delete a experience
+  const deleteExperience = (index) => {
+    const filteredExperience = experiences.filter((_, i) => i !== index);
+    setExperiences(filteredExperience);
+  };
+
   const openModalForEdit = (index) => {
     setIsAdding(false);
     setSelectedExperienceIndex(index);
@@ -63,9 +69,27 @@ const EditProfile = () => {
     setIsAdding(false);
   };
 
+
+    // Initial skills array
+    const initialInterests = ["Reading", "Traveling", "Photography"];
+    const [interests, setInterests] = useState(initialInterests);
+  
+    // Function to update a skill
+    const updateInterests = (index, newValue) => {
+      const updatedInterests = [...interests];
+      updatedInterests[index] = newValue;
+      setInterests(updatedInterests);
+    };
+  
+    // Function to delete a skill
+    const deleteInterests = (index) => {
+      const filteredInterests = interests.filter((_, i) => i !== index);
+      setInterests(filteredInterests);
+    };
+
   return (
-    <div className="container d-flex justify-content-center p-3">
-      <div className="d-flex flex-column"  style={{ maxWidth: "700px" }}>
+    <div className="container d-flex justify-content-center p-3 ">
+      <div className="d-flex flex-column" style={{ width: "50rem" }}>
         <h4 className='text-center'>Edit Profile</h4>
 
         <div className='card p-2 mb-3'>
@@ -106,9 +130,11 @@ const EditProfile = () => {
         <div className='card p-2 d-flex flex-column gap-1 mb-3' >
           <label>Experiences</label>
           {experiences.map((experience, index) => (
-            <div className='card p-2 d-flex flex-row align-items-center' key={index} onClick={() => openModalForEdit(index)} style={{ cursor: 'pointer' }}>
+            <div className='card p-2 d-flex flex-row align-items-center gap-2' key={index} >
               <span>{experience.company} </span>
-              <MdEdit className='ms-auto text-danger' />
+              <MdEdit className='ms-auto text-success' style={{ cursor: 'pointer' }} onClick={() => openModalForEdit(index)} />
+
+              <MdDeleteOutline className='text-danger' style={{ cursor: 'pointer' }} onClick={() => deleteExperience(index)} />
             </div>
 
 
@@ -123,6 +149,27 @@ const EditProfile = () => {
           )}
         </div>
 
+        {/* Interests */}
+        <div className='card p-2 d-flex flex-column gap-1 mb-3'>
+          <label>Interests</label>
+          <div className='d-flex flex-column flex-wrap gap-3'>
+            <div className='d-flex flex-wrap gap-3'>
+              {interests.map((interest, index) => (
+                <div className='d-flex gap-1' key={index}>
+                  <input
+                    type="text"
+                    value={interest}
+                    onChange={(e) => updateInterests(index, e.target.value)}
+                    className='form-control'
+                  />
+                  <button className='btn btn-danger btn-sm' onClick={() => deleteInterests(index)}><MdDeleteOutline /></button>
+                </div>
+              ))}
+            </div>
+            <button className='btn btn-primary btn-sm w-50 m-auto' onClick={() => setInterests([...interests, ''])}>Add New Skill</button>
+          </div>
+
+        </div>
 
         <input type="submit" value="Save Changes" className='btn btn-success m-auto' />
       </div>
@@ -158,7 +205,7 @@ const ExperienceModal = ({ experience, onSave, onClose }) => {
       position: "fixed",
       top: "0",
       left: "0",
-      zIndex: "1"
+      zIndex: "10"
     },
     modelContent: {
       backgroundColor: "white",
@@ -166,13 +213,13 @@ const ExperienceModal = ({ experience, onSave, onClose }) => {
       display: 'flex',
       flexDirection: "column",
       gap: "2rem",
-      width: "50%",
+      width: "50rem",
       borderRadius: ".5rem"
     }
   }
 
   return (
-    <div style={style.model}>
+    <div className='animate__animated animate__fadeIn' style={style.model}>
       <div style={style.modelContent} className='shadow'>
 
         <input
