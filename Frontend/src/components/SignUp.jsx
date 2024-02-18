@@ -157,7 +157,7 @@ const SignUp = () => {
           <button
             onClick={handleUserRegistration}
             type="button"
-            className="btn btn-dark"
+            className="btn btn-primary"
             style={{ display: loading ? "none" : "block" }}
           >
             Register

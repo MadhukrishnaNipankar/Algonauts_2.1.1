@@ -1,7 +1,7 @@
 {
     "client": "Thunder Client",
     "collectionName": "StarterAPI's",
-    "dateExported": "2024-02-18T20:22:29.073Z",
+    "dateExported": "2024-02-18T22:39:42.847Z",
     "version": "1.1",
     "folders": [
         {
@@ -398,6 +398,30 @@
                 }
             ],
             "params": [],
+            "tests": []
+        },
+        {
+            "_id": "7ee581f8-1173-4375-b5cf-7560ab2613c8",
+            "colId": "5f59adb7-0151-4fe0-ad42-b7c561a65472",
+            "containerId": "d5ae705d-28f9-4acd-886c-5409585303bc",
+            "name": "Search Profiles",
+            "url": "http://localhost:8000/api/v1/profile/search",
+            "method": "GET",
+            "sortNum": 200000,
+            "created": "2024-02-18T21:34:59.451Z",
+            "modified": "2024-02-18T22:30:02.523Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZDI0NmQ3ZmZjOTdhOWU4NmNjZmM0OSIsInJvbGUiOiJzdGFydHVwIiwiaWF0IjoxNzA4MjkzNDE2LCJleHAiOjE3MTAwMjE0MTZ9.bf1KeSwyl2qR1ZS5_5jNUaaSP6pVXITGga29RCB9ygE"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"searchQuery\": \"Siddhesh Chaudhari likes gilbi\"\n}",
+                "form": []
+            },
             "tests": []
         }
     ]

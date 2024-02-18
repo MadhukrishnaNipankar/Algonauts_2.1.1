@@ -1,6 +1,7 @@
 // Model Imports
 const Blog = require("../../Models/UserModel/BlogModel");
 const Profile = require("../../Models/UserModel/ProfileModel");
+const User = require("../../Models/UserModel/UserModel");
 
 // Create A Blog Post
 exports.createBlogPost = async (req, res) => {
@@ -214,25 +215,20 @@ exports.deleteBlogPost = async (req, res) => {
   }
 };
 
-const mongoose = require("mongoose");
-
 // Get Feed
 exports.getFeed = async (req, res) => {
   try {
     // Extract user ID from request
     const userId = req.user.id;
-    console.log("User ID:", userId);
 
     // Fetch user's profile to access interests, pastExperiences, and skills
     const userProfile = await Profile.findOne({ user: userId });
-    console.log("User Profile:", userProfile);
 
     // Extract user's interests, past experiences, and skills
     const userInterests = userProfile.interests;
     const userPastExperiences = userProfile.pastExperiences.map(
       (exp) => exp.jobTitle
     );
-
     const userSkills = userProfile.skills;
 
     // Find relevant blog posts based on user's interests, past experiences, skills, tags, content, and category
@@ -248,22 +244,32 @@ exports.getFeed = async (req, res) => {
       ],
     }).sort({ createdAt: -1 });
 
-    console.log("Relevant Blog Posts:", relevantBlogPosts);
-
     // Find all other blog posts that do not match the above criteria
     const otherBlogPosts = await Blog.find({
       _id: { $nin: relevantBlogPosts.map((post) => post._id) }, // Exclude relevant blog posts
     }).sort({ createdAt: -1 });
 
-    console.log("Other Blog Posts:", otherBlogPosts);
-
     // Combine relevant and other blog posts into a single feed array
     const feed = [...relevantBlogPosts, ...otherBlogPosts];
 
-    // Return the feed
+    // Fetch user details from the User model
+    const user = await User.findById(userId);
+    const { email, name, phoneNumber } = user;
+
+    // Map blog posts to include user details
+    const feedWithUserDetails = feed.map((post) => ({
+      ...post.toObject(),
+      author: {
+        email,
+        name,
+        phoneNumber,
+      },
+    }));
+
+    // Return the feed with user details
     return res.status(200).json({
       status: "success",
-      data: feed,
+      data: feedWithUserDetails,
       message: "Feed fetched successfully!",
     });
   } catch (error) {
