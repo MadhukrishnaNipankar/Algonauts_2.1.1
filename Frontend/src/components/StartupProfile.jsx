@@ -170,28 +170,6 @@ const RenderProfileDetails = ({ data }) => {
                                 <div className="d-flex gap-2 flex-wrap">No Offerings to show</div>
                             </div>
                         )}
-
-                        {/* {data?.founders && data?.founders?.length > 0 ? (
-                <div style={styles.section}>
-                  <h4>Founders</h4>
-                  <div className="d-flex flex-wrap gap-2">
-                    {data.founders.map((founder, index) => (
-                      <h5 key={index}>
-                        <p>Name: {founder.name}</p>
-                        <p>Role: {founder.Role}</p>
-                        <p>Bio: {founder.Bio}</p>
-                      </h5>
-                    ))}
-                  </div>
-                </div>
-              ) : (
-                <div style={styles.section}>
-                  <h4>Founders</h4>
-                  <div className="d-flex gap-2 flex-wrap">
-                    No Founders to show
-                  </div>
-                </div>
-              )} */}
                     </>
                 )}
             </div>
