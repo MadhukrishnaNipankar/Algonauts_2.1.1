@@ -15,7 +15,11 @@ const {
   viewAllMyBlogPosts,
   deleteBlogPost,
   updateBlogPost,
+  getFeed,
 } = require("../../Controllers/UserControllers/BlogController");
+
+// Get Relevent Feed
+router.get("/feed", protect, getFeed);
 
 //  Create A Blog Post
 router.post("/", protect, createBlogPost);
