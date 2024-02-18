@@ -51,7 +51,7 @@ const LoginForm = () => {
 
   return (
     <div className="form-wrapper">
-      <div className="form-side">
+      <div className="form-side animate__animated animate__fadeIn">
         <form className="my-form">
           <div className="form-welcome-row">
             <h1>Welcome Back! &#x1F44F;</h1>
@@ -135,7 +135,7 @@ const LoginForm = () => {
         </form>
       </div>
       <div className="info-side">
-        <img src={mockImage} alt="Mock" className="mockup" />
+        <img src={mockImage} alt="Mock" className="mockup"/>
       </div>
     </div>
   );

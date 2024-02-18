@@ -1,7 +1,7 @@
 {
     "client": "Thunder Client",
     "collectionName": "StarterAPI's",
-    "dateExported": "2024-02-16T13:17:20.636Z",
+    "dateExported": "2024-02-18T06:30:16.748Z",
     "version": "1.1",
     "folders": [
         {
@@ -17,6 +17,20 @@
             "containerId": "d5ae705d-28f9-4acd-886c-5409585303bc",
             "created": "2024-02-16T12:44:19.979Z",
             "sortNum": 20000
+        },
+        {
+            "_id": "28c1cc23-ec58-4872-ae89-b4ea203afdc9",
+            "name": "User Profile",
+            "containerId": "d5ae705d-28f9-4acd-886c-5409585303bc",
+            "created": "2024-02-17T18:14:07.630Z",
+            "sortNum": 30000
+        },
+        {
+            "_id": "80fe0921-2080-4ce7-b791-09ed8725057a",
+            "name": "Blog",
+            "containerId": "d5ae705d-28f9-4acd-886c-5409585303bc",
+            "created": "2024-02-17T20:32:46.864Z",
+            "sortNum": 40000
         }
     ],
     "requests": [
@@ -29,12 +43,12 @@
             "method": "POST",
             "sortNum": 10000,
             "created": "2024-02-16T12:44:44.153Z",
-            "modified": "2024-02-16T12:47:15.921Z",
+            "modified": "2024-02-17T14:04:27.923Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"name\": \"Madhukrishna Nipankar\",\n  \"phoneNumber\": \"9518311216\",\n  \"emailId\": \"mn@gmail.com\",\n  \"password\": \"madhukrishna\"\n}",
+                "raw": "{\n  \"name\": \"Prathamesh Patil\",\n  \"phoneNumber\": \"1010101010\",\n  \"emailId\": \"patilprathamesh@gmail.com\",\n  \"password\": \"prathamesh@123\"\n}",
                 "form": []
             },
             "tests": []
@@ -48,12 +62,12 @@
             "method": "POST",
             "sortNum": 20000,
             "created": "2024-02-16T12:48:45.718Z",
-            "modified": "2024-02-16T12:57:18.163Z",
+            "modified": "2024-02-17T18:17:45.912Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"emailId\":\"mn@gmail.com\",\n  \"password\":\"madhukrishna\"\n}",
+                "raw": "{\n  \"emailId\":\"radhe@gmail.com\",\n  \"password\":\"radheradhe\"\n}",
                 "form": []
             },
             "tests": []
@@ -110,7 +124,7 @@
             "_id": "cfa14e56-77b4-44a8-965c-af425d2ef342",
             "colId": "5f59adb7-0151-4fe0-ad42-b7c561a65472",
             "containerId": "9e5c7a10-b69a-4645-9894-9f3359beb62e",
-            "name": "View User Profile",
+            "name": "View User Account Details",
             "url": "http://localhost:8000/api/v1/user/",
             "method": "GET",
             "sortNum": 50000,
@@ -134,11 +148,189 @@
             "method": "DELETE",
             "sortNum": 60000,
             "created": "2024-02-16T13:13:58.486Z",
-            "modified": "2024-02-16T13:15:38.454Z",
+            "modified": "2024-02-17T10:08:35.911Z",
             "headers": [
                 {
                     "name": "Authorization",
-                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1Y2Y1ZmRkYTliNTA1ZjM4YTI5ODgzZiIsImlhdCI6MTcwODA4OTMxNSwiZXhwIjoxNzA5ODE3MzE1fQ.5RgSLtorJITq8T9SgCXXQwZWgdGQ_GFI0-U1rda4Hgk"
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZDA4NDdlNTE5NDYyZDZhMWMxZTBkNyIsImlhdCI6MTcwODE2NDQ5NSwiZXhwIjoxNzA5ODkyNDk1fQ.qKl0PyJquhGbQqJK8T5lbLyj2pSkAxmakr2UYSaruSs"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "d781260b-8b91-49f7-bd5a-cfd0916d3745",
+            "colId": "5f59adb7-0151-4fe0-ad42-b7c561a65472",
+            "containerId": "28c1cc23-ec58-4872-ae89-b4ea203afdc9",
+            "name": "Update/Create User Profile",
+            "url": "http://localhost:8000/api/v1/profile",
+            "method": "PATCH",
+            "sortNum": 70000,
+            "created": "2024-02-17T18:14:23.010Z",
+            "modified": "2024-02-17T18:24:36.954Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZDBjNWJiMDhlZjg0ZDA4MWE1Y2I2ZiIsImlhdCI6MTcwODE5Mzg2NSwiZXhwIjoxNzA5OTIxODY1fQ.h3-dVko5WFyJSDj2JZma90Gz-nJpq1iIWNJU_uf_3Rs"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"profilePhotoURL\": \"https://example.com/profile.jpg\",\n  \"bio\": \"Lorem ipsum dolor sit amet, consectetur adipiscing elit.\",\n  \"links\": [\n    \"https://linkedin.com/user123\",\n    \"https://github.com/user123\"\n  ],\n  \"pastExperiences\": [\n    {\n      \"jobTitle\": \"Software Engineer\",\n      \"company\": \"ABC Company\",\n      \"duration\": \"2020 - 2022\",\n      \"description\": \"Worked on developing web applications using React and Node.js.\"\n    },\n    {\n      \"jobTitle\": \"Intern\",\n      \"company\": \"XYZ Inc.\",\n      \"duration\": \"2019\",\n      \"description\": \"Assisted in testing and debugging code for mobile applications.\"\n    }\n  ],\n  \"skills\": [\n    \"JavaScript\",\n    \"React\",\n    \"Node.js\",\n    \"HTML\",\n    \"CSS\"\n  ],\n  \"interests\": [\n    \"Reading\",\n    \"Traveling\",\n    \"Photography\",\n    \"Swimming\",\n    \"Cycling\"\n  ]\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "e789e354-46d6-4d9b-a34f-3bbbba7a4e46",
+            "colId": "5f59adb7-0151-4fe0-ad42-b7c561a65472",
+            "containerId": "28c1cc23-ec58-4872-ae89-b4ea203afdc9",
+            "name": "View User Profile",
+            "url": "http://localhost:8000/api/v1/profile",
+            "method": "GET",
+            "sortNum": 80000,
+            "created": "2024-02-17T18:19:03.775Z",
+            "modified": "2024-02-17T18:19:42.443Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZDBjNWJiMDhlZjg0ZDA4MWE1Y2I2ZiIsImlhdCI6MTcwODE5Mzg2NSwiZXhwIjoxNzA5OTIxODY1fQ.h3-dVko5WFyJSDj2JZma90Gz-nJpq1iIWNJU_uf_3Rs"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "b935d1e5-5177-4395-bb3f-d49cd6815261",
+            "colId": "5f59adb7-0151-4fe0-ad42-b7c561a65472",
+            "containerId": "28c1cc23-ec58-4872-ae89-b4ea203afdc9",
+            "name": "Update Profile Photo",
+            "url": "http://localhost:8000/api/v1/profile/uploadphoto",
+            "method": "PATCH",
+            "sortNum": 90000,
+            "created": "2024-02-17T18:46:44.200Z",
+            "modified": "2024-02-17T18:54:13.756Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZDBjNWJiMDhlZjg0ZDA4MWE1Y2I2ZiIsImlhdCI6MTcwODE5Mzg2NSwiZXhwIjoxNzA5OTIxODY1fQ.h3-dVko5WFyJSDj2JZma90Gz-nJpq1iIWNJU_uf_3Rs"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "formdata",
+                "raw": "",
+                "form": [],
+                "files": [
+                    {
+                        "name": "profileImage",
+                        "value": "c:\\Users\\madhu\\Downloads\\krishna.jpg"
+                    }
+                ]
+            },
+            "tests": []
+        },
+        {
+            "_id": "2b9d9d01-9c6c-4aea-9e88-ae9ec9d9c55c",
+            "colId": "5f59adb7-0151-4fe0-ad42-b7c561a65472",
+            "containerId": "80fe0921-2080-4ce7-b791-09ed8725057a",
+            "name": "Create New Blog",
+            "url": "http://localhost:8000/api/v1/blog",
+            "method": "POST",
+            "sortNum": 110000,
+            "created": "2024-02-17T20:32:56.284Z",
+            "modified": "2024-02-18T06:12:14.188Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZDBjNWJiMDhlZjg0ZDA4MWE1Y2I2ZiIsImlhdCI6MTcwODIwMjAxNSwiZXhwIjoxNzA5OTMwMDE1fQ.0uisAfMxtVINAuC2pBmXKZ6elVQCjNfu4OQIh2UqmGU"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"title\": \"How to continue warsa\",\n  \"category\": \"Technology\",\n  \"content\": \"<p>This is the content1 of the blog post in HTML format.</p>\",\n  \"tags\": [\n    \"sample\",\n    \"technology\",\n    \"blog\"\n  ],\n  \"comments\": [],\n  \"publishingTime\": \"2024-02-17T12:00:00.000Z\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "bbc003c6-8e0d-4c67-b968-4ddab117d3ae",
+            "colId": "5f59adb7-0151-4fe0-ad42-b7c561a65472",
+            "containerId": "80fe0921-2080-4ce7-b791-09ed8725057a",
+            "name": "View All My Blog Posts",
+            "url": "http://localhost:8000/api/v1/blog/all",
+            "method": "GET",
+            "sortNum": 130000,
+            "created": "2024-02-17T20:47:31.382Z",
+            "modified": "2024-02-18T06:12:40.510Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZDBjNWJiMDhlZjg0ZDA4MWE1Y2I2ZiIsImlhdCI6MTcwODIwMjAxNSwiZXhwIjoxNzA5OTMwMDE1fQ.0uisAfMxtVINAuC2pBmXKZ6elVQCjNfu4OQIh2UqmGU"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "ba206a96-321e-4556-838c-286203ad3122",
+            "colId": "5f59adb7-0151-4fe0-ad42-b7c561a65472",
+            "containerId": "80fe0921-2080-4ce7-b791-09ed8725057a",
+            "name": "View A Blog Post",
+            "url": "http://localhost:8000/api/v1/blog/65d11b292b4297487a27ee5f",
+            "method": "GET",
+            "sortNum": 140000,
+            "created": "2024-02-17T20:51:37.512Z",
+            "modified": "2024-02-17T20:56:27.479Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZDBjNWJiMDhlZjg0ZDA4MWE1Y2I2ZiIsImlhdCI6MTcwODIwMjAxNSwiZXhwIjoxNzA5OTMwMDE1fQ.0uisAfMxtVINAuC2pBmXKZ6elVQCjNfu4OQIh2UqmGU"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "2e255cd5-d70a-4322-b014-6447f2734a43",
+            "colId": "5f59adb7-0151-4fe0-ad42-b7c561a65472",
+            "containerId": "80fe0921-2080-4ce7-b791-09ed8725057a",
+            "name": "Update Blog Post",
+            "url": "http://localhost:8000/api/v1/blog/65d19faa38181ff7120e810f",
+            "method": "PATCH",
+            "sortNum": 150000,
+            "created": "2024-02-17T20:57:30.306Z",
+            "modified": "2024-02-18T06:25:00.111Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZDBjNWJiMDhlZjg0ZDA4MWE1Y2I2ZiIsImlhdCI6MTcwODIwMjAxNSwiZXhwIjoxNzA5OTMwMDE1fQ.0uisAfMxtVINAuC2pBmXKZ6elVQCjNfu4OQIh2UqmGU"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"title\": \"updated - how to impress a  package\",\n  \"category\": \"Technology\",\n  \"content\": \"<p>This is the content3 of the blog post in HTML format.</p>\",\n  \"likeCount\": 0,\n  \"comments\": []\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "5e6800e2-52bc-435c-b7dc-245a3e8b009a",
+            "colId": "5f59adb7-0151-4fe0-ad42-b7c561a65472",
+            "containerId": "80fe0921-2080-4ce7-b791-09ed8725057a",
+            "name": "Delete Blog Post",
+            "url": "http://localhost:8000/api/v1/blog/65d19faa38181ff7120e810f",
+            "method": "DELETE",
+            "sortNum": 160000,
+            "created": "2024-02-18T06:26:47.297Z",
+            "modified": "2024-02-18T06:29:00.466Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZDBjNWJiMDhlZjg0ZDA4MWE1Y2I2ZiIsImlhdCI6MTcwODIwMjAxNSwiZXhwIjoxNzA5OTMwMDE1fQ.0uisAfMxtVINAuC2pBmXKZ6elVQCjNfu4OQIh2UqmGU"
                 }
             ],
             "params": [],
