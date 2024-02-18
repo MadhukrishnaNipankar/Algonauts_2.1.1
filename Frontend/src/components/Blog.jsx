@@ -1,5 +1,3 @@
-
-
 import React, { useState, useRef, useEffect } from "react";
 import { Card, CardBody, Form, Input, Label, Button, Container } from "reactstrap";
 import JoditEditor from "jodit-react";
@@ -11,7 +9,8 @@ const Blog = () => {
     const [post, setPost] = useState({
         title: '',
         content: '',
-        categoryId: ''
+        categoryId: '',
+        tags: ''
     });
     const [image, setImage] = useState(null);
 
@@ -26,7 +25,8 @@ const Blog = () => {
     }, []);
 
     const fieldChanged = (event) => {
-        setPost({ ...post, [event.target.name]: event.target.value });
+        const { name, value } = event.target;
+        setPost({ ...post, [name]: value });
     };
 
     const contentFieldChanged = (data) => {
@@ -49,14 +49,21 @@ const Blog = () => {
         }
         // Here you would send the post data to the backend
         // For now, let's just log the post data
-        console.log("Post Data:", post);
-        // Reset form fields
+        const postData = {
+            title: post.title,
+            content: post.content,
+            category: post.categoryId,
+            tags: post.tags.split(',') 
+        };
+        console.log("Post Data:", postData);
+ 
         setPost({
             title: '',
             content: '',
-            categoryId: ''
+            categoryId: '',
+            tags: ''
         });
-        setImage(null); // Reset selected image
+        setImage(null); 
         toast.success("Post Created!!");
     };
 
@@ -66,13 +73,13 @@ const Blog = () => {
 
     const styles = {
         wrapper: {
-            padding: "2rem", // Adjust as needed
-            backgroundColor: "#f9f9f9", // Adjust as needed
-            minHeight: "calc(100vh - 56px)" // Adjust as needed
+            padding: "2rem", 
+            backgroundColor: "#f9f9f9", 
+            minHeight: "calc(100vh - 56px)" 
         },
         card: {
-            maxWidth: "800px", // Adjust as needed
-            margin: "0 auto" // Center the card horizontally
+            maxWidth: "800px",
+            margin: "0 auto"
         }
     };
 
@@ -80,7 +87,7 @@ const Blog = () => {
         <div style={styles.wrapper}>
             <Card style={styles.card}>
                 <CardBody>
-                    <h3>What's on your mind?</h3>
+                    <h3>Let's Write Something...✍️🤔</h3>
                     <Form onSubmit={createPost}>
                         <div className="my-3">
                             <Label for="title">Post Title</Label>
@@ -95,6 +102,18 @@ const Blog = () => {
                             />
                         </div>
                         <div className="my-3">
+                            <Label for="category">Post Category</Label>
+                            <Input
+                                type="text"
+                                id="category"
+                                placeholder="Enter category"
+                                className="rounded-0"
+                                name="categoryId"
+                                value={post.categoryId}
+                                onChange={fieldChanged}
+                            />
+                        </div>
+                        <div className="my-3">
                             <Label for="content">Post Content</Label>
                             <JoditEditor
                                 ref={editor}
@@ -102,28 +121,19 @@ const Blog = () => {
                                 onChange={(newContent) => contentFieldChanged(newContent)}
                             />
                         </div>
-                        {/* <div className="mt-3">
-                            <Label for="image">Select Post Banner</Label>
-                            <Input id="image" type="file" onChange={handleFileChange} />
-                        </div> */}
                         <div className="my-3">
-                            <Label for="category">Post Category</Label>
+                            <Label for="tags">Tags (comma-separated)</Label>
                             <Input
-                                type="select"
-                                id="category"
+                                type="text"
+                                id="tags"
+                                placeholder="Enter tags"
                                 className="rounded-0"
-                                name="categoryId"
-                                value={post.categoryId}
+                                name="tags"
+                                value={post.tags}
                                 onChange={fieldChanged}
-                            >
-                                <option value="">-- Select category --</option>
-                                {categories.map((category) => (
-                                    <option value={category.categoryId} key={category.categoryId}>
-                                        {category.categoryTitle}
-                                    </option>
-                                ))}
-                            </Input>
+                            />
                         </div>
+                        
                         <Container className="text-center">
                             <Button type="submit" className="rounded-0" color="primary">Create Post</Button>
                             <Button className="rounded-0 ms-2" color="danger">Reset Content</Button>
