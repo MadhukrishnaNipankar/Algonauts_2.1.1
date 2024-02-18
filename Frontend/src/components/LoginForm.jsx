@@ -28,8 +28,6 @@ const LoginForm = () => {
   const handleUserLogin = async (e) => {
     setLoading(true); // Set loading to true before making the API call
     try {
-      console.log("Email:", email);
-      console.log("Password:", password);
       const userData = {
         emailId: email,
         password: password,

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Home, Layout, AboutUs, ContactUs, NotFound, LoginForm, SignUp, ProfileDetails, EditProfile, Blog, Post, AllPosts, Feed } from './components/Index.js'
 
-import {ProtectedRoute} from './utils/ProtectedRoute.jsx';
+import { ProtectedRoute } from './utils/ProtectedRoute.jsx';
 import { LoginContext } from './context/LoginContext.js';
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import './App.css'
@@ -63,7 +63,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/feed",
-        element:<Feed/>
+        element: <Feed />
       }
     ],
   },

@@ -51,9 +51,6 @@ const styles = {
 const ProfileDetails = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
-
-
-
     const [data, setData] = useState(null);
     useEffect(() => {
         const fetchData = async () => {
