@@ -19,3 +19,8 @@ body{
     background-color: #004182;
     color: white;
 }
+
+.nav-link-active{
+    color: #004182 !important;
+    border-bottom: 1px solid #004182 !important;
+}
