@@ -116,7 +116,7 @@ const ProfileDetails = () => {
             </div>
           </div>
 
-          <div className="container">
+          <div className="container mt-3">
             <ProfileOptionsTab
               firstTab={<RenderProfileDetails data={data} />}
               secondTab={<AllPosts />}

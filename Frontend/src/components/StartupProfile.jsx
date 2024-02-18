@@ -3,6 +3,9 @@ import Spinner from "./Spinner";
 import { useNavigate } from 'react-router-dom';
 import { MdEdit } from "react-icons/md";
 import { Divider, Box, AbsoluteCenter } from '@chakra-ui/react'
+import ProfileOptionsTab from "./ProfileOptionsTab";
+import AllPosts from "./AllPosts";
+
 import {viewProfile} from '../../controllers/StartupController.js';
 
 const StartupProfile = () => {
@@ -80,11 +83,9 @@ const StartupProfile = () => {
                         </div>
                     </div>
 
-                    {/* <div className="container">
+                    <div className="container">
                     <ProfileOptionsTab firstTab={<RenderProfileDetails data={data}/>} secondTab={<AllPosts/>}/>
-                    </div> */}
-
-                    <RenderProfileDetails data={data} />
+                    </div>
 
                     <button className='btn btn-success' data-bs-toggle="tooltip" data-bs-title="Edit Profie" style={styles.editBtn} onClick={() => { navigate("/edit-startup-profile") }}><MdEdit /></button>
                 </div>
