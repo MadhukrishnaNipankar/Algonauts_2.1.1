@@ -224,8 +224,19 @@ exports.getFeed = async (req, res) => {
     // Fetch user's profile to access interests, pastExperiences, and skills
     const userProfile = await Profile.findOne({ user: userId });
 
+    if (userProfile == null) {
+      // Find all other blog posts that do not match the above criteria
+      const allBlogPosts = await Blog.find().sort({ createdAt: -1 });
+      return res.status(200).json({
+        status: "success",
+        data: allBlogPosts,
+        message: "Feed fetched successfully!",
+      });
+    }
+
     // Extract user's interests, past experiences, and skills
     const userInterests = userProfile.interests;
+
     const userPastExperiences = userProfile.pastExperiences.map(
       (exp) => exp.jobTitle
     );
