@@ -4,7 +4,6 @@ import googleLogo from "../assests/google.png";
 import mockImage from "../assests/mock.jpg";
 import "../styles/LoginForm.css";
 import { useNavigate } from "react-router-dom";
-
 import { loginUser } from "../../controllers/LoginController";
 import Spinner from "./Spinner";
 import { LoginContext } from "../context/LoginContext";

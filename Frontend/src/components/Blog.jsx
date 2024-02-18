@@ -99,7 +99,7 @@ const Blog = () => {
     <div style={styles.wrapper}>
       <Card style={styles.card}>
         <CardBody>
-          <h3>Let's Write Something...✍️🤔</h3>
+          <h3>Let's Write Something</h3>
           <Form onSubmit={createPost}>
             <div className="my-3">
               <Label for="title">Post Title</Label>
