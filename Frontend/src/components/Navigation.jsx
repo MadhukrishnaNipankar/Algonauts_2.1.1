@@ -8,10 +8,11 @@ const Navigation = () => {
         sessionStorage.clear();
         setIsLoggedIn(false)
     }
+    const role = sessionStorage.getItem("role");
     return (
         <nav className="navbar navbar-expand-lg bg-body-tertiary" style={{ position: "sticky", top: "0", zIndex: "1" }}>
             <div className="container">
-                <Link to="/" style={{textDecoration:"none"}}>
+                <Link to="/" style={{ textDecoration: "none" }}>
                     <a className="navbar-brand">BizReady</a>
                 </Link>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -19,41 +20,29 @@ const Navigation = () => {
                 </button>
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-                        {/* <li className="nav-item">
-                            <NavLink
-                                to=""
+                        <li className="nav-item">
+                            {isLoggedIn && <NavLink
+                                to="/blog"
                                 className={({ isActive }) =>
                                     `${isActive ? "active-nav" : null} nav-link`
                                 }
                             >
-                                Home
-                            </NavLink>
-                        </li> */}
-                   
-
-                        <li className="nav-item">
-                                    { isLoggedIn && <NavLink
-                                        to="/blog"
-                                        className={({ isActive }) =>
-                                            `${isActive ? "active-nav" : null} nav-link`
-                                        }
-                                    >
-                                       Blog
-                                    </NavLink>}
+                                Blog
+                            </NavLink>}
                         </li>
 
                         <li className="nav-item">
-                                    { isLoggedIn && <NavLink
-                                        to="/feed"
-                                        className={({ isActive }) =>
-                                            `${isActive ? "active-nav" : null} nav-link`
-                                        }
-                                    >
-                                       Explore
-                                    </NavLink>}
+                            {isLoggedIn && <NavLink
+                                to="/feed"
+                                className={({ isActive }) =>
+                                    `${isActive ? "active-nav" : null} nav-link`
+                                }
+                            >
+                                Explore
+                            </NavLink>}
                         </li>
 
-                  
+
                         {
 
                             !isLoggedIn &&
@@ -75,7 +64,7 @@ const Navigation = () => {
 
                                 <li className="nav-item">
                                     <NavLink
-                                        to="/profile-details"
+                                        to={`${role == "user" ? '/profile-details' : role == "startup" ? "/startup-profile" : "/"}`}
                                         className={({ isActive }) =>
                                             `${isActive ? "active-nav" : null} nav-link`
                                         }
@@ -84,7 +73,7 @@ const Navigation = () => {
                                     </NavLink>
                                 </li>
 
-                               
+
 
                                 <li className="nav-item">
                                     <NavLink

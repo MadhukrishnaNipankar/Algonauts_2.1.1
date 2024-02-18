@@ -3,58 +3,30 @@ import Spinner from "./Spinner";
 import { useNavigate } from 'react-router-dom';
 import { MdEdit } from "react-icons/md";
 import { Divider, Box, AbsoluteCenter } from '@chakra-ui/react'
-
+import {viewProfile} from '../../controllers/StartupController.js';
 
 const StartupProfile = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
-    const [data, setData] = useState({
-        "startupName": "Tech Startup Inc.",
-        "description": "A tech startup focused on developing innovative solutions.",
-        "missionStatement": "Our mission is to revolutionize the tech industry.",
-        "offerings": ["Software Development", "Consulting Services", "Digital Marketing"],
-        "founders": [
-            {
-                "name": "John Doe",
-                "role": "CEO",
-                "bio": "John Doe is a visionary leader with extensive experience in technology."
-            },
-            {
-                "name": "Jane Smith",
-                "role": "CTO",
-                "bio": "Jane Smith is an experienced technologist specializing in software engineering."
-            }
-        ],
-        "industry": "Technology",
-        "location": "San Francisco, CA",
-        "websiteUrl": "https://techstartup.com",
-        "contactInformation": {
-            "email": "info@techstartup.com",
-            "phone": "1234567890",
-            "socialMedia": {
-                "twitter": "https://twitter.com/techstartup",
-                "linkedin": "https://linkedin.com/company/techstartup"
-            }
-        },
-        "logoUrl": "https://example.com/logo.png"
-    });
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         const token = sessionStorage.getItem("token");
-    //         setLoading(true); // Set loading to true before making the API call
+    const [data, setData] = useState(null);
+    useEffect(() => {
+        const fetchData = async () => {
+            const token = sessionStorage.getItem("token");
+            setLoading(true); // Set loading to true before making the API call
 
-    //         try {
-    //             const response = await viewProfile(token);
-    //             setData(response.data)
-    //         } catch (error) {
-    //             alert(error.message);
-    //         } finally {
-    //             setLoading(false); // Set loading back to false after the API call completes
-    //         }
-    //     }
+            try {
+                const response = await viewProfile(token);
+                setData(response.data[0])
+                console.log(response.data)
+            } catch (error) {
+                alert(error.message);
+            } finally {
+                setLoading(false); // Set loading back to false after the API call completes
+            }
+        }
 
-    //     fetchData()
-    // }, [])
+        fetchData()
+    }, [])
     return (
         <>
             <div className="container">
@@ -73,7 +45,7 @@ const StartupProfile = () => {
             {
                 data && <div className='animate__animated animate__fadeIn'>
                     <div style={styles.profileImageContainer} className='container'>
-                        <img className='bg-light' src={data?.logoUrl} style={styles.profileImage}></img>
+                        <img className='bg-light' src="https://t3.ftcdn.net/jpg/06/17/13/26/360_F_617132669_YptvM7fIuczaUbYYpMe3VTLimwZwzlWf.jpg" style={styles.profileImage}></img>
                     </div>
 
                     <div style={styles.profileDetailsSection} className='container'>
