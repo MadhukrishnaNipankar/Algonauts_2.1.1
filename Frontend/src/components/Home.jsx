@@ -8,6 +8,10 @@ import '../styles/Home.css';
 
 const AboutUs = () => {
 
+  const handleConnectClick = () => {
+    window.location.href = "/login";
+  };
+
   const [loopNum, setLoopNum] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
   const [text, setText] = useState('');
@@ -60,7 +64,7 @@ const AboutUs = () => {
                     <span className="tagline">Empowering Entrepreneurs</span>
                     <h1>{`Welcome to BizReady!`} <span className="txt-rotate" data-period="2000" data-rotate='["Innovative Minds", "Creative Visionaries", "Startup Enthusiasts"]'><span className="wrap">{text}</span></span></h1>
                     <p>Join our vibrant community of innovators, creators, and startup enthusiasts. Turn your ideas into reality!</p>
-                    <Button variant="primary" size="lg" onClick={() => console.log('connect')}>Let’s Connect <ArrowRightCircle size={25} /></Button>
+                    <Button variant="primary" size="lg" onClick={handleConnectClick}>Let’s Connect <ArrowRightCircle size={25} /></Button>
                   </div>
                 )}
               </TrackVisibility>
