@@ -83,13 +83,13 @@ const AllPosts = () => {
 
   return (
     <div style={styles.wrapper}>
-      <Row xs="1" md="2" lg="3">
+      <div style={{display:"flex",flexDirection:"column"}} >
         {posts.map((post, index) => (
-          <Col key={post._id}>
+          <Col key={post._id}>  
             <UserPost post={post} index={index} />
           </Col>
         ))}
-      </Row>
+      </div>
     </div>
   );
 };
@@ -99,28 +99,30 @@ const styles = {
     padding: "2rem",
     backgroundColor: "#f9f9f9",
     minHeight: "calc(100vh - 56px)",
-    display: "inline-block",
+    display: "flex",
+    flexDirection:"column",
+    alignItems:"center",
+    
   },
   card: {
+    width:"50vw",
+    height:"5rem",
+cursor:"pointer",
     marginLeft: "5px",
     marginRight: "5px",
     marginBottom: "20px",
     borderRadius: "15px",
-    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+    // boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
     transition: "transform 0.3s ease-in-out",
     animation: "fadeInUp 0.5s ease",
   },
-  cardHover: {
-    transform: "scale(1.05)",
-    boxShadow: "0 8px 16px rgba(0, 0, 0, 0.2)",
-  },
   postNumber: {
     fontWeight: "bold",
-    fontSize: "1.5rem",
+    fontSize: "1.2rem",
     textAlign: "center",
   },
   title: {
-    fontSize: "1.2rem",
+    fontSize: "0.5rem",
     fontWeight: "bold",
   },
   tags: {
@@ -131,22 +133,20 @@ const styles = {
 const UserPost = ({ post, index }) => {
   return (
 
-    <Card style={{ ...styles.card, ...styles.cardHover }}>
+    <Card style={{ ...styles.card, ...styles.cardHover }} >
       <CardBody>
         <div style={styles.postNumber}>Post{post.title}</div>
         {/* <hr style={{ margin: "0.5rem 0" }} /> */}
-        {/* <div style={styles.title}></div> */}
+      
         <div className="mb-3">
         {/* <hr style={{ margin: "0.5rem 0" }} /> */}
-        {/* <div style={styles.tags}>
-          {post.tags.map((tag, index) => (
-            <Badge color="success" className="me-2" key={index}>
-             {post.tags.join(", ")}
-            </Badge>
-          ))}
-        </div> */}
+        <div style={{width:"30%",margin:"auto",display:"flex",justifyContent:"center"}}>
+            {/* <p>posted on {post.createdAt}</p> */}
+            <p>❤️ {post.likeCount} likes</p>
         </div>
-        {/* <i>{post.createdAt}</i> */}
+    
+        </div>
+     
       </CardBody>
     </Card>
   );
