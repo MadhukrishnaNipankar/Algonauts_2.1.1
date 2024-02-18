@@ -108,14 +108,14 @@ exports.viewUserProfile = async (req, res) => {
       "name emailId phoneNumber"
     );
 
-    // If the profile doesn't exist, return a 404 error
-    if (!userProfile) {
-      return res.status(404).json({
-        status: "fail",
-        data: null,
-        message: "User profile not found.",
-      });
-    }
+    // // If the profile doesn't exist, return a 404 error
+    // if (!userProfile) {
+    //   return res.status(404).json({
+    //     status: "fail",
+    //     data: null,
+    //     message: "User profile not found.",
+    //   });
+    // }
 
     // If the profile exists, return it in the response along with user details
     return res.status(200).json({
