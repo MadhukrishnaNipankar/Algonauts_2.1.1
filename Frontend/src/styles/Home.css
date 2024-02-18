@@ -20,7 +20,7 @@
     border: 1px solid rgba(123, 72, 199, 0.5);
     font-size: 20px;
     margin-bottom: 16px;
-    display: inline-block;
+    display: inline-block ;
     color: rgb(0, 0, 0);
     border-radius: 5%;
   }
@@ -60,18 +60,19 @@
     margin-left: 25px;
   }
   .banner img {
-    animation: updown 3s linear infinite;
+    animation: zoominout 3s linear infinite;
   }
-  @keyframes updown {
-      0% {
-          transform: translateY(-20px);
-      }
-      50% {
-          transform: translateY(20px);
-      }
-      100% {
-          transform: translateY(-20px);
-      }
+  
+  @keyframes zoominout {
+    0% {
+      transform: scale(1); 
+    }
+    50% {
+      transform: scale(1.2); 
+    }
+    100% {
+      transform: scale(1); 
+    }
   }
   .txt-rotate > .wrap {
     border-right: 0.08em solid #666;
