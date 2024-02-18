@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { Home, Layout, AboutUs, ContactUs, NotFound, LoginForm, SignUp, ProfileDetails, EditProfile, Blog, Post, AllPosts } from './components/Index.js'
 
-import { LoginContext } from './context/LoginContext.js'
+import {ProtectedRoute} from './utils/ProtectedRoute.jsx';
+import { LoginContext } from './context/LoginContext.js';
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import './App.css'
 import { ChakraProvider } from '@chakra-ui/react'
@@ -42,7 +43,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/edit-profile",
-        element: <EditProfile />,
+        element: (
+          <ProtectedRoute allowedRoles={['user']}>
+            <EditProfile />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/blog",
