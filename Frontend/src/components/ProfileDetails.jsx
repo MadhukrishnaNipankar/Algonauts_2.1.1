@@ -21,7 +21,7 @@ const styles = {
     backgroundColor: "black",
     display: "flex",
     justifyContent: "center",
-    backgroundImage: `url("https://t3.ftcdn.net/jpg/00/32/43/82/360_F_32438200_oMeluL7Q2cR50GALrJQMCwgYImFK7hkl.jpg")`,
+    backgroundImage: `url("https://trak.in/wp-content/uploads/2017/10/Entrepreneurship-Banner-Opt.jpg")`,
     backgroundRepeat: "no-repeat",
     backgroundSize: "cover",
     height: "15rem",

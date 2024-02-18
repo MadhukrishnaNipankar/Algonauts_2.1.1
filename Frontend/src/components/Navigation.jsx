@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { LoginContext } from '../context/LoginContext.js';
+import logoBiz from "../assests/logoBiz.png";
 
 const Navigation = () => {
     const { isLoggedIn, setIsLoggedIn } = useContext(LoginContext);
@@ -12,7 +13,7 @@ const Navigation = () => {
         <nav className="navbar navbar-expand-lg bg-body-tertiary" style={{ position: "sticky", top: "0", zIndex: "1" }}>
             <div className="container">
                 <Link to="/" style={{textDecoration:"none"}}>
-                    <a className="navbar-brand">BizReady</a>
+                   <img style={{height:"15%", width:"30%"}} src={logoBiz} alt="logo"/>
                 </Link>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
