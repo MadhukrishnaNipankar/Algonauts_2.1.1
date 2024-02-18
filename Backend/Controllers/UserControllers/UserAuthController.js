@@ -85,7 +85,10 @@ exports.createUserAccount = async (req, res) => {
         contactInformation: {
           email: "",
           phone: "",
-          socialMedia: {},
+          socialMedia: {
+            "twitter": "https://twitter.com/techstartup",
+            "linkedin": "https://linkedin.com/company/techstartup"
+          },
         },
         // Add other profile fields with default values if needed
       });
