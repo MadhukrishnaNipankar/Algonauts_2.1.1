@@ -1,7 +1,7 @@
 {
     "client": "Thunder Client",
     "collectionName": "StarterAPI's",
-    "dateExported": "2024-02-18T16:02:14.121Z",
+    "dateExported": "2024-02-18T20:22:29.073Z",
     "version": "1.1",
     "folders": [
         {
@@ -31,6 +31,13 @@
             "containerId": "d5ae705d-28f9-4acd-886c-5409585303bc",
             "created": "2024-02-17T20:32:46.864Z",
             "sortNum": 40000
+        },
+        {
+            "_id": "d2179598-e9a8-4243-8820-2dbd4b244515",
+            "name": "Startup",
+            "containerId": "",
+            "created": "2024-02-18T17:40:06.114Z",
+            "sortNum": 50000
         }
     ],
     "requests": [
@@ -62,12 +69,12 @@
             "method": "POST",
             "sortNum": 20000,
             "created": "2024-02-16T12:48:45.718Z",
-            "modified": "2024-02-17T18:17:45.912Z",
+            "modified": "2024-02-18T18:20:34.779Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"emailId\":\"radhe@gmail.com\",\n  \"password\":\"radheradhe\"\n}",
+                "raw": "{\n  \"emailId\":\"dhananjay@gmail.com\",\n  \"password\":\"dhananjay123\"\n}",
                 "form": []
             },
             "tests": []
@@ -191,11 +198,11 @@
             "method": "GET",
             "sortNum": 80000,
             "created": "2024-02-17T18:19:03.775Z",
-            "modified": "2024-02-17T18:19:42.443Z",
+            "modified": "2024-02-18T18:21:10.203Z",
             "headers": [
                 {
                     "name": "Authorization",
-                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZDBjNWJiMDhlZjg0ZDA4MWE1Y2I2ZiIsImlhdCI6MTcwODE5Mzg2NSwiZXhwIjoxNzA5OTIxODY1fQ.h3-dVko5WFyJSDj2JZma90Gz-nJpq1iIWNJU_uf_3Rs"
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZDI0NmQ3ZmZjOTdhOWU4NmNjZmM0OSIsInJvbGUiOiJzdGFydHVwIiwiaWF0IjoxNzA4MjgwNDM0LCJleHAiOjE3MTAwMDg0MzR9.NSBkHT_opiyxuJ8MrcjhMRvQqj6_jmHSskJhNrt7JwE"
                 }
             ],
             "params": [],
@@ -350,6 +357,44 @@
                 {
                     "name": "Authorization",
                     "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZDBjNWJiMDhlZjg0ZDA4MWE1Y2I2ZiIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzA4MjY5NTIyLCJleHAiOjE3MDk5OTc1MjJ9.a15iIB3eyG0B1RXP39seT4mEZz759KgmfYehGZKtV6M"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "647b150c-24ec-43e2-8a2c-e4828f3b54f0",
+            "colId": "5f59adb7-0151-4fe0-ad42-b7c561a65472",
+            "containerId": "d2179598-e9a8-4243-8820-2dbd4b244515",
+            "name": "Get Startup Profile",
+            "url": "http://localhost:8000/api/v1/startup",
+            "method": "GET",
+            "sortNum": 180000,
+            "created": "2024-02-18T17:40:36.684Z",
+            "modified": "2024-02-18T18:35:38.741Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZDI0NmQ3ZmZjOTdhOWU4NmNjZmM0OSIsInJvbGUiOiJzdGFydHVwIiwiaWF0IjoxNzA4MjgwNDM0LCJleHAiOjE3MTAwMDg0MzR9.NSBkHT_opiyxuJ8MrcjhMRvQqj6_jmHSskJhNrt7JwE"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "347eca21-4422-43fc-afb6-81a5824d4d5d",
+            "colId": "5f59adb7-0151-4fe0-ad42-b7c561a65472",
+            "containerId": "d2179598-e9a8-4243-8820-2dbd4b244515",
+            "name": "Update Startup Profile",
+            "url": "http://localhost:8000/api/v1/startup",
+            "method": "PATCH",
+            "sortNum": 190000,
+            "created": "2024-02-18T19:20:27.599Z",
+            "modified": "2024-02-18T19:38:45.071Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZDI0NmQ3ZmZjOTdhOWU4NmNjZmM0OSIsInJvbGUiOiJzdGFydHVwIiwiaWF0IjoxNzA4MjgwNDM0LCJleHAiOjE3MTAwMDg0MzR9.NSBkHT_opiyxuJ8MrcjhMRvQqj6_jmHSskJhNrt7JwE"
                 }
             ],
             "params": [],
