@@ -1,10 +1,22 @@
-import { React, useState } from 'react'
+import { React, useState, useEffect } from 'react'
 import { MdDeleteOutline, MdEdit } from "react-icons/md";
+import { updateProfile } from '../../controllers/UpdateProfileController'
+import { viewProfile } from '../../controllers/ViewProfile';
+import Spinner from "./Spinner";
+
 
 const EditProfile = () => {
+  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState(null);
+  
   // Initial skills array
-  const initialSkills = ["JavaScript", "React", "Node.js", "HTML", "CSS"];
-  const [skills, setSkills] = useState(initialSkills);
+  const [bio, setBio] = useState();
+  const [skills, setSkills] = useState();
+  const [links, setLinks] = useState();
+  const [experiences, setExperiences] = useState();
+  const [interests, setInterests] = useState();
+
+
 
   // Function to update a skill
   const updateSkill = (index, newValue) => {
@@ -19,11 +31,6 @@ const EditProfile = () => {
     setSkills(filteredSkills);
   };
 
-  const initialLinks = [
-    "https://linkedin.com/user123",
-    "https://github.com/user123"
-  ];
-  const [links, setLinks] = useState(initialLinks);
 
   // Function to update a interests
   const updateLinks = (index, newValue) => {
@@ -39,22 +46,6 @@ const EditProfile = () => {
   };
 
 
-  const initialExperiences = [
-    {
-      jobTitle: "Software Engineer",
-      company: "ABC Company",
-      duration: "2020 - 2022",
-      description: "Worked on developing web applications using React and Node.js."
-    },
-    {
-      jobTitle: "Intern",
-      company: "XYZ Inc.",
-      duration: "2019",
-      description: "Assisted in testing and debugging code for mobile applications."
-    }
-  ];
-
-  const [experiences, setExperiences] = useState(initialExperiences);
   const [selectedExperienceIndex, setSelectedExperienceIndex] = useState(null);
   const [isAdding, setIsAdding] = useState(false);
 
@@ -89,135 +80,187 @@ const EditProfile = () => {
     setIsAdding(false);
   };
 
+  // Function to update a interests
+  const updateInterests = (index, newValue) => {
+    const updatedInterests = [...interests];
+    updatedInterests[index] = newValue;
+    setInterests(updatedInterests);
+  };
 
-    // Initial skills array
-    const initialInterests = ["Reading", "Traveling", "Photography"];
-    const [interests, setInterests] = useState(initialInterests);
-  
-    // Function to update a interests
-    const updateInterests = (index, newValue) => {
-      const updatedInterests = [...interests];
-      updatedInterests[index] = newValue;
-      setInterests(updatedInterests);
-    };
-  
-    // Function to delete a interests
-    const deleteInterests = (index) => {
-      const filteredInterests = interests.filter((_, i) => i !== index);
-      setInterests(filteredInterests);
-    };
+  // Function to delete a interests
+  const deleteInterests = (index) => {
+    const filteredInterests = interests.filter((_, i) => i !== index);
+    setInterests(filteredInterests);
+  };
 
-    const sumbitChanges = ()=>{
-      console.log("Form Details")
+  const sumbitChanges = async () => {
+    const profileData = {
+      bio,
+      pastExperiences: experiences,
+      skills,
+      interests,
+      links
     }
+    const token = sessionStorage.getItem("token")
+    setLoading(true); // Set loading to true before making the API call
+    try {
+      const response = await updateProfile(profileData, token);
+      alert(response.message);
+    } catch (error) {
+      alert(error.message);
+    } finally {
+      setLoading(false); // Set loading back to false after the API call completes
+    }
+  }
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const token = sessionStorage.getItem("token");
+      setLoading(true)
+      try {
+        const response = await viewProfile(token);
+        const profileData = response.data;
+        setData(profileData);
+        setInterests(profileData.interests);
+        setSkills(profileData.skills);
+        setLinks(profileData.links);
+        setExperiences(profileData.pastExperiences);
+        setBio(profileData.bio);
+      } catch (error) {
+        alert(error.message);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchData();
+  }, [])
 
   return (
     <div className="container d-flex justify-content-center p-3 ">
-      <div className="d-flex flex-column" style={{ width: "50rem" }}>
-        <h4 className='text-center'>Edit Profile</h4>
-
-        {/* Name, Bio, Links */}
-        <div className='card p-2 mb-3'>
-          <div className='d-flex flex-column gap-1 mb-3'>
-            <label htmlFor="fname">Name</label>
-            <input className="form-control" type="text" id="fname" name="name" placeholder="Enter Your Name" />
-          </div>
-
-          <div className='d-flex flex-column gap-1 mb-3'>
-            <label htmlFor="bio">Bio</label>
-            <input className="form-control" type="text" id="bio" name="bio" placeholder="Enter Bio" />
-          </div>
-
-          <div className='d-flex flex-column gap-1 mb-3'>
-            <label htmlFor="links">Links</label>
-            <div className='d-flex flex-column flex-wrap gap-3'>
-            <div className='d-flex flex-wrap gap-3'>
-              {links.map((link, index) => (
-                <div className='d-flex gap-1' key={index}>
-                  <input
-                    type="text"
-                    value={link}
-                    onChange={(e) => updateLinks(index, e.target.value)}
-                    className='form-control'
-                  />
-                  <button className='btn btn-danger btn-sm' onClick={() => deleteLinks(index)}><MdDeleteOutline /></button>
-                </div>
-              ))}
-            </div>
-            <button className='btn btn-primary btn-sm w-50 m-auto' onClick={() => setLinks([...skills, ''])}>Add New Skill</button>
-          </div>
-          </div>
-        </div>
-
-        {/* skills */}
-        <div className='card p-2 d-flex flex-column gap-1 mb-3'>
-          <label>Skills</label>
-          <div className='d-flex flex-column flex-wrap gap-3'>
-            <div className='d-flex flex-wrap gap-3'>
-              {skills.map((skill, index) => (
-                <div className='d-flex gap-1' key={index}>
-                  <input
-                    type="text"
-                    value={skill}
-                    onChange={(e) => updateSkill(index, e.target.value)}
-                    className='form-control'
-                  />
-                  <button className='btn btn-danger btn-sm' onClick={() => deleteSkill(index)}><MdDeleteOutline /></button>
-                </div>
-              ))}
-            </div>
-            <button className='btn btn-primary btn-sm w-50 m-auto' onClick={() => setSkills([...skills, ''])}>Add New Skill</button>
-          </div>
-
-        </div>
-
-        {/* experiences */}
-        <div className='card p-2 d-flex flex-column gap-1 mb-3' >
-          <label>Experiences</label>
-          {experiences.map((experience, index) => (
-            <div className='card p-2 d-flex flex-row align-items-center gap-2' key={index} >
-              <span>{experience.company} </span>
-              <MdEdit className='ms-auto text-success' style={{ cursor: 'pointer' }} onClick={() => openModalForEdit(index)} />
-
-              <MdDeleteOutline className='text-danger' style={{ cursor: 'pointer' }} onClick={() => deleteExperience(index)} />
-            </div>
-
-
-          ))}
-          <button className='btn btn-primary btn-sm w-50 m-auto mt-2' onClick={openModalForAdd}>Add Experience</button>
-          {(selectedExperienceIndex !== null || isAdding) && (
-            <ExperienceModal
-              experience={isAdding ? null : experiences[selectedExperienceIndex]}
-              onSave={saveExperience}
-              onClose={closeModal}
-            />
-          )}
-        </div>
-
-        {/* Interests */}
-        <div className='card p-2 d-flex flex-column gap-1 mb-3'>
-          <label>Interests</label>
-          <div className='d-flex flex-column flex-wrap gap-3'>
-            <div className='d-flex flex-wrap gap-3'>
-              {interests.map((interest, index) => (
-                <div className='d-flex gap-1' key={index}>
-                  <input
-                    type="text"
-                    value={interest}
-                    onChange={(e) => updateInterests(index, e.target.value)}
-                    className='form-control'
-                  />
-                  <button className='btn btn-danger btn-sm' onClick={() => deleteInterests(index)}><MdDeleteOutline /></button>
-                </div>
-              ))}
-            </div>
-            <button className='btn btn-primary btn-sm w-50 m-auto' onClick={() => setInterests([...interests, ''])}>Add New Skill</button>
-          </div>
-
-        </div>
-
-        <input type="submit" value="Save Changes" onClick={sumbitChanges} className='btn btn-success m-auto' />
+      <div
+        className="spinner"
+        style={{
+          margin: "auto",
+          justifyContent: "center",
+          display: !data ? "block" : "none",
+        }}
+      >
+        <Spinner />
       </div>
+
+      {
+        data &&
+        <div className="d-flex flex-column" style={{ width: "50rem" }}>
+          <h4 className='text-center'>Edit Profile</h4>
+
+          {/* Name, Bio, Links */}
+          <div className='card p-2 mb-3'>
+            <div className='d-flex flex-column gap-1 mb-3'>
+              <label htmlFor="bio">Bio</label>
+              <input className="form-control" type="text" id="bio" name="bio" placeholder="Enter Bio" value={bio} onChange={(e) => setBio(e.target.value)} />
+            </div>
+
+            <div className='d-flex flex-column gap-1 mb-3'>
+              <label htmlFor="links">Links</label>
+              <div className='d-flex flex-column flex-wrap gap-3'>
+                <div className='d-flex flex-wrap gap-3'>
+                  {links?.map((link, index) => (
+                    <div className='d-flex gap-1' key={index}>
+                      <input
+                        type="text"
+                        value={link}
+                        onChange={(e) => updateLinks(index, e.target.value)}
+                        className='form-control'
+                      />
+                      <button className='btn btn-danger btn-sm' onClick={() => deleteLinks(index)}><MdDeleteOutline /></button>
+                    </div>
+                  ))}
+                </div>
+                <button className='btn btn-primary btn-sm w-50 m-auto' onClick={() => setLinks([...skills, ''])}>Add New Skill</button>
+              </div>
+            </div>
+          </div>
+
+          {/* skills */}
+          <div className='card p-2 d-flex flex-column gap-1 mb-3'>
+            <label>Skills</label>
+            <div className='d-flex flex-column flex-wrap gap-3'>
+              <div className='d-flex flex-wrap gap-3'>
+                {skills?.map((skill, index) => (
+                  <div className='d-flex gap-1' key={index}>
+                    <input
+                      type="text"
+                      value={skill}
+                      onChange={(e) => updateSkill(index, e.target.value)}
+                      className='form-control'
+                    />
+                    <button className='btn btn-danger btn-sm' onClick={() => deleteSkill(index)}><MdDeleteOutline /></button>
+                  </div>
+                ))}
+              </div>
+              <button className='btn btn-primary btn-sm w-50 m-auto' onClick={() => setSkills([...skills, ''])}>Add New Skill</button>
+            </div>
+
+          </div>
+
+          {/* experiences */}
+          <div className='card p-2 d-flex flex-column gap-1 mb-3' >
+            <label>Experiences</label>
+            {experiences?.map((experience, index) => (
+              <div className='card p-2 d-flex flex-row align-items-center gap-2' key={index} >
+                <span>{experience.company} </span>
+                <MdEdit className='ms-auto text-success' style={{ cursor: 'pointer' }} onClick={() => openModalForEdit(index)} />
+
+                <MdDeleteOutline className='text-danger' style={{ cursor: 'pointer' }} onClick={() => deleteExperience(index)} />
+              </div>
+
+
+            ))}
+            <button className='btn btn-primary btn-sm w-50 m-auto mt-2' onClick={openModalForAdd}>Add Experience</button>
+            {(selectedExperienceIndex !== null || isAdding) && (
+              <ExperienceModal
+                experience={isAdding ? null : experiences[selectedExperienceIndex]}
+                onSave={saveExperience}
+                onClose={closeModal}
+              />
+            )}
+          </div>
+
+          {/* Interests */}
+          <div className='card p-2 d-flex flex-column gap-1 mb-3'>
+            <label>Interests</label>
+            <div className='d-flex flex-column flex-wrap gap-3'>
+              <div className='d-flex flex-wrap gap-3'>
+                {interests?.map((interest, index) => (
+                  <div className='d-flex gap-1' key={index}>
+                    <input
+                      type="text"
+                      value={interest}
+                      onChange={(e) => updateInterests(index, e.target.value)}
+                      className='form-control'
+                    />
+                    <button className='btn btn-danger btn-sm' onClick={() => deleteInterests(index)}><MdDeleteOutline /></button>
+                  </div>
+                ))}
+              </div>
+              <button className='btn btn-primary btn-sm w-50 m-auto' onClick={() => setInterests([...interests, ''])}>Add New Skill</button>
+            </div>
+
+          </div>
+
+          <input type="submit" value="Save Changes" onClick={sumbitChanges} className='btn btn-success m-auto' style={{ display: loading ? "none" : "block" }} />
+          <div
+            className="spinner"
+            style={{
+              margin: "auto",
+              justifyContent: "center",
+              display: loading ? "block" : "none",
+            }}
+          >
+            <Spinner />
+          </div>
+        </div>
+      }
     </div>
   )
 }

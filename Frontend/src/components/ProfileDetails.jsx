@@ -1,12 +1,20 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import '../App.css'
 import { MdEdit } from "react-icons/md";
 import { useNavigate } from 'react-router-dom';
+import { viewProfile } from '../../controllers/ViewProfile';
+import Spinner from "./Spinner";
+
 const ProfileDetails = () => {
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
+
     const styles = {
         profileImage: {
             borderRadius: "50%",
+            width: "200px",
+            height: "200px",
+            objectFit: "cover",
             position: "relative",
             bottom: "-5rem",
             border: ".3rem solid white"
@@ -21,7 +29,7 @@ const ProfileDetails = () => {
             height: "15rem"
         },
         profileDetailsSection: {
-            padding: "5rem 1rem 1rem 1rem",
+            padding: "3rem 1rem 1rem 1rem",
             backgroundColor: "white",
             border: "1px solid rgb(219, 219, 219)",
             borderRadius: "0 0 1rem 1rem"
@@ -42,48 +50,127 @@ const ProfileDetails = () => {
         }
     }
 
+    const [data, setData] = useState(null);
+    useEffect(() => {
+        const fetchData = async () => {
+            const token = sessionStorage.getItem("token");
+            setLoading(true); // Set loading to true before making the API call
 
+            try {
+                const response = await viewProfile(token);
+                setData(response.data)
+                console.log(data)
+                console.log(response.data)
+            } catch (error) {
+                alert(error.message);
+            } finally {
+                setLoading(false); // Set loading back to false after the API call completes
+            }
+        }
 
+        fetchData()
+    }, [])
     return (
-        <div className='animate__animated animate__fadeIn'>
-            <div style={styles.profileImageContainer} className='container'>
-                <img src='https://media.licdn.com/dms/image/D4D35AQGiDWGuJ5Vuug/profile-framedphoto-shrink_200_200/0/1700740384484?e=1708801200&v=beta&t=gP4mEMy7RTxgz-wh6vZhR0ZlEglYdCtp4Hy3zOXo_Uw' style={styles.profileImage}></img>
-            </div>
-
-            <div style={styles.profileDetailsSection} className='container'>
-                <div>
-                    <h2 className='text-center'>Siddhesh Chaudhari</h2>
-                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consequuntur sapiente odio perferendis sed? Accusamus accusantium iste beatae eius harum animi deleniti inventore non laborum labore illum dolorem modi, ducimus aspernatur.</p>
-                    <div className="d-flex gap-4 links">
-                        <a href="http://" target="_blank" rel="noopener noreferrer" className='link'>Link</a>
-                        <a href="http://" target="_blank" rel="noopener noreferrer" className='link'>Link</a>
-                        <a href="http://" target="_blank" rel="noopener noreferrer" className='link'>Link</a>
-                    </div>
+        <>
+            <div className="container">
+                <div
+                    className="spinner text-center"
+                    style={{
+                        margin: "auto",
+                        justifyContent: "center",
+                        display: loading ? "block" : "none",
+                    }}
+                >
+                    <Spinner />
                 </div>
             </div>
 
-            <div className='container p-0'>
-                <div>
-                    <div style={styles.section}>
-                        <h4>Past Experience</h4>
-                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eligendi, natus animi labore dignissimos sequi sint! Debitis asperiores iure laborum, possimus dolore praesentium dolorem quas similique ut alias illum consectetur laudantium.</p>
+            {
+                data && <div className='animate__animated animate__fadeIn'>
+                    <div style={styles.profileImageContainer} className='container'>
+                        <img className='bg-light' src={data?.profilePhotoURL} style={styles.profileImage}></img>
                     </div>
 
-                    <div style={styles.section}>
-                        <h4>Skills</h4>
-                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eligendi, natus animi labore dignissimos sequi sint! Debitis asperiores iure laborum, possimus dolore praesentium dolorem quas similique ut alias illum consectetur laudantium.</p>
-
+                    <div style={styles.profileDetailsSection} className='container'>
+                        <div>
+                            <h2 className='text-center'>{data?.name}</h2>
+                            <p>{data?.bio}</p>
+                            <div className="d-flex gap-3 links">
+                                {
+                                    data?.links.map((link) => {
+                                        return (
+                                            <a href={link} target="_blank" rel="noopener noreferrer" className='link'>Link</a>
+                                        )
+                                    })
+                                }
+                            </div>
+                        </div>
                     </div>
 
-                    <div style={styles.section}>
-                        <h4>Interests</h4>
-                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eligendi, natus animi labore dignissimos sequi sint! Debitis asperiores iure laborum, possimus dolore praesentium dolorem quas similique ut alias illum consectetur laudantium.</p>
+                    <div className='container p-0'>
+                        <div>
+                            {
+                                data?.pastExperiences.length > 0 &&
+                                <div style={styles.section}>
+                                    <h4>Past Experience</h4>
+                                    <div className="d-flex flex-wrap">
+                                        {
+                                            data?.pastExperiences.map((experience) => {
+                                                return (
+                                                    <div className='card p-2' style={{ width: "10rem" }}>
+                                                        <h5>{experience?.company}</h5>
+                                                        <h6>{experience.jobTitle} • {experience.duration}</h6>
+                                                        <p>{experience?.description}</p>
+                                                    </div>
+                                                )
+                                            })
+                                        }
+                                    </div>
+                                </div>
+                            }
 
+                            {
+                                data?.skills.length > 0 &&
+                                <div style={styles.section}>
+                                    <h4>Skills</h4>
+                                    <div className='d-flex flex-wrap gap-2'>
+                                        {
+                                            data?.skills.map((skill) => {
+                                                return (
+                                                    <h5><span class="badge bg-secondary">{skill}</span></h5>
+                                                )
+                                            })
+                                        }
+
+                                    </div>
+
+                                </div>
+                            }
+
+                            {
+                                data?.interests.length > 0 &&
+                                <div style={styles.section}>
+                                    <h4>Interests</h4>
+                                    <div className='d-flex flex-wrap gap-2'>
+                                        {
+                                            data?.interests.map((interest) => {
+                                                return (
+                                                    <h5><span class="badge bg-secondary">{interest}</span></h5>
+                                                )
+                                            })
+                                        }
+
+                                    </div>
+
+                                </div>
+                            }
+                        </div>
                     </div>
+                    <button className='btn btn-success' data-bs-toggle="tooltip" data-bs-title="Edit Profie" style={styles.editBtn} onClick={() => { navigate("/edit-profile") }}><MdEdit /></button>
                 </div>
-            </div>
-            <button className='btn btn-success' data-bs-toggle="tooltip" data-bs-title="Edit Profie" style={styles.editBtn} onClick={()=>{navigate("/edit-profile")}}><MdEdit /></button>
-        </div>
+            }
+        </>
+
     )
 }
 
