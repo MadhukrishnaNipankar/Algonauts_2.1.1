@@ -1,6 +1,8 @@
 // Model Imports
 const User = require("../../Models/UserModel/UserModel");
 const Profile = require("../../Models/UserModel/ProfileModel");
+const SProfile = require("../../Models/StartupModel/ProfileModel");
+
 // Utility Libraries
 const jwt = require("jsonwebtoken");
 const { promisify } = require("util");
@@ -58,16 +60,36 @@ exports.createUserAccount = async (req, res) => {
 
     console.log(role);
 
-    // Create a profile for the new user with default values
-    await Profile.create({
-      user: newUser._id, // Assuming your user model uses _id as the primary key
-      bio: "",
-      links: [],
-      pastExperiences: [],
-      skills: [],
-      interests: [],
-      // Add other profile fields with default values if needed
-    });
+    if (role == "user") {
+      // Create a profile for the new user with default values
+      await Profile.create({
+        user: newUser._id, // Assuming your user model uses _id as the primary key
+        bio: "",
+        links: [],
+        pastExperiences: [],
+        skills: [],
+        interests: [],
+        // Add other profile fields with default values if needed
+      });
+    } else {
+      await SProfile.create({
+        user: newUser._id,
+        startupName: "",
+        description: "",
+        missionStatement: "",
+        offerings: [],
+        founders: [],
+        industry: "",
+        location: "",
+        websiteUrl: "",
+        contactInformation: {
+          email: "",
+          phone: "",
+          socialMedia: {},
+        },
+        // Add other profile fields with default values if needed
+      });
+    }
 
     console.log("User Account Created Successfully!");
 

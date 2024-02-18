@@ -6,11 +6,11 @@ const {
   protect,
 } = require("../../Controllers/UserControllers/UserAuthController");
 const {
-  createOrUpdateStartupProfile,
+  updateStartupProfile,
   viewStartupProfile,
   deleteStartupProfile,
   searchStartupProfiles,
-} = require("../../Controllers/StartupProfileController");
+} = require("../../Controllers/StartupControllers/StartupProfileController");
 
 // Multer configuration for file upload
 const storage = multer.diskStorage({
@@ -25,18 +25,18 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 // View Startup Profile by ID
-router.get("/:id", viewStartupProfile);
+router.get("/", protect, viewStartupProfile);
 
 //Create or Update Startup Profile by ID
-router.patch("/", protect, createOrUpdateStartupProfile);
+router.patch("/", protect, updateStartupProfile);
 
 // Delete Startup Profile by ID
-router.delete("/", protect, deleteStartupProfile);
+// router.delete("/", protect, deleteStartupProfile);
 
 // Search Startup Profiles
-router.get("/search", searchStartupProfiles);
+// router.get("/search", searchStartupProfiles);
 
 // Update Profile Logo by ID
-router.patch("/logo", protect, upload.single("profileLogo"), updateProfileLogo);
+// router.patch("/logo", protect, upload.single("profileLogo"), updateProfileLogo);
 
 module.exports = router;
