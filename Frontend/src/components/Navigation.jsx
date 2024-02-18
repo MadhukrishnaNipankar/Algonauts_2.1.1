@@ -39,6 +39,18 @@ const Navigation = () => {
                                 About Us
                             </NavLink>
                         </li>
+
+                        <li className="nav-item">
+                                    <NavLink
+                                        to="/Blog"
+                                        className={({ isActive }) =>
+                                            `${isActive ? "active-nav" : null} nav-link`
+                                        }
+                                    >
+                                       Blog
+                                    </NavLink>
+                        </li>
+
                         <li className="nav-item">
                             <NavLink
                                 to="/contact"
@@ -78,6 +90,9 @@ const Navigation = () => {
                                         Profile
                                     </NavLink>
                                 </li>
+
+                               
+
                                 <li className="nav-item">
                                     <NavLink
                                         to="/login"
@@ -89,6 +104,7 @@ const Navigation = () => {
                                         Logout
                                     </NavLink>
                                 </li>
+
                             </>
                         }
 

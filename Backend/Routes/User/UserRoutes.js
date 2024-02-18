@@ -14,7 +14,7 @@ const {
   logUserIn,
   updateUserPassword,
   protect,
-} = require("../Controllers/UserControllers/UserAuthController");
+} = require("../../Controllers/UserControllers/UserAuthController");
 
 //  Account Creation
 router.post("/", createUserAccount);
