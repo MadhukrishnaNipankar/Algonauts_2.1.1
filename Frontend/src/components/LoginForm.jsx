@@ -4,7 +4,7 @@ import googleLogo from "../assests/google.png";
 import mockImage from "../assests/mock.jpg";
 import "../styles/LoginForm.css";
 import { useNavigate } from "react-router-dom";
-import {jwtDecode} from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 
 import { loginUser } from "../../controllers/LoginController";
 import Spinner from "./Spinner";
@@ -35,7 +35,7 @@ const LoginForm = () => {
       const response = await loginUser(userData);
       alert(response.message);
       sessionStorage.setItem("token", response.token);
-      sessionStorage.setItem("role",jwtDecode(response.token).role);
+      sessionStorage.setItem("role", jwtDecode(response.token).role);
       // Additional logic after successful login, if needed
       console.log("User logged in successfully!", response);
       setIsLoggedIn(true);
