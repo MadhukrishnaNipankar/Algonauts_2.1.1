@@ -150,20 +150,19 @@ const Blog = () => {
               <Button
                 type="submit"
                 disabled={loading ? true : false}
-                className="rounded-0"
+                className="btn"
                 color="primary"
               >
                 Create Post
               </Button>
 
-              <Button className="rounded-0 ms-2" color="danger">
+              <Button className="ms-2" color="danger">
                 Reset Content
               </Button>
 
               <div
                 className="spinner my-3"
                 style={{
-                  display: "flex",
                   justifyContent: "center",
                   width: "100%",
                   display: loading ? "flex" : "none",

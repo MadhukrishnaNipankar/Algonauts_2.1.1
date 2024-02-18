@@ -1,34 +1,55 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Card, CardBody, Badge } from "reactstrap";
 import { FaHeart } from "react-icons/fa";
+import { useLocation, useSearchParams } from 'react-router-dom';
+import { getPost } from "../../controllers/PostController";
+import Spinner from "./Spinner";
+import {formatDateTime} from '../utils/dateConversion.js'
 
 const Post = () => {
-  const posts = [
-    {
-      "_id": "65d19fbe38181ff7120e8114",
-      "title": "How to continue warsa",
-      "category": "Technology",
-      "content": "<p>This is the content1 of the blog post in HTML format.</p>",
-      "likeCount": 0,
-      "comments": [
-        { id: 1, author: "User1", text: "Great post!" },
-        { id: 2, author: "User2", text: "Interesting insights." },
-      ],
-      "author": "65d0c5bb08ef84d081a5cb6f",
-      "tags": ["sample", "technology", "blog"],
-      "createdAt": "2024-02-18T06:12:14.155Z",
-      "__v": 0
-    },
-  ];
 
+  const location = useLocation();
+
+  const postID = location.state?.postId;
+
+  const [post, setPost] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const token = sessionStorage.getItem("token");
+      setLoading(true); // Set loading to true before making the API call
+
+      try {
+        const response = await getPost(postID, token);
+        setPost([response.data])
+        console.log(response.data)
+      } catch (error) {
+        alert(error.message);
+      } finally {
+        setLoading(false); // Set loading back to false after the API call completes
+      }
+    }
+    fetchData()
+  }, [])
   return (
     <div style={styles.wrapper}>
-      {posts.map((post) => (
-        <div key={post._id} style={styles.postContainer}>
-          <UserPost post={post} />
-          <Comments comments={post.comments} />
-        </div>
-      ))}
+
+      {
+        post == null && "Loding"
+      }
+      {
+        post &&
+        post?.map((p) => (
+          <div key={p._id} style={styles.postContainer}>
+            <UserPost post={p} />
+            <Comments comments={p.comments} />
+          </div>
+        ))
+      }
     </div>
   );
 };
@@ -83,16 +104,11 @@ const styles = {
 };
 
 const UserPost = ({ post }) => {
-  const formattedDate = new Date(post.createdAt).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  });
 
   return (
     <Card style={{ ...styles.card, ...styles.postContainer }}>
       <CardBody>
-        <span style={styles.createdAt}>{formattedDate}</span>
+        <span style={styles.createdAt}>{formatDateTime(post.createdAt)}</span>
         <h2 className="mb-3">{post.title}</h2>
         <div className="mb-3">
           {post.tags.map((tag, index) => (

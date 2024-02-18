@@ -4,51 +4,55 @@ import { MdEdit } from "react-icons/md";
 import { useNavigate } from 'react-router-dom';
 import { viewProfile } from '../../controllers/ViewProfile';
 import Spinner from "./Spinner";
+import ProfileOptionsTab from './ProfileOptionsTab';
+import AllPosts from './AllPosts';
+
+const styles = {
+    profileImage: {
+        borderRadius: "50%",
+        width: "200px",
+        height: "200px",
+        objectFit: "cover",
+        position: "relative",
+        bottom: "-5rem",
+        border: ".3rem solid white"
+    },
+    profileImageContainer: {
+        backgroundColor: "black",
+        display: "flex",
+        justifyContent: "center",
+        backgroundImage: `url("https://t3.ftcdn.net/jpg/00/32/43/82/360_F_32438200_oMeluL7Q2cR50GALrJQMCwgYImFK7hkl.jpg")`,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        height: "15rem"
+    },
+    profileDetailsSection: {
+        padding: "3rem 1rem 1rem 1rem",
+        backgroundColor: "white",
+        border: "1px solid rgb(219, 219, 219)",
+        borderRadius: "0 0 1rem 1rem"
+    },
+    section: {
+        border: "1px solid rgb(219, 219, 219)",
+        backgroundColor: "white",
+        padding: "1rem",
+        margin: "1rem 0",
+        borderRadius: "1rem"
+    },
+    editBtn: {
+        position: "fixed",
+        bottom: "4rem",
+        right: "2rem",
+        borderRadius: "10rem",
+        fontSize: "1.3rem"
+    }
+}
 
 const ProfileDetails = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
 
-    const styles = {
-        profileImage: {
-            borderRadius: "50%",
-            width: "200px",
-            height: "200px",
-            objectFit: "cover",
-            position: "relative",
-            bottom: "-5rem",
-            border: ".3rem solid white"
-        },
-        profileImageContainer: {
-            backgroundColor: "black",
-            display: "flex",
-            justifyContent: "center",
-            backgroundImage: `url("https://t3.ftcdn.net/jpg/00/32/43/82/360_F_32438200_oMeluL7Q2cR50GALrJQMCwgYImFK7hkl.jpg")`,
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
-            height: "15rem"
-        },
-        profileDetailsSection: {
-            padding: "3rem 1rem 1rem 1rem",
-            backgroundColor: "white",
-            border: "1px solid rgb(219, 219, 219)",
-            borderRadius: "0 0 1rem 1rem"
-        },
-        section: {
-            border: "1px solid rgb(219, 219, 219)",
-            backgroundColor: "white",
-            padding: "1rem",
-            margin: "1rem 0",
-            borderRadius: "1rem"
-        },
-        editBtn: {
-            position: "fixed",
-            bottom: "4rem",
-            right: "2rem",
-            borderRadius: "10rem",
-            fontSize: "1.3rem"
-        }
-    }
+
 
     const [data, setData] = useState(null);
     useEffect(() => {
@@ -59,8 +63,6 @@ const ProfileDetails = () => {
             try {
                 const response = await viewProfile(token);
                 setData(response.data)
-                console.log(data)
-                console.log(response.data)
             } catch (error) {
                 alert(error.message);
             } finally {
@@ -83,8 +85,8 @@ const ProfileDetails = () => {
                 >
                     <Spinner />
                 </div>
-            </div>
 
+            </div>
             {
                 data && <div className='animate__animated animate__fadeIn'>
                     <div style={styles.profileImageContainer} className='container'>
@@ -97,9 +99,9 @@ const ProfileDetails = () => {
                             <p>{data?.bio}</p>
                             <div className="d-flex gap-3 links">
                                 {
-                                    data?.links.map((link) => {
+                                    data?.links.map((link, index) => {
                                         return (
-                                            <a href={link} target="_blank" rel="noopener noreferrer" className='link'>Link</a>
+                                            <a href={link} key={index} target="_blank" rel="noopener noreferrer" className='link'>Link</a>
                                         )
                                     })
                                 }
@@ -107,71 +109,80 @@ const ProfileDetails = () => {
                         </div>
                     </div>
 
-                    <div className='container p-0'>
-                        <div>
-                            {
-                                data?.pastExperiences.length > 0 &&
-                                <div style={styles.section}>
-                                    <h4>Past Experience</h4>
-                                    <div className="d-flex flex-wrap">
-                                        {
-                                            data?.pastExperiences.map((experience) => {
-                                                return (
-                                                    <div className='card p-2' style={{ width: "10rem" }}>
-                                                        <h5>{experience?.company}</h5>
-                                                        <h6>{experience.jobTitle} • {experience.duration}</h6>
-                                                        <p>{experience?.description}</p>
-                                                    </div>
-                                                )
-                                            })
-                                        }
-                                    </div>
-                                </div>
-                            }
-
-                            {
-                                data?.skills.length > 0 &&
-                                <div style={styles.section}>
-                                    <h4>Skills</h4>
-                                    <div className='d-flex flex-wrap gap-2'>
-                                        {
-                                            data?.skills.map((skill) => {
-                                                return (
-                                                    <h5><span class="badge bg-secondary">{skill}</span></h5>
-                                                )
-                                            })
-                                        }
-
-                                    </div>
-
-                                </div>
-                            }
-
-                            {
-                                data?.interests.length > 0 &&
-                                <div style={styles.section}>
-                                    <h4>Interests</h4>
-                                    <div className='d-flex flex-wrap gap-2'>
-                                        {
-                                            data?.interests.map((interest) => {
-                                                return (
-                                                    <h5><span class="badge bg-secondary">{interest}</span></h5>
-                                                )
-                                            })
-                                        }
-
-                                    </div>
-
-                                </div>
-                            }
-                        </div>
+                    <div className="container">
+                    <ProfileOptionsTab firstTab={<RenderProfileDetails data={data}/>} secondTab={<AllPosts/>}/>
                     </div>
+                    
                     <button className='btn btn-success' data-bs-toggle="tooltip" data-bs-title="Edit Profie" style={styles.editBtn} onClick={() => { navigate("/edit-profile") }}><MdEdit /></button>
                 </div>
             }
         </>
-
     )
 }
 
 export default ProfileDetails
+
+
+const RenderProfileDetails = ({data})=>{
+    return(
+        <div className='container p-0'>
+        <div>
+            {
+                data?.pastExperiences.length > 0 &&
+                <div style={styles.section}>
+                    <h4>Past Experience</h4>
+                    <div className="d-flex gap-2 flex-wrap">
+                        {
+                            data?.pastExperiences.map((experience, index) => {
+                                return (
+                                    <div key={index} className='card p-2' style={{ width: "10rem" }}>
+                                        <h5>{experience?.company}</h5>
+                                        <h6>{experience.jobTitle} • {experience.duration}</h6>
+                                        <p>{experience?.description}</p>
+                                    </div>
+                                )
+                            })
+                        }
+                    </div>
+                </div>
+            }
+
+            {
+                data?.skills.length > 0 &&
+                <div style={styles.section}>
+                    <h4>Skills</h4>
+                    <div className='d-flex flex-wrap gap-2'>
+                        {
+                            data?.skills.map((skill, index) => {
+                                return (
+                                    <h5 key={index}><span className="badge bg-secondary">{skill}</span></h5>
+                                )
+                            })
+                        }
+
+                    </div>
+
+                </div>
+            }
+
+            {
+                data?.interests.length > 0 &&
+                <div style={styles.section}>
+                    <h4>Interests</h4>
+                    <div className='d-flex flex-wrap gap-2'>
+                        {
+                            data?.interests.map((interest, index) => {
+                                return (
+                                    <h5 key={index}><span className="badge bg-secondary">{interest}</span></h5>
+                                )
+                            })
+                        }
+
+                    </div>
+
+                </div>
+            }
+        </div>
+    </div>
+    )
+}

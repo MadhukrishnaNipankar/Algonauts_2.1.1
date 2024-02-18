@@ -1,9 +1,11 @@
-import {useState} from 'react'
-import {Home, Layout, AboutUs, ContactUs, NotFound, LoginForm, SignUp, ProfileDetails, EditProfile, Blog, Post, AllPosts} from './components/Index.js'
+import { useState } from 'react'
+import { Home, Layout, AboutUs, ContactUs, NotFound, LoginForm, SignUp, ProfileDetails, EditProfile, Blog, Post, AllPosts } from './components/Index.js'
 
-import {LoginContext} from './context/LoginContext.js'
+import { LoginContext } from './context/LoginContext.js'
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import './App.css'
+import { ChakraProvider } from '@chakra-ui/react'
+
 
 const router = createBrowserRouter([
   {
@@ -15,8 +17,8 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path:"*",
-        element:<NotFound/>
+        path: "*",
+        element: <NotFound />
       },
       {
         path: "/about",
@@ -44,26 +46,30 @@ const router = createBrowserRouter([
       },
       {
         path: "/blog",
-        element:<Blog/>
+        element: <Blog />
       },
       {
-        path: "/Post",
-        element:<Post/> 
+        path: "/post",
+        element: <Post />
       },
       {
-        path: "/AllPosts",
-        element:<AllPosts/>
+        path: "/all-posts",
+        element: <AllPosts />
       }
     ],
   },
 ]);
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(sessionStorage.getItem("token")?true:false);
+  const [isLoggedIn, setIsLoggedIn] = useState(sessionStorage.getItem("token") ? true : false);
 
   return (
-  <LoginContext.Provider value={{isLoggedIn, setIsLoggedIn}}>
-    <RouterProvider router={router} />
-  </LoginContext.Provider>
+    <ChakraProvider>
+
+      <LoginContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
+        <RouterProvider router={router} />
+      </LoginContext.Provider>
+
+    </ChakraProvider>
   )
 }
 
