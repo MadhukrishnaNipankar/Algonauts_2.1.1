@@ -24,7 +24,6 @@ const filterObjectForUpdation = (obj, ...allowedFields) => {
   return newObject;
 };
 
-// User Account Registration
 exports.createUserAccount = async (req, res) => {
   try {
     // Check if all the fields attributes are present in the request body
@@ -46,7 +45,7 @@ exports.createUserAccount = async (req, res) => {
     }
 
     // Extracting data from request object
-    const { name, phoneNumber, emailId, password } = req.body;
+    const { name, phoneNumber, emailId, password, role } = req.body;
 
     // Saving the data to database
     const newUser = await User.create({
@@ -55,6 +54,19 @@ exports.createUserAccount = async (req, res) => {
       emailId,
       password,
       role,
+    });
+
+    console.log(role);
+
+    // Create a profile for the new user with default values
+    await Profile.create({
+      user: newUser._id, // Assuming your user model uses _id as the primary key
+      bio: "",
+      links: "",
+      pastExperiences: "",
+      skills: "",
+      interests: "",
+      // Add other profile fields with default values if needed
     });
 
     console.log("User Account Created Successfully!");
