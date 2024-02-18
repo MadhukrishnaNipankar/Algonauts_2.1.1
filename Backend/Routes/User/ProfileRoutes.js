@@ -16,10 +16,14 @@ const {
   updateUserProfile,
   viewUserProfile,
   updateUserProfileImage,
+  searchUserProfile,
 } = require("../../Controllers/UserControllers/UserProfileController");
 
 // Account Updation
 router.patch("/", protect, updateUserProfile);
+
+// this is common route for user as well as startup
+router.get("/search", protect, searchUserProfile);
 
 // View Profile
 router.get("/", protect, viewUserProfile);
