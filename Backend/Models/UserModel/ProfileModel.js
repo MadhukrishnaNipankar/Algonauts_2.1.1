@@ -12,8 +12,7 @@ const profileSchema = new mongoose.Schema({
   // Profile Photo URL
   profilePhotoURL: {
     type: String,
-    default:
-      "https://www.clipartmax.com/png/full/255-2557794_animated-person-animated-picture-of-man.png", // Default profile photo URL
+    default: "/data/users/profileImages/defaultImg.png", // Default profile photo URL
   },
   // Bio
   bio: {
