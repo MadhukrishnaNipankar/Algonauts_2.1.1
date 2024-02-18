@@ -16,9 +16,9 @@ app.use(
 );
 
 // Routes Import
-const userRoutes = require("./Routes/UserRoutes");
-const profileRoutes = require("./Routes/ProfileRoutes");
-const blogRoutes = require("./Routes/BlogRoutes");
+const userRoutes = require("./Routes/User/UserRoutes");
+const profileRoutes = require("./Routes/User/ProfileRoutes");
+const blogRoutes = require("./Routes/User/BlogRoutes");
 
 const connectDb = require("./Config/db");
 

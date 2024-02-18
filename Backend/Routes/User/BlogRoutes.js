@@ -6,7 +6,7 @@ const router = express.Router();
 // Controller Imports
 const {
   protect,
-} = require("../Controllers/UserControllers/UserAuthController");
+} = require("../../Controllers/UserControllers/UserAuthController");
 
 // Controller Import for blog operations
 const {
@@ -15,7 +15,7 @@ const {
   viewAllMyBlogPosts,
   deleteBlogPost,
   updateBlogPost,
-} = require("../Controllers/UserControllers/BlogController");
+} = require("../../Controllers/UserControllers/BlogController");
 
 //  Create A Blog Post
 router.post("/", protect, createBlogPost);

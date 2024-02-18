@@ -11,12 +11,12 @@ const path = require("path");
 // Controller Imports
 const {
   protect,
-} = require("../Controllers/UserControllers/UserAuthController");
+} = require("../../Controllers/UserControllers/UserAuthController");
 const {
   updateUserProfile,
   viewUserProfile,
   updateUserProfileImage,
-} = require("../Controllers/UserControllers/UserProfileController");
+} = require("../../Controllers/UserControllers/UserProfileController");
 
 // Account Updation
 router.patch("/", protect, updateUserProfile);
