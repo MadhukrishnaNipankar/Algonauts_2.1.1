@@ -75,31 +75,22 @@ const router = createBrowserRouter([
         path: "/feed",
         element: <Feed />
       },
-      // {
-      //   path: "/startup-profile",
-      //   element: (
-      //     <ProtectedRoute allowedRoles={['startup']}>
-      //      <StartupProfile />
-      //     </ProtectedRoute>
-      //   ),
-      // },
       {
         path: "/startup-profile",
-        element: <StartupProfile />
+        element: (
+          <ProtectedRoute allowedRoles={['startup']}>
+           <StartupProfile />
+          </ProtectedRoute>
+        ),
       },
-      // {
-      //   path: "/edit-startup-profile",
-      //   element: (
-      //     <ProtectedRoute allowedRoles={['startup']}>
-      //      <EditStartUpProfile />
-      //     </ProtectedRoute>
-      //   ),
-      // },
       {
         path: "/edit-startup-profile",
-        element: <EditStartUpProfile />
+        element: (
+          <ProtectedRoute allowedRoles={['startup']}>
+           <EditStartUpProfile />
+          </ProtectedRoute>
+        ),
       },
-
     ],
   },
 ]);

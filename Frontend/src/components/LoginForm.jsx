@@ -33,13 +33,12 @@ const LoginForm = () => {
         password: password,
       };
       const response = await loginUser(userData);
-      alert(response.message);
       sessionStorage.setItem("token", response.token);
       sessionStorage.setItem("role", jwtDecode(response.token).role);
       // Additional logic after successful login, if needed
       console.log("User logged in successfully!", response);
       setIsLoggedIn(true);
-      navigate("/");
+      navigate("/feed");
     } catch (error) {
       alert(error.message);
       console.error("Error logging in:", error.message);
@@ -93,7 +92,7 @@ const LoginForm = () => {
             style={{ display: loading ? "none" : "block" }}
             onClick={handleUserLogin}
             type="button"
-            className="btn btn-dark"
+            className="btn btn-primary"
           >
             Login
           </button>

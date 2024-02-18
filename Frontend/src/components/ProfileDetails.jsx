@@ -6,6 +6,8 @@ import { viewProfile } from "../../controllers/ViewProfile";
 import Spinner from "./Spinner";
 import ProfileOptionsTab from "./ProfileOptionsTab";
 import AllPosts from "./AllPosts";
+import { Tooltip } from '@chakra-ui/react'
+
 
 const styles = {
   profileImage: {
@@ -123,10 +125,11 @@ const ProfileDetails = () => {
             />
           </div>
 
+
+          <Tooltip label='Edit Profile' fontSize='md' openDelay={500}>
+
           <button
             className="btn btn-success"
-            data-bs-toggle="tooltip"
-            data-bs-title="Edit Profie"
             style={styles.editBtn}
             onClick={() => {
               navigate("/edit-profile");
@@ -134,6 +137,7 @@ const ProfileDetails = () => {
           >
             <MdEdit />
           </button>
+          </Tooltip>
         </div>
       )}
     </>
