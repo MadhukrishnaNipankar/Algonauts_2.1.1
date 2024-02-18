@@ -55,9 +55,9 @@ const ProfileDetails = () => {
                     <h2 className='text-center'>Siddhesh Chaudhari</h2>
                     <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consequuntur sapiente odio perferendis sed? Accusamus accusantium iste beatae eius harum animi deleniti inventore non laborum labore illum dolorem modi, ducimus aspernatur.</p>
                     <div className="d-flex gap-4 links">
-                        <a href="http://" target="_blank" rel="noopener noreferrer" className='link'>LinkedIn</a>
-                        <a href="http://" target="_blank" rel="noopener noreferrer" className='link'>LinkedIn</a>
-                        <a href="http://" target="_blank" rel="noopener noreferrer" className='link'>LinkedIn</a>
+                        <a href="http://" target="_blank" rel="noopener noreferrer" className='link'>Link</a>
+                        <a href="http://" target="_blank" rel="noopener noreferrer" className='link'>Link</a>
+                        <a href="http://" target="_blank" rel="noopener noreferrer" className='link'>Link</a>
                     </div>
                 </div>
             </div>

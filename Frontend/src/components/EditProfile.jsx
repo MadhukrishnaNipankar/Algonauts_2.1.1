@@ -19,6 +19,26 @@ const EditProfile = () => {
     setSkills(filteredSkills);
   };
 
+  const initialLinks = [
+    "https://linkedin.com/user123",
+    "https://github.com/user123"
+  ];
+  const [links, setLinks] = useState(initialLinks);
+
+  // Function to update a interests
+  const updateLinks = (index, newValue) => {
+    const updatedLinks = [...links];
+    updatedLinks[index] = newValue;
+    setLinks(updatedLinks);
+  };
+
+  // Function to delete a interests
+  const deleteLinks = (index) => {
+    const filteredLinks = links.filter((_, i) => i !== index);
+    setLinks(filteredLinks);
+  };
+
+
   const initialExperiences = [
     {
       jobTitle: "Software Engineer",
@@ -74,24 +94,29 @@ const EditProfile = () => {
     const initialInterests = ["Reading", "Traveling", "Photography"];
     const [interests, setInterests] = useState(initialInterests);
   
-    // Function to update a skill
+    // Function to update a interests
     const updateInterests = (index, newValue) => {
       const updatedInterests = [...interests];
       updatedInterests[index] = newValue;
       setInterests(updatedInterests);
     };
   
-    // Function to delete a skill
+    // Function to delete a interests
     const deleteInterests = (index) => {
       const filteredInterests = interests.filter((_, i) => i !== index);
       setInterests(filteredInterests);
     };
+
+    const sumbitChanges = ()=>{
+      console.log("Form Details")
+    }
 
   return (
     <div className="container d-flex justify-content-center p-3 ">
       <div className="d-flex flex-column" style={{ width: "50rem" }}>
         <h4 className='text-center'>Edit Profile</h4>
 
+        {/* Name, Bio, Links */}
         <div className='card p-2 mb-3'>
           <div className='d-flex flex-column gap-1 mb-3'>
             <label htmlFor="fname">Name</label>
@@ -101,6 +126,26 @@ const EditProfile = () => {
           <div className='d-flex flex-column gap-1 mb-3'>
             <label htmlFor="bio">Bio</label>
             <input className="form-control" type="text" id="bio" name="bio" placeholder="Enter Bio" />
+          </div>
+
+          <div className='d-flex flex-column gap-1 mb-3'>
+            <label htmlFor="links">Links</label>
+            <div className='d-flex flex-column flex-wrap gap-3'>
+            <div className='d-flex flex-wrap gap-3'>
+              {links.map((link, index) => (
+                <div className='d-flex gap-1' key={index}>
+                  <input
+                    type="text"
+                    value={link}
+                    onChange={(e) => updateLinks(index, e.target.value)}
+                    className='form-control'
+                  />
+                  <button className='btn btn-danger btn-sm' onClick={() => deleteLinks(index)}><MdDeleteOutline /></button>
+                </div>
+              ))}
+            </div>
+            <button className='btn btn-primary btn-sm w-50 m-auto' onClick={() => setLinks([...skills, ''])}>Add New Skill</button>
+          </div>
           </div>
         </div>
 
@@ -171,7 +216,7 @@ const EditProfile = () => {
 
         </div>
 
-        <input type="submit" value="Save Changes" className='btn btn-success m-auto' />
+        <input type="submit" value="Save Changes" onClick={sumbitChanges} className='btn btn-success m-auto' />
       </div>
     </div>
   )

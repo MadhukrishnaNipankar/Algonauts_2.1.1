@@ -8,9 +8,6 @@ const Navigation = () => {
         sessionStorage.clear();
         setIsLoggedIn(false)
     }
-    useEffect(() => {
-        console.log(isLoggedIn);
-    }, [])
     return (
         <nav className="navbar navbar-expand-lg bg-body-tertiary" style={{ position: "sticky", top: "0", zIndex: "1" }}>
             <div className="container">
