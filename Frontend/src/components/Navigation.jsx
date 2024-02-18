@@ -19,7 +19,7 @@ const Navigation = () => {
                 </button>
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <li className="nav-item">
+                        {/* <li className="nav-item">
                             <NavLink
                                 to=""
                                 className={({ isActive }) =>
@@ -28,39 +28,32 @@ const Navigation = () => {
                             >
                                 Home
                             </NavLink>
-                        </li>
-                        <li className="nav-item">
-                            <NavLink
-                                to="/about"
-                                className={({ isActive }) =>
-                                    `${isActive ? "active-nav" : null} nav-link`
-                                }
-                            >
-                                About Us
-                            </NavLink>
-                        </li>
+                        </li> */}
+                   
 
                         <li className="nav-item">
-                                    <NavLink
+                                    { isLoggedIn && <NavLink
                                         to="/Blog"
                                         className={({ isActive }) =>
                                             `${isActive ? "active-nav" : null} nav-link`
                                         }
                                     >
                                        Blog
-                                    </NavLink>
+                                    </NavLink>}
                         </li>
 
                         <li className="nav-item">
-                            <NavLink
-                                to="/contact"
-                                className={({ isActive }) =>
-                                    `${isActive ? "active-nav" : null} nav-link`
-                                }
-                            >
-                                Contact Us
-                            </NavLink>
+                                    { isLoggedIn && <NavLink
+                                        to="/Feed"
+                                        className={({ isActive }) =>
+                                            `${isActive ? "active-nav" : null} nav-link`
+                                        }
+                                    >
+                                       Explore
+                                    </NavLink>}
                         </li>
+
+                  
                         {
 
                             !isLoggedIn &&

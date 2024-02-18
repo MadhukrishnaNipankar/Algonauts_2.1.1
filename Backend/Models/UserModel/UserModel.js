@@ -30,6 +30,11 @@ const userSchema = new mongoose.Schema({
     required: [true, "Password is required"],
     minLength: [8, "Password must be at least 8 characters long"],
   },
+  role: {
+    type: String,
+    enum: ["user", "startup"],
+    default: "user",
+  },
   accountCreatedAt: {
     type: Date,
     default: Date.now,

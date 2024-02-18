@@ -1,5 +1,6 @@
 // Model Imports
 const Profile = require("../../Models/UserModel/ProfileModel");
+const User = require("../../Models/UserModel/UserModel");
 
 // Utility function which filters only the allowed data for updation
 const filterObjectForUpdation = (obj, ...allowedFields) => {
@@ -108,12 +109,24 @@ exports.viewUserProfile = async (req, res) => {
       "name emailId phoneNumber"
     );
 
-    // If the profile doesn't exist, return a 404 error
+    // If the profile doesn't exist, return user details without profile
     if (!userProfile) {
-      return res.status(404).json({
-        status: "fail",
-        data: null,
-        message: "User profile not found.",
+      const user = await User.findById(req.user.id);
+      if (!user) {
+        return res.status(404).json({
+          status: "fail",
+          data: null,
+          message: "User not found.",
+        });
+      }
+      return res.status(200).json({
+        status: "success",
+        data: {
+          name: user.name,
+          emailId: user.emailId,
+          phoneNumber: user.phoneNumber,
+        },
+        message: "Profile fetched successfully!",
       });
     }
 
@@ -138,7 +151,6 @@ exports.viewUserProfile = async (req, res) => {
     });
   }
 };
-
 exports.updateUserProfileImage = async (req, res) => {
   try {
     // Check if file is present in the request

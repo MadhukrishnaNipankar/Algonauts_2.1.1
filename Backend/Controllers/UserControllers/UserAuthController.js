@@ -6,8 +6,8 @@ const jwt = require("jsonwebtoken");
 const { promisify } = require("util");
 
 // Utility Function which generates a JWT Token from user Id, and Secret Key
-const signToken = (id) => {
-  const token = jwt.sign({ id: id }, process.env.JWT_SECRET, {
+const signToken = (id, role) => {
+  const token = jwt.sign({ id: id, role: role }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRES_IN,
   });
 
@@ -24,11 +24,16 @@ const filterObjectForUpdation = (obj, ...allowedFields) => {
   return newObject;
 };
 
-// User Account Registration
 exports.createUserAccount = async (req, res) => {
   try {
     // Check if all the fields attributes are present in the request body
-    const requiredFields = ["name", "phoneNumber", "emailId", "password"];
+    const requiredFields = [
+      "name",
+      "phoneNumber",
+      "emailId",
+      "password",
+      "role",
+    ];
     for (const field of requiredFields) {
       if (!req.body[field]) {
         return res.status(400).json({
@@ -40,7 +45,7 @@ exports.createUserAccount = async (req, res) => {
     }
 
     // Extracting data from request object
-    const { name, phoneNumber, emailId, password } = req.body;
+    const { name, phoneNumber, emailId, password, role } = req.body;
 
     // Saving the data to database
     const newUser = await User.create({
@@ -48,6 +53,20 @@ exports.createUserAccount = async (req, res) => {
       phoneNumber,
       emailId,
       password,
+      role,
+    });
+
+    console.log(role);
+
+    // Create a profile for the new user with default values
+    await Profile.create({
+      user: newUser._id, // Assuming your user model uses _id as the primary key
+      bio: "",
+      links: "",
+      pastExperiences: "",
+      skills: "",
+      interests: "",
+      // Add other profile fields with default values if needed
     });
 
     console.log("User Account Created Successfully!");
@@ -129,7 +148,7 @@ exports.logUserIn = async (req, res) => {
     }
 
     // If everything is OK, send a token to the client
-    const token = signToken(user._id);
+    const token = signToken(user._id, user.role);
     return res.status(200).json({
       status: "success",
       data: null,
