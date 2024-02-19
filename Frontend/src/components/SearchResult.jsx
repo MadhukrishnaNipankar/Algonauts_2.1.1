@@ -6,6 +6,12 @@ const SearchResult = () => {
   const data = location.state?.data;
   const [users, setUsers] = useState(null);
   const [startups, setStartups] = useState(null);
+  const randomImage = ["https://xsgames.co/randomusers/avatar.php?g=female", "https://xsgames.co/randomusers/avatar.php?g=male"]
+
+  const selectRamdomImage = () => {
+    console.log("hey", randomImage[Math.floor(Math.random() * randomImage.length)])
+    return randomImage[Math.floor(Math.random() * randomImage.length)];
+  }
 
   function filterDataByRole(data) {
     const filteredData = {
@@ -53,8 +59,6 @@ const SearchResult = () => {
     const filteredData = filterDataByRole(data);
     setUsers(filteredData.user);
     setStartups(filteredData.startup)
-    console.log("users", users);
-    console.log("start", startups)
   }, [data])
 
   return (
@@ -63,32 +67,34 @@ const SearchResult = () => {
         users?.length > 0 &&
         <div>
           <h4>Users</h4>
-        <div className='d-flex flex-wrap gap-3'>
-          {
-            users?.map((user, i) => {
-              return (
-                <UserCard name={user.name} bio={user.bio} skills={user.skills} />
-              )
-            })
-          }
-        </div>
+          <div className='d-flex flex-wrap gap-3'>
+            {
+              users?.map((user, i) => {
+                const img = selectRamdomImage();
+                return (
+                  <UserCard name={user.name} bio={user.bio} skills={user.skills} img={img} />
+                )
+              })
+            }
+          </div>
+          <Divider />
         </div>
       }
-<Divider/>
 
       {
         startups?.length > 0 &&
         <div className='mt-3'>
           <h4>Startups</h4>
-        <div className='d-flex flex-wrap gap-3'>
-          {
-            startups?.map((startup, i) => {
-              return (
-                <StartUpCard startupName={startup.startupName} description={startup.description} offerings={startup.offerings} />
-              )
-            })
-          }
-        </div>
+          <div className='d-flex flex-wrap gap-3'>
+            {
+              startups?.map((startup, i) => {
+                const img = selectRamdomImage();
+                return (
+                  <StartUpCard startupName={startup.startupName} description={startup.description} offerings={startup.offerings} img={img} />
+                )
+              })
+            }
+          </div>
         </div>
       }
     </div>
@@ -97,12 +103,12 @@ const SearchResult = () => {
 
 export default SearchResult
 
-const UserCard = ({ name, bio, skills }) => {
+const UserCard = ({ name, bio, skills, img }) => {
   return (
     <Card maxW='sm'>
       <CardBody>
         <Image
-          src='https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80'
+          src={img}
           alt='image'
           borderRadius='lg'
         />
@@ -127,12 +133,12 @@ const UserCard = ({ name, bio, skills }) => {
 }
 
 
-const StartUpCard = ({ startupName, description, offerings }) => {
+const StartUpCard = ({ startupName, description, offerings, img }) => {
   return (
     <Card maxW='sm'>
       <CardBody>
         <Image
-          src='https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80'
+          src={img}
           alt='image'
           borderRadius='lg'
         />

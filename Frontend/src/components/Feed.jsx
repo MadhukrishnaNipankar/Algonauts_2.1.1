@@ -1,14 +1,11 @@
 import { React, useState, useEffect } from "react";
 import { Card, CardBody, Badge } from "reactstrap";
-import { useNavigate } from 'react-router-dom';
 import { FaUserCircle } from "react-icons/fa";
 import { getFeeds } from '../../controllers/PostController.js'
 import Spinner from "./Spinner";
 import { formatDateTime } from '../utils/dateConversion.js'
 
 const Feed = () => {
-
-  const navigate = useNavigate();
   const [feeds, setFeeds] = useState();
   const [loading, setLoading] = useState(false);
 
@@ -20,6 +17,7 @@ const Feed = () => {
       try {
         const response = await getFeeds(token);
         setFeeds(response.data)
+        console.log(response.data)
       } catch (error) {
         alert(error.message);
       } finally {
@@ -41,14 +39,20 @@ const Feed = () => {
       >
         <Spinner />
       </div>
-      {feeds?.map((feed) => (
-        <div key={feed.id} style={styles.feedContainer}>
-          <UserFeed feed={feed} />
-        </div>
-      ))}
+      {feeds?.map((feed, index) => {
+        return (
+          <div key={index} style={styles.feedContainer}>
+            <UserFeed feed={feed} />
+          </div>
+        )
+      }
+      )}
     </div>
   );
 };
+
+
+export default Feed;
 
 const styles = {
   wrapper: {
@@ -91,25 +95,26 @@ const UserFeed = ({ feed }) => {
       <CardBody>
         <div style={styles.username}>
           <FaUserCircle style={styles.userProfileIcon} />
-          <span>{feed.author}</span>
+          <span>{feed?.author?.name}</span>
         </div>
-        <div style={{width:"100%", display:"flex", justifyContent:"center"}}><strong>{feed.title}</strong></div>
+        <div style={{ width: "100%", display: "flex", justifyContent: "center" }}><strong>{feed.title}</strong></div>
         <div><strong>Category:</strong> {feed.category}</div>
         <div>
-        <strong>Content:</strong>
-        <div dangerouslySetInnerHTML={{ __html: feed.content }} />
-        <div>
-        </div>
-         <strong>Tags: </strong>
-          {feed.tags.map((tag, index) => (
-            <Badge color="success" className="me-2" key={index}>
-              {tag}
-            </Badge>
-          ))}
+          <strong>Content:</strong>
+          <div dangerouslySetInnerHTML={{ __html: feed.content }} />
+          <div>
+          </div>
+          <strong>Tags: </strong>
+          {feed.tags.map((tag, index) => {
+            return (
+              <Badge color="success" className="me-2" key={index}>
+                {/* {tag} */}
+              </Badge>
+            )
+          }
+          )}
         </div>
       </CardBody>
     </Card>
   );
 };
-
-export default Feed;
