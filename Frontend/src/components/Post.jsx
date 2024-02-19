@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Card, CardBody, Badge } from "reactstrap";
 import { FaHeart } from "react-icons/fa";
-import { useLocation, useSearchParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { getPost } from "../../controllers/PostController";
 import Spinner from "./Spinner";
 import { formatDateTime } from "../utils/dateConversion.js";

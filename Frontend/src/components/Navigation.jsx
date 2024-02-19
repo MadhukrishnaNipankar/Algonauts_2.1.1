@@ -1,17 +1,23 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { LoginContext } from '../context/LoginContext.js';
 import logoBiz from "../assests/logoBiz.png";
-import { Input, InputGroup, InputRightElement, Tooltip,  Alert,
+import {
+    Input, InputGroup, InputRightElement, Tooltip, Alert,
     AlertIcon,
-    AlertTitle,
-    AlertDescription } from '@chakra-ui/react'
+    AlertDescription
+} from '@chakra-ui/react'
+import { useNavigate } from 'react-router-dom';
+
 import { SearchIcon } from '@chakra-ui/icons'
 import { TbLogout } from "react-icons/tb";
+import { getSearchResult } from '../../controllers/SearchController.js'
 import '../App.css'
 
 const Navigation = () => {
     const { isLoggedIn, setIsLoggedIn } = useContext(LoginContext);
+    const navigate = useNavigate();
+
     const logout = () => {
         sessionStorage.clear();
         setIsLoggedIn(false)
@@ -21,7 +27,7 @@ const Navigation = () => {
     const handleChange = (event) => setSearchInput(event.target.value)
     const [error, setError] = useState(false);
     const [errorMsg, setErrorMsg] = useState("");
-    const handleSearch = () => {
+    const handleSearch = async () => {
         if (searchInput == "") {
             setError(true)
             setErrorMsg("Search field is empty!")
@@ -30,7 +36,23 @@ const Navigation = () => {
             }, 3000)
             return
         } else {
-            alert(searchInput)
+            try {
+                const data = {
+                    searchQuery: searchInput
+                }
+                const token = sessionStorage.getItem("token")
+                const response = await getSearchResult(data, token);
+                // Additional logic after successful login, if needed
+                navigate('/search-result', { state: { data: response.data } })
+                console.log("Search Result:", response.data);
+            } catch (error) {
+                alert(error.message);
+                console.error("Something went wrong:", error.message);
+                // Additional error handling logic if needed
+            } finally {
+                // setLoading(false); // Set loading back to false after the API call completes
+                setSearchInput("")
+            }
         }
     }
     return (
@@ -136,7 +158,7 @@ const Navigation = () => {
 
             {
                 error &&
-                <Alert status='error' className="animate__animated animate__fadeInRight" style={{position:"fixed", right:"20px",top:"5rem", width:"20rem"}}>
+                <Alert status='error' className="animate__animated animate__fadeInRight" style={{ position: "fixed", right: "20px", top: "5rem", width: "20rem" }}>
                     <AlertIcon />
                     <AlertDescription>{errorMsg}</AlertDescription>
                 </Alert>

@@ -12,8 +12,6 @@ const profileSchema = new mongoose.Schema(
     // Startup name
     startupName: {
       type: String,
-
-      unique: true,
       trim: true,
     },
     // Description of the startup
@@ -78,14 +76,14 @@ const profileSchema = new mongoose.Schema(
 ); // Automatically add createdAt and updatedAt fields
 
 // Add text indexes for searchable fields
-profileSchema.index({
-  startupName: "text",
-  description: "text",
-  missionStatement: "text",
-  "founders.name": "text",
-  industry: "text",
-  location: "text",
-});
+// profileSchema.index({
+//   startupName: "text",
+//   description: "text",
+//   missionStatement: "text",
+//   "founders.name": "text",
+//   industry: "text",
+//   location: "text",
+// });
 
 // Create a model for the startup profile schema
 const SProfile = mongoose.model("SProfile", profileSchema);

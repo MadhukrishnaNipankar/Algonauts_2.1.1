@@ -23,7 +23,7 @@ const {
 router.patch("/", protect, updateUserProfile);
 
 // this is common route for user as well as startup
-router.get("/search", protect, searchUserProfile);
+router.post("/search", protect, searchUserProfile);
 
 // View Profile
 router.get("/", protect, viewUserProfile);
