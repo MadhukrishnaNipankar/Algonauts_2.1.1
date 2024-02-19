@@ -51,18 +51,18 @@ const styles = {
 };
 
 const ProfileDetails = () => {
-    const navigate = useNavigate();
-    const [loading, setLoading] = useState(false);
-    const [data, setData] = useState(null);
-    useEffect(() => {
-        const fetchData = async () => {
-            const token = sessionStorage.getItem("token");
-            setLoading(true); // Set loading to true before making the API call
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState(null);
+  useEffect(() => {
+    const fetchData = async () => {
+      const token = sessionStorage.getItem("token");
+      setLoading(true); // Set loading to true before making the API call
 
       try {
         const response = await viewProfile(token);
         setData(response.data);
-        console.log(response.data.profilePhotoURL)
+        console.log(response.data.profilePhotoURL);
       } catch (error) {
         alert(error.message);
       } finally {
@@ -155,12 +155,12 @@ const RenderProfileDetails = ({ data }) => {
             {data.pastExperiences && data.pastExperiences.length > 0 ? (
               <div style={styles.section}>
                 <h4>Past Experience</h4>
-                <div className="d-flex gap-2 flex-wrap">
+                <div className="d-flex flex-wrap">
                   {data.pastExperiences.map((experience, index) => (
                     <div
                       key={index}
                       className="card p-2"
-                      style={{ width: "10rem" }}
+                      style={{ flex: `1 1 calc(50% - 20px)` }} // Adjusted style
                     >
                       <h5>{experience?.company}</h5>
                       <h6>
