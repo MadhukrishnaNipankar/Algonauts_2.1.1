@@ -62,7 +62,7 @@ exports.createUserAccount = async (req, res) => {
 
     if (role == "user") {
       // Create a profile for the new user with default values
-      await Profile.create({
+      const newProfile = await Profile.create({
         user: newUser._id, // Assuming your user model uses _id as the primary key
         bio: "",
         links: [],
