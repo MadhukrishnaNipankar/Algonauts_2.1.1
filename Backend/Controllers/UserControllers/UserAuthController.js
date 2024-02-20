@@ -57,12 +57,12 @@ exports.createUserAccount = async (req, res) => {
       password,
       role,
     });
-
+    await newUser.save();
     console.log(role);
 
     if (role == "user") {
       // Create a profile for the new user with default values
-      await Profile.create({
+      const newProfile = await Profile.create({
         user: newUser._id, // Assuming your user model uses _id as the primary key
         bio: "",
         links: [],
@@ -71,8 +71,14 @@ exports.createUserAccount = async (req, res) => {
         interests: [],
         // Add other profile fields with default values if needed
       });
+      return res.status(201).json({
+        status: "success",
+        data: newProfile,
+        message: "User Account Created Successfully!",
+      });
+     
     } else {
-      await SProfile.create({
+      const newSProfile = await SProfile.create({
         user: newUser._id,
         startupName: "",
         description: "",
@@ -90,8 +96,15 @@ exports.createUserAccount = async (req, res) => {
             "linkedin": "https://linkedin.com/company/techstartup"
           },
         },
+        
         // Add other profile fields with default values if needed
       });
+      return res.status(201).json({
+        status: "success",
+        data: newSProfile,
+        message: "User Account Created Successfully!",
+      });
+      
     }
 
     console.log("User Account Created Successfully!");

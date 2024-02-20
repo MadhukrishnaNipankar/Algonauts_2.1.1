@@ -98,17 +98,16 @@ const UserFeed = ({ feed }) => {
           <span>{feed?.author?.name}</span>
         </div>
         <div style={{ width: "100%", display: "flex", justifyContent: "center" }}><strong>{feed.title}</strong></div>
+        <hr></hr>
         <div><strong>Category:</strong> {feed.category}</div>
         <div>
-          <strong>Content:</strong>
           <div dangerouslySetInnerHTML={{ __html: feed.content }} />
           <div>
           </div>
-          <strong>Tags: </strong>
           {feed.tags.map((tag, index) => {
             return (
               <Badge color="success" className="me-2" key={index}>
-                {/* {tag} */}
+                {tag}
               </Badge>
             )
           }
