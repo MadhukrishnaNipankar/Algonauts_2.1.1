@@ -15,5 +15,5 @@ import Feed from './Feed.jsx'
 import StartupProfile from './StartupProfile.jsx'
 import EditStartUpProfile from './EditStartUpProfile.jsx'
 import SearchResult from './SearchResult.jsx'
-
-export {Home, AboutUs, ContactUs, Layout, Navigation, NotFound, LoginForm, SignUp, ProfileDetails, EditProfile, Blog, Post, AllPosts, Feed, StartupProfile, EditStartUpProfile, SearchResult}
+import ChatWindow from './ChatWindow.jsx'
+export {Home, AboutUs, ContactUs, Layout, Navigation, NotFound, LoginForm, SignUp, ProfileDetails, EditProfile, Blog, Post, AllPosts, Feed, StartupProfile, EditStartUpProfile, SearchResult, ChatWindow}
