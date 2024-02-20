@@ -88,6 +88,17 @@ const Navigation = () => {
                             </NavLink>}
                         </li>
 
+                        <li className="nav-item">
+                            {isLoggedIn && <NavLink
+                                to="/chat"
+                                className={({ isActive }) =>
+                                    `${isActive ? "nav-link-active" : null} nav-link`
+                                }
+                            >
+                                Chat
+                            </NavLink>}
+                        </li>
+
 
                         {
 

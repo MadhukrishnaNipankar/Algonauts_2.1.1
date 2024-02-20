@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Home, Layout, AboutUs, ContactUs, NotFound, LoginForm, SignUp, ProfileDetails, EditProfile, Blog, Post, AllPosts, Feed, StartupProfile, EditStartUpProfile, SearchResult } from './components/Index.js'
+import { Home, Layout, AboutUs, ContactUs, NotFound, LoginForm, SignUp, ProfileDetails, EditProfile, Blog, Post, AllPosts, Feed, StartupProfile, EditStartUpProfile, SearchResult, ChatWindow } from './components/Index.js'
 
 import { ProtectedRoute } from './utils/ProtectedRoute.jsx';
 import { PublicRoute } from './utils/PublicRoute.jsx';
@@ -74,6 +74,10 @@ const router = createBrowserRouter([
       {
         path: "/feed",
         element: <Feed />
+      },
+      {
+        path: "/chat",
+        element: <ChatWindow />
       },
       {
         path: "/search-result",
