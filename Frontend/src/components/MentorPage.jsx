@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Card, CardBody, Badge } from "reactstrap";
+import { Card, CardBody, Badge, Button } from "reactstrap";
 import { FaUserCircle } from "react-icons/fa";
 import Spinner from "./Spinner";
 import { useNavigate } from 'react-router-dom';
@@ -15,9 +15,14 @@ const MentorPage = () => {
       {
         id: 1,
         name: "John Doe",
+        qualification: "MBA in Entrepreneurship",
         program: "Entrepreneurship Mentorship Program",
+        insights: "Gain valuable insights and support to kickstart your entrepreneurial journey.",
         description: "Join our mentorship program to receive guidance and support in your entrepreneurial journey.",
         resources: ["Guide to Business Planning", "Financial Management Tips"],
+        tags: ["Entrepreneurship", "Business"],
+        // Add a photo of the mentor
+        photo: "https://example.com/mentor-photo.jpg"
       },
       // Add more mentor data as needed
     ];
@@ -41,24 +46,40 @@ const MentorPage = () => {
   );
 };
 
-const MentorCard = ({ mentor, navigate }) => {
+const MentorCard = ({ mentor }) => {
   return (
-    <Card style={styles.card} onClick={() => navigate(`/mentor/${mentor.id}`)}>
+    <Card style={styles.card}>
       <CardBody>
-        <div style={styles.username}>
-          <FaUserCircle style={styles.userProfileIcon} />
-          <span>{mentor.name}</span>
+        <div style={styles.avatar}>
+          <img src={mentor.photo} alt="Mentor Avatar" style={{ width: "100px", height: "100px", borderRadius: "50%" }} />
+          <span style={styles.title}>{mentor.program}</span>
         </div>
+        <div style={styles.header}>
+          <FaUserCircle style={styles.userProfileIcon} />
+          <div>
+            <span>{mentor.name}</span>
+            <span style={styles.qualification}>{mentor.qualification}</span>
+          </div>
+        </div>
+        <p>{mentor.insights}</p>
+        <p>{mentor.description}</p>
+        <div><strong>Resources:</strong></div>
+        <ul>
+          {mentor.resources.map((resource, index) => (
+            <li key={index}>{resource}</li>
+          ))}
+        </ul>
         <div>
-          <strong>{mentor.program}</strong>
-          <p>{mentor.description}</p>
-          <div><strong>Resources:</strong></div>
-          <ul>
-            {mentor.resources.map((resource, index) => (
-              <li key={index}>{resource}</li>
-            ))}
-          </ul>
-          
+          {mentor.tags.map((tag, index) => (
+            <Badge color="success" className="me-2" key={index}>{tag}</Badge>
+          ))}
+        </div>
+        <div style={styles.footer}>
+          <small>For basic access, enroll now. For unlimited access and complete resources, buy the premium.</small>
+          <div style={styles.buttons}>
+            <Button color="primary" className="me-2" onClick={() => alert("Enroll Now")}>Enroll</Button>
+            <Button color="warning" onClick={() => alert("Buy Premium")}>Buy Premium</Button>
+          </div>
         </div>
       </CardBody>
     </Card>
@@ -80,10 +101,15 @@ const styles = {
     marginBottom: "20px",
     borderRadius: "15px",
     boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-    transition: "transform 0.3s ease-in-out",
-    cursor: "pointer",
+    cursor: "default",
   },
-  username: {
+  avatar: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    marginBottom: "1rem",
+  },
+  header: {
     display: "flex",
     alignItems: "center",
     marginBottom: "0.5rem",
@@ -92,6 +118,26 @@ const styles = {
     marginRight: "0.5rem",
     fontSize: "1.5rem",
     color: "#777",
+  },
+  title: {
+    fontWeight: "bold",
+    fontSize: "1.2rem",
+    marginTop: "0.5rem",
+  },
+  qualification: {
+    fontStyle: "italic",
+    fontSize: "0.8rem",
+    marginLeft: "0.5rem",
+    color: "#777",
+  },
+  footer: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "flex-end",
+    marginTop: "1rem",
+  },
+  buttons: {
+    display: "flex",
   },
 };
 

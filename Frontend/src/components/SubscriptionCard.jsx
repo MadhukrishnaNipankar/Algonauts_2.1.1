@@ -42,7 +42,7 @@ const PricingCard = ({ title, price }) => {
         <div className="card-users-allowed">{users} users in total</div>
         <div className="card-send-up">Send up to {sendUp}</div>
       </div>
-      <button className="card-btn">READ MORE</button>
+      <button className="card-btn">BUY</button>
     </div>
   );
 };
