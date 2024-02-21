@@ -3,7 +3,7 @@ import { MdDeleteOutline, MdEdit } from "react-icons/md";
 import { updateProfile } from '../../controllers/UpdateProfileController'
 import { viewProfile } from '../../controllers/ViewProfile';
 import Spinner from "./Spinner";
-
+import { Input, Textarea } from '@chakra-ui/react'
 
 const EditProfile = () => {
   const [loading, setLoading] = useState(false);
@@ -153,7 +153,7 @@ const EditProfile = () => {
           <div className='card p-2 mb-3'>
             <div className='d-flex flex-column gap-1 mb-3'>
               <label htmlFor="bio">Bio</label>
-              <input className="form-control" type="text" id="bio" name="bio" placeholder="Enter Bio" value={bio} onChange={(e) => setBio(e.target.value)} />
+              <Input size='md' className="form-control" type="text" id="bio" name="bio" placeholder="Enter Bio" value={bio} onChange={(e) => setBio(e.target.value)} />
             </div>
 
             <div className='d-flex flex-column gap-1 mb-3'>
@@ -162,7 +162,7 @@ const EditProfile = () => {
                 <div className='d-flex flex-wrap gap-3'>
                   {links?.map((link, index) => (
                     <div className='d-flex gap-1' key={index}>
-                      <input
+                      <Input size='md'
                         type="text"
                         value={link}
                         onChange={(e) => updateLinks(index, e.target.value)}
@@ -172,7 +172,7 @@ const EditProfile = () => {
                     </div>
                   ))}
                 </div>
-                <button className='btn btn-primary btn-sm w-50 m-auto' onClick={() => setLinks([...skills, ''])}>Add New Skill</button>
+                <button className='btn btn-primary btn-sm w-50 m-auto' onClick={() => setLinks([...skills, ''])}>Add New Link</button>
               </div>
             </div>
           </div>
@@ -184,7 +184,7 @@ const EditProfile = () => {
               <div className='d-flex flex-wrap gap-3'>
                 {skills?.map((skill, index) => (
                   <div className='d-flex gap-1' key={index}>
-                    <input
+                    <Input size='md'
                       type="text"
                       value={skill}
                       onChange={(e) => updateSkill(index, e.target.value)}
@@ -228,7 +228,7 @@ const EditProfile = () => {
               <div className='d-flex flex-wrap gap-3'>
                 {interests?.map((interest, index) => (
                   <div className='d-flex gap-1' key={index}>
-                    <input
+                    <Input size='md'
                       type="text"
                       value={interest}
                       onChange={(e) => updateInterests(index, e.target.value)}
@@ -238,12 +238,12 @@ const EditProfile = () => {
                   </div>
                 ))}
               </div>
-              <button className='btn btn-primary btn-sm w-50 m-auto' onClick={() => setInterests([...interests, ''])}>Add New Skill</button>
+              <button className='btn btn-primary btn-sm w-50 m-auto' onClick={() => setInterests([...interests, ''])}>Add New Interest</button>
             </div>
 
           </div>
 
-          <input type="submit" value="Save Changes" onClick={sumbitChanges} className='btn btn-success m-auto' style={{ display: loading ? "none" : "block" }} />
+          <Input size='md' type="submit" value="Save Changes" onClick={sumbitChanges} className='btn btn-success m-auto' style={{ display: loading ? "none" : "block" }} />
           <div
             className="spinner"
             style={{
@@ -305,28 +305,28 @@ const ExperienceModal = ({ experience, onSave, onClose }) => {
     <div className='animate__animated animate__fadeIn' style={style.model}>
       <div style={style.modelContent} className='shadow'>
 
-        <input
+        <Input size='md'
           type="text"
           placeholder="Job Title"
           value={localExperience.jobTitle}
           onChange={(e) => handleChange('jobTitle', e.target.value)}
           className='form-control'
         />
-        <input
+        <Input size='md'
           type="text"
           placeholder="Company"
           value={localExperience.company}
           onChange={(e) => handleChange('company', e.target.value)}
           className='form-control'
         />
-        <input
+        <Input size='md'
           type="text"
           placeholder="Duration"
           value={localExperience.duration}
           onChange={(e) => handleChange('duration', e.target.value)}
           className='form-control'
         />
-        <textarea
+        <Textarea
           placeholder="Description"
           value={localExperience.description}
           onChange={(e) => handleChange('description', e.target.value)}
