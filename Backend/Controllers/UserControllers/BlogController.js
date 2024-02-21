@@ -360,3 +360,53 @@ exports.likeBlogPost = async (req, res) => {
     });
   }
 };
+
+exports.commentOnBlogPost = async (req, res) => {
+  try {
+    // Extract user ID and comment from request
+    const { post_id, comment } = req.body;
+    const userId = req.user.id;
+
+    // Check if post_id and comment are provided
+    if (!post_id || !comment) {
+      return res.status(400).json({
+        status: "fail",
+        message: "Post ID and comment are required fields.",
+      });
+    }
+
+    // Find the blog post by ID
+    const blogPost = await Blog.findById(post_id);
+
+    // If blog post not found, return 404 error
+    if (!blogPost) {
+      return res.status(404).json({
+        status: "fail",
+        message: "Blog post not found.",
+      });
+    }
+
+    // Add the comment to the blog post
+    blogPost.comments.push({
+      user: userId,
+      content: comment,
+    });
+
+    // Save the updated blog post
+    await blogPost.save();
+
+    // Return success response
+    return res.status(200).json({
+      status: "success",
+      message: "Comment added successfully!",
+    });
+  } catch (error) {
+    console.error("Error adding comment to blog post:", error);
+    return res.status(500).json({
+      status: "fail",
+      message:
+        "Something went wrong while adding the comment to the blog post.",
+      error: error.message,
+    });
+  }
+};

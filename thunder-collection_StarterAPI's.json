@@ -1,7 +1,7 @@
 {
     "client": "Thunder Client",
     "collectionName": "StarterAPI's",
-    "dateExported": "2024-02-21T04:35:57.808Z",
+    "dateExported": "2024-02-21T05:00:11.257Z",
     "version": "1.1",
     "folders": [
         {
@@ -286,11 +286,11 @@
             "colId": "5f59adb7-0151-4fe0-ad42-b7c561a65472",
             "containerId": "80fe0921-2080-4ce7-b791-09ed8725057a",
             "name": "View A Blog Post",
-            "url": "http://localhost:8000/api/v1/blog/65d2e4d8528a2090c266210d",
+            "url": "http://localhost:8000/api/v1/blog/65d2f0735cdb29e3daa46a23",
             "method": "GET",
             "sortNum": 140000,
             "created": "2024-02-17T20:51:37.512Z",
-            "modified": "2024-02-21T04:33:59.091Z",
+            "modified": "2024-02-21T04:55:53.682Z",
             "headers": [
                 {
                     "name": "Authorization",
@@ -433,7 +433,7 @@
             "method": "POST",
             "sortNum": 210000,
             "created": "2024-02-21T04:30:50.138Z",
-            "modified": "2024-02-21T04:34:56.330Z",
+            "modified": "2024-02-21T04:39:31.084Z",
             "headers": [
                 {
                     "name": "Authorization",
@@ -443,7 +443,31 @@
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"post_id\": \"65d2e4d8528a2090c266210d\",\n  \"like\": true\n}",
+                "raw": "{\n  \"post_id\": \"65d28bfccfc11fa81693b1b5\",\n  \"like\": false\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "f26384f0-584f-4a85-a314-3967c15385e6",
+            "colId": "5f59adb7-0151-4fe0-ad42-b7c561a65472",
+            "containerId": "80fe0921-2080-4ce7-b791-09ed8725057a",
+            "name": "Comment on Blog Post",
+            "url": "http://localhost:8000/api/v1/blog/comment",
+            "method": "POST",
+            "sortNum": 220000,
+            "created": "2024-02-21T04:44:09.950Z",
+            "modified": "2024-02-21T04:55:30.393Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZDBlNzdjZGY2ZDI2YzU1ZmYyMTk0MiIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzA4NDg5ODkzLCJleHAiOjE3MTAyMTc4OTN9.wkcDN4ICSMtyD29lNgoPpj-vQ8z2e1xmhYMdXgrFRXE"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"post_id\": \"65d2f0735cdb29e3daa46a23\",\n  \"comment\":\"That was very Insightful! \"\n}",
                 "form": []
             },
             "tests": []
