@@ -13,6 +13,7 @@ const {
   deleteUserAccount,
   logUserIn,
   updateUserPassword,
+  followOtherUsers,
   protect,
 } = require("../../Controllers/UserControllers/UserAuthController");
 
@@ -33,5 +34,8 @@ router.post("/login", logUserIn);
 
 // Update User Account Password
 router.patch("/password", protect, updateUserPassword);
+
+// Follow other users
+router.post("/follow", protect, followOtherUsers);
 
 module.exports = router;

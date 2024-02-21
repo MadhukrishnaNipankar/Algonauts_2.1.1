@@ -39,6 +39,30 @@ const userSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  followers: {
+    count: {
+      type: Number,
+      default: 0,
+    },
+    users: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
+  },
+  following: {
+    count: {
+      type: Number,
+      default: 0,
+    },
+    users: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
+  },
 });
 
 // this is executed just before saving the data to the database

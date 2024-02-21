@@ -405,3 +405,125 @@ exports.viewUserProfile = async (req, res) => {
     });
   }
 };
+
+// Follow or Unfollow Other Users
+exports.followOtherUsers = async (req, res) => {
+  try {
+    const { other_user_id, follow } = req.body;
+    const currentUserId = req.user.id;
+
+    // Validate required fields
+    if (!other_user_id || typeof follow !== "boolean") {
+      return res.status(400).json({
+        status: "fail",
+        message:
+          "Invalid request body. 'other_user_id' and 'follow' are required fields.",
+      });
+    }
+
+    // Find the current user
+    const currentUser = await User.findById(currentUserId);
+    if (!currentUser) {
+      return res.status(404).json({
+        status: "fail",
+        message: "Current user not found",
+      });
+    }
+
+    // Find the other user
+    const otherUser = await User.findById(other_user_id);
+    if (!otherUser) {
+      return res.status(404).json({
+        status: "fail",
+        message: "Other user not found",
+      });
+    }
+
+    // Check if the current user is already following the other user
+    const isFollowing = currentUser.following.users.includes(other_user_id);
+
+    // Check if the other user is already followed by the current user
+    const isFollowed = otherUser.followers.users.includes(currentUserId);
+
+    // If follow is true and the current user is already following the other user, or if follow is false and the current user is not following the other user, return error
+    if ((follow && isFollowing) || (!follow && !isFollowing)) {
+      return res.status(400).json({
+        status: "fail",
+        message: follow
+          ? "You are already following this user"
+          : "You are not following this user",
+      });
+    }
+
+    // Increment or decrement follower and following counts based on 'follow' field
+    if (follow) {
+      // Increment counts and add user IDs
+      otherUser.followers.count++;
+      otherUser.followers.users.push(currentUserId);
+      currentUser.following.count++;
+      currentUser.following.users.push(other_user_id);
+    } else {
+      // Decrement counts and remove user IDs
+      otherUser.followers.count--;
+      otherUser.followers.users = otherUser.followers.users.filter(
+        (id) => id.toString() !== currentUserId
+      );
+      currentUser.following.count--;
+      currentUser.following.users = currentUser.following.users.filter(
+        (id) => id.toString() !== other_user_id
+      );
+    }
+
+    // Save changes to both users
+    await otherUser.save();
+    await currentUser.save();
+
+    return res.status(200).json({
+      status: "success",
+      message: follow
+        ? "Follow operation completed successfully"
+        : "Unfollow operation completed successfully",
+    });
+  } catch (error) {
+    console.error("Error following/unfollowing user:", error);
+    return res.status(500).json({
+      status: "fail",
+      message: "Something went wrong while following/unfollowing user",
+      error: error.message,
+    });
+  }
+};
+/*
+  1. You will get the following data in req.body:
+  {
+  "other_user_id": "65d088311497acd610eb633d",
+  "follow": false/true
+}
+  if the user wants to follow the other_user then follow field will be true. if he  wants to
+  unfollow then the field will be false
+
+  the if of the current_user who is doing this operation will be inside req.user.id
+
+
+  2. If the current_user wants to follow the other_user then: ( for follow:true,)
+    he cannot follow the other_user if he is already following the other_user,i.e the id  of the current_user
+    is present inside the current_user's following, he cannot follow the other_user
+  3. If the current_user wants to unfollow the other_user then, ( for follow:false,)
+   he cannot unfollow the other_user, if he is not already following the other_user. i.e the id of the other_user is not present in the following of current_user
+  4. if the above checks are complete, he can simply follow or unfollow
+
+  for follow:true,
+  1. increment the follower count of other_user
+  2. add other_user id to the following array of current_user
+  
+  
+  for follow:false,
+  1. decrement the follower count of other_user
+  2. remove other_user id from the following array of current_user
+
+
+
+
+
+
+  */
