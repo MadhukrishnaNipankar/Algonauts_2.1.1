@@ -75,15 +75,15 @@ const App = () => {
         <div className="pricing-cards">
           <PricingCard
             title="Essential"
-            price={selectMonthly ? "20.99" : "188.9"}
+            price={selectMonthly ? "₹ 1200" : "₹ 15,000"}
           />
           <PricingCard
             title="Deluxe"
-            price={selectMonthly ? "34.99" : "349.9"}
+            price={selectMonthly ? "₹ 1500" : "₹ 20,000"}
           />
           <PricingCard
             title="Premium"
-            price={selectMonthly ? "79.99" : "499.9"}
+            price={selectMonthly ? "₹ 2000" : "₹ 30,000"}
           />
         </div>
       </div>

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Home, Layout, AboutUs, ContactUs, NotFound, LoginForm, SignUp, ProfileDetails, EditProfile, Blog, Post, AllPosts, Feed, StartupProfile, EditStartUpProfile, SearchResult, ChatWindow, SubscriptionCard } from './components/Index.js'
+import { Home, Layout, AboutUs, ContactUs, NotFound, LoginForm, SignUp, ProfileDetails, EditProfile, Blog, Post, AllPosts, Feed, StartupProfile, EditStartUpProfile, SearchResult, ChatWindow, SubscriptionCard , MentorPage} from './components/Index.js'
 
 import { ProtectedRoute } from './utils/ProtectedRoute.jsx';
 import { PublicRoute } from './utils/PublicRoute.jsx';
@@ -8,6 +8,7 @@ import { LoginContext } from './context/LoginContext.js';
 import { RouterProvider, createBrowserRouter, Navigate } from "react-router-dom";
 import './App.css'
 import { ChakraProvider } from '@chakra-ui/react'
+import MentorProgramPage from './components/MentorPage.jsx';
 
 
 const router = createBrowserRouter([
@@ -102,6 +103,10 @@ const router = createBrowserRouter([
       {
         path:"/subcriptioncard",
         element: <SubscriptionCard/>
+      }, 
+      {
+        path: "/mentorpage",
+        element: <MentorPage/>
       }
     ],
   },
