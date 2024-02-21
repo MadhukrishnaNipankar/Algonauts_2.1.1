@@ -16,6 +16,7 @@ const {
   deleteBlogPost,
   updateBlogPost,
   getFeed,
+  likeBlogPost,
 } = require("../../Controllers/UserControllers/BlogController");
 
 // Get Relevent Feed
@@ -35,5 +36,7 @@ router.patch("/:id", protect, updateBlogPost);
 
 // Delete
 router.delete("/:id", protect, deleteBlogPost);
+
+router.post("/like", protect, likeBlogPost);
 
 module.exports = router;

@@ -293,3 +293,70 @@ exports.getFeed = async (req, res) => {
     });
   }
 };
+
+exports.likeBlogPost = async (req, res) => {
+  try {
+    const { post_id, like } = req.body;
+    const user_id = req.user.id;
+
+    // Check if post_id and like are provided
+    if (!post_id || like === undefined) {
+      return res.status(400).json({
+        status: "fail",
+        message: "Post ID and like value are required.",
+      });
+    }
+
+    // Find the blog post by ID
+    const blogPost = await Blog.findById(post_id);
+
+    // If blog post not found, return 404 error
+    if (!blogPost) {
+      return res.status(404).json({
+        status: "fail",
+        message: "Blog post not found.",
+      });
+    }
+
+    // Check if the user has already liked the post
+    const alreadyLiked = blogPost.likedBy.includes(user_id);
+
+    // If like is true and the user hasn't already liked the post, increment likeCount and add user_id to likedBy array
+    if (like && !alreadyLiked) {
+      blogPost.likeCount++;
+      blogPost.likedBy.push(user_id);
+    }
+    // If like is false and the user has already liked the post, decrement likeCount and remove user_id from likedBy array
+    else if (!like && alreadyLiked) {
+      blogPost.likeCount--;
+      blogPost.likedBy = blogPost.likedBy.filter(
+        (id) => id.toString() !== user_id
+      );
+    }
+    // If user tries to like the post again or unlike without having previously liked it, return 400 error
+    else {
+      return res.status(400).json({
+        status: "fail",
+        message: "You have already liked this post.",
+      });
+    }
+
+    // Save the updated blog post
+    await blogPost.save();
+
+    // Return success response
+    return res.status(200).json({
+      status: "success",
+      message: like
+        ? "Blog post liked successfully!"
+        : "Blog post unliked successfully!",
+    });
+  } catch (error) {
+    console.error("Error liking/unliking blog post:", error);
+    return res.status(500).json({
+      status: "fail",
+      message: "Something went wrong while liking/unliking the blog post.",
+      error: error.message,
+    });
+  }
+};

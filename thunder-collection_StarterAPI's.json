@@ -1,7 +1,7 @@
 {
     "client": "Thunder Client",
     "collectionName": "StarterAPI's",
-    "dateExported": "2024-02-18T22:39:42.847Z",
+    "dateExported": "2024-02-21T04:35:57.808Z",
     "version": "1.1",
     "folders": [
         {
@@ -50,12 +50,12 @@
             "method": "POST",
             "sortNum": 10000,
             "created": "2024-02-16T12:44:44.153Z",
-            "modified": "2024-02-17T14:04:27.923Z",
+            "modified": "2024-02-19T04:35:37.093Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"name\": \"Prathamesh Patil\",\n  \"phoneNumber\": \"1010101010\",\n  \"emailId\": \"patilprathamesh@gmail.com\",\n  \"password\": \"prathamesh@123\"\n}",
+                "raw": "{\n  \"name\": \"parinda shar\",\n  \"phoneNumber\": \"5520104030\",\n  \"emailId\": \"parinda@gmail.com\",\n  \"password\": \"parinda@123\",\n  \"role\": \"startup\"\n}",
                 "form": []
             },
             "tests": []
@@ -69,12 +69,12 @@
             "method": "POST",
             "sortNum": 20000,
             "created": "2024-02-16T12:48:45.718Z",
-            "modified": "2024-02-18T18:20:34.779Z",
+            "modified": "2024-02-21T04:31:33.615Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"emailId\":\"dhananjay@gmail.com\",\n  \"password\":\"dhananjay123\"\n}",
+                "raw": "{\n  \"emailId\":\"gandharvakulkarni2003@gmail.com\",\n  \"password\":\"12345678\"\n}",
                 "form": []
             },
             "tests": []
@@ -286,15 +286,15 @@
             "colId": "5f59adb7-0151-4fe0-ad42-b7c561a65472",
             "containerId": "80fe0921-2080-4ce7-b791-09ed8725057a",
             "name": "View A Blog Post",
-            "url": "http://localhost:8000/api/v1/blog/65d11b292b4297487a27ee5f",
+            "url": "http://localhost:8000/api/v1/blog/65d2e4d8528a2090c266210d",
             "method": "GET",
             "sortNum": 140000,
             "created": "2024-02-17T20:51:37.512Z",
-            "modified": "2024-02-17T20:56:27.479Z",
+            "modified": "2024-02-21T04:33:59.091Z",
             "headers": [
                 {
                     "name": "Authorization",
-                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZDBjNWJiMDhlZjg0ZDA4MWE1Y2I2ZiIsImlhdCI6MTcwODIwMjAxNSwiZXhwIjoxNzA5OTMwMDE1fQ.0uisAfMxtVINAuC2pBmXKZ6elVQCjNfu4OQIh2UqmGU"
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZDBlNzdjZGY2ZDI2YzU1ZmYyMTk0MiIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzA4NDg5ODkzLCJleHAiOjE3MTAyMTc4OTN9.wkcDN4ICSMtyD29lNgoPpj-vQ8z2e1xmhYMdXgrFRXE"
                 }
             ],
             "params": [],
@@ -352,11 +352,11 @@
             "method": "GET",
             "sortNum": 170000,
             "created": "2024-02-18T15:18:15.534Z",
-            "modified": "2024-02-18T15:18:56.818Z",
+            "modified": "2024-02-21T04:32:04.527Z",
             "headers": [
                 {
                     "name": "Authorization",
-                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZDBjNWJiMDhlZjg0ZDA4MWE1Y2I2ZiIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzA4MjY5NTIyLCJleHAiOjE3MDk5OTc1MjJ9.a15iIB3eyG0B1RXP39seT4mEZz759KgmfYehGZKtV6M"
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZDBlNzdjZGY2ZDI2YzU1ZmYyMTk0MiIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzA4NDg5ODkzLCJleHAiOjE3MTAyMTc4OTN9.wkcDN4ICSMtyD29lNgoPpj-vQ8z2e1xmhYMdXgrFRXE"
                 }
             ],
             "params": [],
@@ -371,11 +371,11 @@
             "method": "GET",
             "sortNum": 180000,
             "created": "2024-02-18T17:40:36.684Z",
-            "modified": "2024-02-18T18:35:38.741Z",
+            "modified": "2024-02-20T21:20:03.430Z",
             "headers": [
                 {
                     "name": "Authorization",
-                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZDI0NmQ3ZmZjOTdhOWU4NmNjZmM0OSIsInJvbGUiOiJzdGFydHVwIiwiaWF0IjoxNzA4MjgwNDM0LCJleHAiOjE3MTAwMDg0MzR9.NSBkHT_opiyxuJ8MrcjhMRvQqj6_jmHSskJhNrt7JwE"
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZDUxNTcxZWY5MjcyZmRmNDFlNmEwMiIsInJvbGUiOiJzdGFydHVwIiwiaWF0IjoxNzA4NDYzOTkzLCJleHAiOjE3MTAxOTE5OTN9._rfko2Z9awZ5EIP8c0MVolrMsNh4laoxCZiW13u0dzo"
                 }
             ],
             "params": [],
@@ -420,6 +420,30 @@
             "body": {
                 "type": "json",
                 "raw": "{\n  \"searchQuery\": \"Siddhesh Chaudhari likes gilbi\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "aa629842-026e-4d9a-90a4-1e087c5e4311",
+            "colId": "5f59adb7-0151-4fe0-ad42-b7c561a65472",
+            "containerId": "80fe0921-2080-4ce7-b791-09ed8725057a",
+            "name": "Like Blog Posts",
+            "url": "http://localhost:8000/api/v1/blog/like",
+            "method": "POST",
+            "sortNum": 210000,
+            "created": "2024-02-21T04:30:50.138Z",
+            "modified": "2024-02-21T04:34:56.330Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZDBlNzdjZGY2ZDI2YzU1ZmYyMTk0MiIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzA4NDg5ODkzLCJleHAiOjE3MTAyMTc4OTN9.wkcDN4ICSMtyD29lNgoPpj-vQ8z2e1xmhYMdXgrFRXE"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"post_id\": \"65d2e4d8528a2090c266210d\",\n  \"like\": true\n}",
                 "form": []
             },
             "tests": []
