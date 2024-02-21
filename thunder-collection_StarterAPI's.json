@@ -1,7 +1,7 @@
 {
     "client": "Thunder Client",
     "collectionName": "StarterAPI's",
-    "dateExported": "2024-02-21T05:00:11.257Z",
+    "dateExported": "2024-02-21T08:16:26.142Z",
     "version": "1.1",
     "folders": [
         {
@@ -290,7 +290,7 @@
             "method": "GET",
             "sortNum": 140000,
             "created": "2024-02-17T20:51:37.512Z",
-            "modified": "2024-02-21T04:55:53.682Z",
+            "modified": "2024-02-21T05:16:23.666Z",
             "headers": [
                 {
                     "name": "Authorization",
@@ -433,7 +433,7 @@
             "method": "POST",
             "sortNum": 210000,
             "created": "2024-02-21T04:30:50.138Z",
-            "modified": "2024-02-21T04:39:31.084Z",
+            "modified": "2024-02-21T05:38:23.900Z",
             "headers": [
                 {
                     "name": "Authorization",
@@ -443,7 +443,7 @@
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"post_id\": \"65d28bfccfc11fa81693b1b5\",\n  \"like\": false\n}",
+                "raw": "{\n  \"post_id\": \"65d2f0735cdb29e3daa46a23\",\n  \"like\": true\n}",
                 "form": []
             },
             "tests": []
@@ -468,6 +468,30 @@
             "body": {
                 "type": "json",
                 "raw": "{\n  \"post_id\": \"65d2f0735cdb29e3daa46a23\",\n  \"comment\":\"That was very Insightful! \"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "e18e0701-156f-4b0d-bff6-a70f7f471f4d",
+            "colId": "5f59adb7-0151-4fe0-ad42-b7c561a65472",
+            "containerId": "d5ae705d-28f9-4acd-886c-5409585303bc",
+            "name": "Follow/Unfollow Other Users",
+            "url": "http://localhost:8000/api/v1/user/follow",
+            "method": "POST",
+            "sortNum": 230000,
+            "created": "2024-02-21T06:38:57.100Z",
+            "modified": "2024-02-21T08:14:12.772Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZDBlNzdjZGY2ZDI2YzU1ZmYyMTk0MiIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzA4NDg5ODkzLCJleHAiOjE3MTAyMTc4OTN9.wkcDN4ICSMtyD29lNgoPpj-vQ8z2e1xmhYMdXgrFRXE"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"other_user_id\": \"65d088311497acd610eb633d\",\n  \"follow\": false\n}",
                 "form": []
             },
             "tests": []
