@@ -44,7 +44,7 @@ const Feed = () => {
       {feeds?.map((feed, index) => {
         return (
           <div key={index} style={styles.feedContainer} onClick={() => {
-            navigate('/post', { state: { postId: feed._id } });
+            navigate(`/post/${feed._id}`);
           }}>
             <UserFeed feed={feed} />
           </div>
