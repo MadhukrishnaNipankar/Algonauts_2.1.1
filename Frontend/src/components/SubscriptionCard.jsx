@@ -38,9 +38,9 @@ const PricingCard = ({ title, price }) => {
       </header>
       {/* features here */}
       <div className="card-features">
-        <div className="card-storage">{storage}</div>
-        <div className="card-users-allowed">{users} users in total</div>
-        <div className="card-send-up">Send up to {sendUp}</div>
+        
+        <div className="card-users-allowed">{users} Upto 20% Discount🎉</div>
+        <div className="card-send-up">Hurry Up Now🏃‍♀️ {sendUp}</div>
       </div>
       <button className="card-btn">BUY</button>
     </div>
@@ -55,7 +55,7 @@ const App = () => {
       <div className="app-container">
         {/* Header */}
         <header>
-          <h1 className="header-topic">Plans You Would Like to Buy</h1>
+          <h1 className="header-topic">Find a plan that fits your goals</h1>
           <div className="header-row">
             <p>Annually</p>
             <label className="price-switch">
@@ -74,7 +74,7 @@ const App = () => {
         {/* Cards here */}
         <div className="pricing-cards">
           <PricingCard
-            title="Essential"
+            title="Basic"
             price={selectMonthly ? "₹ 1200" : "₹ 15,000"}
           />
           <PricingCard
@@ -88,7 +88,7 @@ const App = () => {
         </div>
       </div>
     </div>
-  );
+  );    
 };
 
 export default App;

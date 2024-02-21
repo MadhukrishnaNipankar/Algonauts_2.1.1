@@ -10,7 +10,11 @@ const MentorPage = () => {
 
   const navigate = useNavigate();
 
- 
+  const formUrl = "https://docs.google.com/forms/d/e/1FAIpQLSf132pM8H8dnrIwKItLIUpjDG3v1bxcHvhHV45Eu5SOCz3vrg/viewform?usp=sf_link"
+
+  const openGoogleForm = () => {
+    window.open(formUrl, "_blank");
+  };
 
   useEffect(() => {
     // Simulated mentor data
@@ -87,6 +91,13 @@ const MentorPage = () => {
 const MentorCard = ({ mentor }) => {
     const navigate = useNavigate();
 
+    
+  const formUrl = "https://docs.google.com/forms/d/e/1FAIpQLSf132pM8H8dnrIwKItLIUpjDG3v1bxcHvhHV45Eu5SOCz3vrg/viewform?usp=sf_link"
+
+    const openGoogleForm = () => {
+        window.open(formUrl, "_blank");
+      };
+
   return (
     <Card style={styles.card}>
       <CardBody>
@@ -117,7 +128,7 @@ const MentorCard = ({ mentor }) => {
         <div style={styles.footer}>
           <small>For basic access, enroll now. For unlimited access and complete resources, buy the premium.</small>
           <div style={styles.buttons}>
-            <Button color="primary" className="me-2" onClick={() => alert("Enroll Now")}>Enroll</Button>
+            <Button color="primary" className="me-2" onClick={openGoogleForm}>Enroll</Button>
             <Button color="warning" onClick={()=>{
                   navigate("/subcriptioncard");
             }}>Buy Premium</Button>
