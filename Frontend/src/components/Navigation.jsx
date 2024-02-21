@@ -74,7 +74,7 @@ const Navigation = () => {
                                     `${isActive ? "nav-link-active" : null} nav-link`
                                 }
                             >
-                                Mentor Programs
+                                Programs
                             </NavLink>}
                         </li>
 
