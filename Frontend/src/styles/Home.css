@@ -63,6 +63,7 @@
     animation: zoominout 3s linear infinite;
   }
   
+  
   @keyframes zoominout {
     0% {
       transform: scale(1); 
