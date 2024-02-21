@@ -5,11 +5,7 @@ const path = require("path");
 
 // Middleware to parse JSON
 app.use(express.json());
-app.use(
-  cors({
-    origin: ["http://localhost:5173"],
-  })
-);
+app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 
 // Serve uploaded images statically
