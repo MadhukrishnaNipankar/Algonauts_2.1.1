@@ -66,7 +66,7 @@ exports.viewBlogPost = async (req, res) => {
     }
 
     // Find the blog post by ID
-    const blogPost = await Blog.findById(id);
+    const blogPost = await Blog.findById(id).populate("comments.user", "name");
 
     // If blog post not found, return 404 error
     if (!blogPost) {
@@ -93,6 +93,7 @@ exports.viewBlogPost = async (req, res) => {
     });
   }
 };
+
 // View All my blog posts
 exports.viewAllMyBlogPosts = async (req, res) => {
   try {
@@ -386,9 +387,14 @@ exports.commentOnBlogPost = async (req, res) => {
       });
     }
 
-    // Add the comment to the blog post
+    // Fetch the user's name from the User model
+    const user = await User.findById(userId);
+    const userName = user ? user.name : "Unknown"; // If user not found, use 'Unknown'
+
+    // Add the comment to the blog post along with the user's name
     blogPost.comments.push({
       user: userId,
+      userName: userName,
       content: comment,
     });
 

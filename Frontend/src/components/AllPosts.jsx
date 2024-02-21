@@ -3,7 +3,7 @@ import { Card, CardBody } from "reactstrap";
 import { getAllPosts } from '../../controllers/PostController.js'
 import Spinner from "./Spinner";
 import { formatDateTime } from '../utils/dateConversion.js'
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const styles = {
   wrapper: {
@@ -70,9 +70,9 @@ const AllPosts = () => {
       <div className="d-flex flex-wrap gap-3 justify-content-center" >
         {posts?.map((post, index) => {
           return(
-            <div onClick={()=>{
-              navigate('/post', { state: { postId: post._id } });
-            }}>
+            <div 
+            onClick={()=>{navigate(`/post/${post._id}`, { state: { postId: post._id } });}}
+            >
               <UserPost post={post} index={index} key={post._id}/>
             </div>
           )
