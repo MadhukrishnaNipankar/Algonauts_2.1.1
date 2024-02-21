@@ -66,6 +66,18 @@ const Navigation = () => {
                 </button>
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
+                      
+                    <li className="nav-item">
+                            {isLoggedIn && <NavLink
+                                to="/mentorpage"
+                                className={({ isActive }) =>
+                                    `${isActive ? "nav-link-active" : null} nav-link`
+                                }
+                            >
+                                Mentor Programs
+                            </NavLink>}
+                        </li>
+
                         <li className="nav-item">
                             {isLoggedIn && <NavLink
                                 to="/blog"

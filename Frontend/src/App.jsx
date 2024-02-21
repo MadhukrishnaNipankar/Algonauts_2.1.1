@@ -8,7 +8,6 @@ import { LoginContext } from './context/LoginContext.js';
 import { RouterProvider, createBrowserRouter, Navigate } from "react-router-dom";
 import './App.css'
 import { ChakraProvider } from '@chakra-ui/react'
-import MentorProgramPage from './components/MentorPage.jsx';
 
 
 const router = createBrowserRouter([
@@ -107,7 +106,7 @@ const router = createBrowserRouter([
       {
         path: "/mentorpage",
         element: <MentorPage/>
-      }
+      }, 
     ],
   },
 ]);
