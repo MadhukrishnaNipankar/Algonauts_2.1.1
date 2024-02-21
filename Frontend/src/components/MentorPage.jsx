@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Card, CardBody, Badge, Button } from "reactstrap";
+import { Card, CardBody, Badge } from "reactstrap";
 import { FaUserCircle } from "react-icons/fa";
 import Spinner from "./Spinner";
 import { useNavigate } from 'react-router-dom';
-
+import { Button } from '@chakra-ui/react'
 const MentorPage = () => {
   const [mentors, setMentors] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -127,9 +127,9 @@ const MentorCard = ({ mentor }) => {
         </div>
         <div style={styles.footer}>
           <small>For basic access, enroll now. For unlimited access and complete resources, buy the premium.</small>
-          <div style={styles.buttons}>
-            <Button color="primary" className="me-2" onClick={openGoogleForm}>Enroll</Button>
-            <Button color="warning" onClick={()=>{
+          <div className="mt-3">
+            <Button colorScheme='green' className="me-2" onClick={openGoogleForm}>Enroll</Button>
+            <Button colorScheme='yellow' onClick={()=>{
                   navigate("/subcriptioncard");
             }}>Buy Premium</Button>
           </div>

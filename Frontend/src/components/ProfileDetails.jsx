@@ -100,6 +100,10 @@ const ProfileDetails = () => {
             <div>
               <h2 className="text-center">{data?.name}</h2>
               <p>{data?.bio}</p>
+              <div className="d-flex gap-3">
+              <p><span className="fw-bold">{data?.user?.followers?.count}  </span>Followers</p>
+              <p><span className="fw-bold">{data?.user?.following?.count}  </span>Following</p>
+              </div>
               <div className="d-flex gap-3 links">
                 {data?.links.map((link, index) => {
                   return (
