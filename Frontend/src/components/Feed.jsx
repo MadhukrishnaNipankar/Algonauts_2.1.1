@@ -4,10 +4,12 @@ import { FaUserCircle } from "react-icons/fa";
 import { getFeeds } from '../../controllers/PostController.js'
 import Spinner from "./Spinner";
 import { formatDateTime } from '../utils/dateConversion.js'
+import { useNavigate } from 'react-router-dom';
 
 const Feed = () => {
   const [feeds, setFeeds] = useState();
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -41,7 +43,9 @@ const Feed = () => {
       </div>
       {feeds?.map((feed, index) => {
         return (
-          <div key={index} style={styles.feedContainer}>
+          <div key={index} style={styles.feedContainer} onClick={() => {
+            navigate('/post', { state: { postId: feed._id } });
+          }}>
             <UserFeed feed={feed} />
           </div>
         )
@@ -67,6 +71,7 @@ const styles = {
     maxWidth: "800px",
     width: "100%",
     marginBottom: "0.5rem",
+    cursor:"pointer"
   },
   card: {
     maxWidth: "800px",

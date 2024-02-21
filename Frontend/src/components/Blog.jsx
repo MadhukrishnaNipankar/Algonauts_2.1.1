@@ -12,6 +12,7 @@ import JoditEditor from "jodit-react";
 import { toast } from "react-toastify";
 import { createBlogPost } from "../../controllers/CreateBlogController.js";
 import Spinner from "../components/Spinner.jsx";
+
 const Blog = () => {
   const editor = useRef(null);
   const [post, setPost] = useState({
@@ -97,7 +98,7 @@ const Blog = () => {
 
   return (
     <div style={styles.wrapper}>
-      <Card style={styles.card}>
+      <Card style={styles.card} >
         <CardBody>
           <h3>Let's Write Something</h3>
           <Form onSubmit={createPost}>
