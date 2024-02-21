@@ -2,15 +2,30 @@ import React, { useEffect, useState } from "react";
 import { Card, CardBody, Badge } from "reactstrap";
 import { FaHeart } from "react-icons/fa";
 import { useLocation } from "react-router-dom";
-import { getPost } from "../../controllers/PostController";
+import { getPost, likePost } from "../../controllers/PostController";
 import Spinner from "./Spinner";
 import { formatDateTime } from "../utils/dateConversion.js";
-
+import { FcLike, FcLikePlaceholder} from "react-icons/fc";
 const Post = () => {
   const location = useLocation();
+  const [isLiked, setIsLiked] = useState(false);
+
+ 
 
   const postID = location.state?.postId;
 
+  const likeHandler = async () => {
+    setIsLiked(!isLiked);
+    const token = sessionStorage.getItem("token");
+    try {
+      const response = await likePost(postID, isLiked, token);
+      console.log(response.message, "data");
+    } catch (error) {
+      alert(error.message);
+    } finally {
+
+    }
+  }
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -37,7 +52,7 @@ const Post = () => {
       {post &&
         post?.map((p) => (
           <div key={p._id} style={styles.postContainer}>
-            <UserPost post={p} />
+            <UserPost post={p} isLiked={isLiked} likeHandler={likeHandler} />
             <Comments comments={p.comments} />
           </div>
         ))}
@@ -79,22 +94,9 @@ const styles = {
     fontSize: "0.8rem",
     color: "#777",
   },
-  likeCount: {
-    position: "absolute",
-    bottom: "0.5rem",
-    left: "0.5rem",
-    display: "flex",
-    alignItems: "center",
-    fontSize: "0.8rem",
-    color: "#777",
-  },
-  heartIcon: {
-    marginRight: "0.5rem",
-    color: "red",
-  },
 };
 
-const UserPost = ({ post }) => {
+const UserPost = ({ post, isLiked, likeHandler }) => {
   return (
     <Card style={{ ...styles.card, ...styles.postContainer }}>
       <CardBody>
@@ -111,9 +113,9 @@ const UserPost = ({ post }) => {
           <strong>Category:</strong> {post.category}
         </p>
         <div dangerouslySetInnerHTML={{ __html: post.content }} />
-        <div style={styles.likeCount}>
-          <FaHeart style={styles.heartIcon} />
-          {post.likeCount}
+        <div className="d-flex gap-3 align-items-center" onClick={likeHandler}>
+          {isLiked ? <FcLike className="fs-3"/> : <FcLikePlaceholder className="fs-3"/>}
+          <span>{post.likeCount} lk</span>
         </div>
       </CardBody>
     </Card>
