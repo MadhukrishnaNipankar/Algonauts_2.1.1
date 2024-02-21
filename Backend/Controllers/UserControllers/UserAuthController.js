@@ -57,8 +57,8 @@ exports.createUserAccount = async (req, res) => {
       password,
       role,
     });
-    await newUser.save();
-    console.log(role);
+
+    console.log(newUser, "newUser");
 
     if (role == "user") {
       // Create a profile for the new user with default values
@@ -71,41 +71,29 @@ exports.createUserAccount = async (req, res) => {
         interests: [],
         // Add other profile fields with default values if needed
       });
-      return res.status(201).json({
-        status: "success",
-        data: newProfile,
-        message: "User Account Created Successfully!",
-      });
-     
-    } else {
-      const newSProfile = await SProfile.create({
-        user: newUser._id,
-        startupName: "",
-        description: "",
-        missionStatement: "",
-        offerings: [],
-        founders: [],
-        industry: "",
-        location: "",
-        websiteUrl: "",
-        contactInformation: {
-          email: "",
-          phone: "",
-          socialMedia: {
-            "twitter": "https://twitter.com/techstartup",
-            "linkedin": "https://linkedin.com/company/techstartup"
-          },
-        },
-        
-        // Add other profile fields with default values if needed
-      });
-      return res.status(201).json({
-        status: "success",
-        data: newSProfile,
-        message: "User Account Created Successfully!",
-      });
-      
     }
+    // if (role == "startup") {
+    //   await SProfile.create({
+    //     user: newUser._id,
+    //     startupName: "",
+    //     description: "",
+    //     missionStatement: "",
+    //     offerings: [],
+    //     founders: [],
+    //     industry: "",
+    //     location: "",
+    //     websiteUrl: "",
+    //     contactInformation: {
+    //       email: "",
+    //       phone: "",
+    //       socialMedia: {
+    //         twitter: "https://twitter.com/techstartup",
+    //         linkedin: "https://linkedin.com/company/techstartup",
+    //       },
+    //     },
+    //     // Add other profile fields with default values if needed
+    //   });
+    // }
 
     console.log("User Account Created Successfully!");
 

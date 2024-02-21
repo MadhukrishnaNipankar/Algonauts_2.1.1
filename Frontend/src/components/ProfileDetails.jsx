@@ -6,7 +6,8 @@ import { viewProfile } from "../../controllers/ViewProfile";
 import Spinner from "./Spinner";
 import ProfileOptionsTab from "./ProfileOptionsTab";
 import AllPosts from "./AllPosts";
-import { Tooltip } from "@chakra-ui/react";
+import { Tooltip } from '@chakra-ui/react'
+
 
 const styles = {
   profileImage: {
@@ -61,7 +62,7 @@ const ProfileDetails = () => {
       try {
         const response = await viewProfile(token);
         setData(response.data);
-        console.log(response.data.profilePhotoURL);
+        console.log(response.data);
       } catch (error) {
         alert(error.message);
       } finally {
