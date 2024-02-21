@@ -72,18 +72,18 @@ export const getFeeds = async (authToken) => {
 
 export const likePost = async (postId, isLiked, authToken) => {
   try {
+    console.log(isLiked)
     const response = await fetch(`http://localhost:8000/api/v1/blog/like`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${authToken}`
       },
-      body:{
+      body:JSON.stringify({
         "post_id": postId,
         "like": isLiked
-      }
+      })
     });
-    console.log(response)
 
     const responseData = await response.json();
     if (!response.ok) {
