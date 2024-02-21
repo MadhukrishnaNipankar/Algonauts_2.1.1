@@ -5,6 +5,7 @@ import { MdEdit } from "react-icons/md";
 import { Divider, Box, AbsoluteCenter, Tooltip } from "@chakra-ui/react";
 import ProfileOptionsTab from "./ProfileOptionsTab";
 import AllPosts from "./AllPosts";
+import AddMentorships from "./AddMentorships.jsx";
 
 import { viewProfile } from "../../controllers/StartupController.js";
 
@@ -57,7 +58,6 @@ const StartupProfile = () => {
               style={styles.profileImage}
             ></img>
           </div>
-
           <div style={styles.profileDetailsSection} className="container">
             <div>
               <h2 className="text-center">{data?.startupName}</h2>
@@ -113,20 +113,18 @@ const StartupProfile = () => {
               </div>
             </div>
           </div>
-
           <div className="container mt-3">
             <ProfileOptionsTab
               firstTab={<RenderProfileDetails data={data} />}
               secondTab={<AllPosts />}
             />
           </div>
-
           <Tooltip label="Edit Profile" fontSize="md" openDelay={500}>
             <button
               className="btn btn-success"
               data-bs-toggle="tooltip"
               data-bs-title="Edit Profie"
-              style={styles.editBtn}
+              style={{ ...styles.editBtn, marginBottom: "80px" }}
               onClick={() => {
                 navigate("/edit-startup-profile");
               }}
@@ -196,6 +194,10 @@ const RenderProfileDetails = ({ data }) => {
             )}
           </>
         )}
+      </div>
+      <div style={styles.section}>
+        <h4>Add Mentorship Programs</h4>
+        <AddMentorships />
       </div>
     </div>
   );
