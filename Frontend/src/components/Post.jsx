@@ -195,8 +195,8 @@ const Comments = ({ comments }) => {
           <h3>Comments</h3>
           <hr style={{ margin: "2rem 0" }} />
           {comments.map((comment) => (
-            <div key={comment.id} className="d-flex flex-column gap-2">
-              <strong>{comment.user}</strong>
+            <div key={comment.user._id} className="d-flex flex-column gap-2">
+              <strong>{comment.user.name}</strong>
               <p className="ms-3 mb-0">{comment.content}</p>
               <Divider />
             </div>
