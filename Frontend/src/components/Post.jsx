@@ -5,26 +5,47 @@ import { useLocation } from "react-router-dom";
 import { getPost, likePost } from "../../controllers/PostController";
 import Spinner from "./Spinner";
 import { formatDateTime } from "../utils/dateConversion.js";
-import { FcLike, FcLikePlaceholder} from "react-icons/fc";
+import { FcLike, FcLikePlaceholder, FcComments } from "react-icons/fc";
+import { jwtDecode } from "jwt-decode";
+import {
+  Divider, Button, Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
+  FormControl,
+  Input,
+  FormLabel 
+} from '@chakra-ui/react'
+
 const Post = () => {
+  const { isOpen, onOpen, onClose } = useDisclosure()
+
+  const initialRef = React.useRef(null)
+  const finalRef = React.useRef(null)
   const location = useLocation();
-  const [isLiked, setIsLiked] = useState(false);
-
- 
-
+  const [isLiked, setIsLiked] = useState(null);
+  const [comment, setComment] = useState("");
   const postID = location.state?.postId;
 
   const likeHandler = async () => {
-    setIsLiked(!isLiked);
+    const tempLiked = !isLiked;
+    setIsLiked(tempLiked);
     const token = sessionStorage.getItem("token");
     try {
-      const response = await likePost(postID, isLiked, token);
-      console.log(response.message, "data");
+      const response = await likePost(postID, tempLiked, token);
     } catch (error) {
       alert(error.message);
     } finally {
 
     }
+  }
+
+  const addComment = ()=>{
+    console.log(comment)
   }
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -37,7 +58,10 @@ const Post = () => {
       try {
         const response = await getPost(postID, token);
         setPost([response.data]);
-        console.log(response.data, "data");
+
+        const likedBy = response.data.likedBy
+        console.log(response.data)
+        setIsLiked(likedBy.includes(jwtDecode(token).id));
       } catch (error) {
         alert(error.message);
       } finally {
@@ -45,7 +69,8 @@ const Post = () => {
       }
     };
     fetchData();
-  }, []);
+  }, [isLiked]);
+
   return (
     <div style={styles.wrapper}>
       {post == null && "Loading"}
@@ -54,6 +79,35 @@ const Post = () => {
           <div key={p._id} style={styles.postContainer}>
             <UserPost post={p} isLiked={isLiked} likeHandler={likeHandler} />
             <Comments comments={p.comments} />
+            <Button onClick={onOpen} leftIcon={<FcComments />} colorScheme='teal' variant='outline'>
+              Comment
+            </Button>
+
+            <Modal
+              initialFocusRef={initialRef}
+              finalFocusRef={finalRef}
+              isOpen={isOpen}
+              onClose={onClose}
+            >
+              <ModalOverlay />
+              <ModalContent>
+                <ModalHeader>Add your comment</ModalHeader>
+                <ModalCloseButton />
+                <ModalBody pb={6}>
+                  <FormControl>
+                    <FormLabel>Comment</FormLabel>
+                    <Input ref={initialRef} value={comment} onChange={e=>setComment(e.target.value)} placeholder='Drop a comment here...' />
+                  </FormControl>
+                </ModalBody>
+
+                <ModalFooter>
+                  <Button colorScheme='teal' mr={3} onClick={addComment}>
+                    Add Comment
+                  </Button>
+                  <Button onClick={onClose}>Cancel</Button>
+                </ModalFooter>
+              </ModalContent>
+            </Modal>
           </div>
         ))}
     </div>
@@ -114,8 +168,9 @@ const UserPost = ({ post, isLiked, likeHandler }) => {
         </p>
         <div dangerouslySetInnerHTML={{ __html: post.content }} />
         <div className="d-flex gap-3 align-items-center" onClick={likeHandler}>
-          {isLiked ? <FcLike className="fs-3"/> : <FcLikePlaceholder className="fs-3"/>}
-          <span>{post.likeCount} lk</span>
+
+          {isLiked ? <FcLike className="fs-3" /> : <FcLikePlaceholder className="fs-3" />}
+          <span>{post.likeCount}{post.likeCount == 1 ? " Like" : " Likes"} </span>
         </div>
       </CardBody>
     </Card>
@@ -130,8 +185,10 @@ const Comments = ({ comments }) => {
           <h3>Comments</h3>
           <hr style={{ margin: "2rem 0" }} />
           {comments.map((comment) => (
-            <div key={comment.id} className="mb-2">
-              <strong>{comment.author}:</strong> {comment.text}
+            <div key={comment.id} className="d-flex flex-column gap-2">
+              <strong>{comment.user}</strong>
+              <p className="ms-3 mb-0">{comment.content}</p>
+              <Divider />
             </div>
           ))}
         </CardBody>
