@@ -128,7 +128,7 @@ const ProfileDetails = () => {
           <Tooltip label="Edit Profile" fontSize="md" openDelay={500}>
             <button
               className="btn btn-success"
-              style={{ ...styles.editBtn, marginBottom: "80 px" }} // Adjust the marginBottom value as needed
+              style={{ ...styles.editBtn, marginBottom: "200 px" }} // Adjust the marginBottom value as needed
               onClick={() => {
                 navigate("/edit-profile");
               }}

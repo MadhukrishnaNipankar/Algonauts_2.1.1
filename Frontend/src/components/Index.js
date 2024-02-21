@@ -16,4 +16,5 @@ import StartupProfile from './StartupProfile.jsx'
 import EditStartUpProfile from './EditStartUpProfile.jsx'
 import SearchResult from './SearchResult.jsx'
 import ChatWindow from './ChatWindow.jsx'
-export {Home, AboutUs, ContactUs, Layout, Navigation, NotFound, LoginForm, SignUp, ProfileDetails, EditProfile, Blog, Post, AllPosts, Feed, StartupProfile, EditStartUpProfile, SearchResult, ChatWindow}
+import SubscriptionCard from './SubscriptionCard.jsx'
+export {Home, AboutUs, ContactUs, Layout, Navigation, NotFound, LoginForm, SignUp, ProfileDetails, EditProfile, Blog, Post, AllPosts, Feed, StartupProfile, EditStartUpProfile, SearchResult, ChatWindow, SubscriptionCard}
