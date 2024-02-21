@@ -80,7 +80,7 @@ const router = createBrowserRouter([
         element: <ChatWindow />
       },
       {
-        path: "/search-result",
+        path: "/search-result/",
         element: <SearchResult />
       },
       {

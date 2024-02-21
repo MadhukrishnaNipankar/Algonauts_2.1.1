@@ -382,14 +382,18 @@ exports.viewUserProfile = async (req, res) => {
     const userProfileDetails = await User.findById(req.user.id);
     console.log(userProfileDetails);
 
-    const { _id, name, phoneNumber, emailId } = userProfileDetails;
+    const { _id, name, phoneNumber, emailId, followers, following } = userProfileDetails;
 
     const userProfileDetailsWithoutPassword = {
       _id,
       name,
       phoneNumber,
       emailId,
+      followers,
+      following
     };
+
+    console.log(userProfileDetailsWithoutPassword)
 
     return res.status(200).json({
       status: "success",

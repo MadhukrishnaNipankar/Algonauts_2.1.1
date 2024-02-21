@@ -107,8 +107,9 @@ exports.viewUserProfile = async (req, res) => {
     // Find the user profile by user ID, along with associated user details
     const userProfile = await Profile.findOne({ user: req.user.id }).populate(
       "user",
-      "name emailId phoneNumber"
+      "name emailId phoneNumber following followers"
     );
+
 
     // If the profile doesn't exist, return user details without profile
     if (!userProfile) {
@@ -126,6 +127,8 @@ exports.viewUserProfile = async (req, res) => {
           name: user.name,
           emailId: user.emailId,
           phoneNumber: user.phoneNumber,
+          followers:user.followers,
+          following:user.following
         },
         message: "Profile fetched successfully!",
       });
@@ -140,6 +143,8 @@ exports.viewUserProfile = async (req, res) => {
         emailId: userProfile.user.emailId,
         phoneNumber: userProfile.user.phoneNumber,
         profilePhotoURL: `http://localhost:8000${userProfile.profilePhotoURL}`,
+        followers:userProfile.followers,
+        following:userProfile.following
       },
       message: "Profile fetched successfully!",
     });
@@ -189,6 +194,7 @@ exports.updateUserProfileImage = async (req, res) => {
 };
 
 exports.searchUserProfile = async (req, res) => {
+  console.log("hey")
   try {
     const searchQuery = req.body.searchQuery;
 
@@ -210,7 +216,7 @@ exports.searchUserProfile = async (req, res) => {
           interests: { $in: searchWords.map((word) => new RegExp(word, "i")) },
         }, // Case-insensitive search for each word in interests array
       ],
-    }).populate("user", "name emailId role"); // Populate user field with name, emailId, and role from User model
+    }).populate("user", "name emailId role followers following"); // Populate user field with name, emailId, and role from User model
 
     // Search in SProfile model
     const startupProfileResults = await SProfile.find({
@@ -240,11 +246,11 @@ exports.searchUserProfile = async (req, res) => {
         { industry: { $in: searchWords.map((word) => new RegExp(word, "i")) } }, // Case-insensitive search for each word in industry
         { location: { $in: searchWords.map((word) => new RegExp(word, "i")) } }, // Case-insensitive search for each word in location
       ],
-    }).populate("user", "name emailId role");
+    }).populate("user", "name emailId role followers following");
 
     // Combine and sort the results by relevance
     const allResults = [...userProfileResults, ...startupProfileResults];
-
+    console.log("Getting all from backend", allResults)
     return res.status(200).json({
       status: "success",
       data: allResults.map((result) => ({
@@ -252,6 +258,8 @@ exports.searchUserProfile = async (req, res) => {
         name: result.user.name,
         email: result.user.emailId,
         role: result.user.role,
+        followers: result.user.followers,
+        following: result.user.following
       })),
       message: "Search results fetched successfully!",
     });
