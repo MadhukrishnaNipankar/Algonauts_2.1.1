@@ -62,7 +62,7 @@ const ProfileDetails = () => {
       try {
         const response = await viewProfile(token);
         setData(response.data);
-        console.log(response.data.profilePhotoURL);
+        console.log(response.data);
       } catch (error) {
         alert(error.message);
       } finally {
@@ -125,18 +125,16 @@ const ProfileDetails = () => {
             />
           </div>
 
-
-          <Tooltip label='Edit Profile' fontSize='md' openDelay={500}>
-
-          <button
-            className="btn btn-success"
-            style={styles.editBtn}
-            onClick={() => {
-              navigate("/edit-profile");
-            }}
-          >
-            <MdEdit />
-          </button>
+          <Tooltip label="Edit Profile" fontSize="md" openDelay={500}>
+            <button
+              className="btn btn-success"
+              style={{ ...styles.editBtn, marginBottom: "80 px" }} // Adjust the marginBottom value as needed
+              onClick={() => {
+                navigate("/edit-profile");
+              }}
+            >
+              <MdEdit />
+            </button>
           </Tooltip>
         </div>
       )}

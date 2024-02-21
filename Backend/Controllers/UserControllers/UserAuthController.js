@@ -58,11 +58,11 @@ exports.createUserAccount = async (req, res) => {
       role,
     });
 
-    console.log(role);
+    console.log(newUser, "newUser");
 
     if (role == "user") {
       // Create a profile for the new user with default values
-      await Profile.create({
+      const newProfile = await Profile.create({
         user: newUser._id, // Assuming your user model uses _id as the primary key
         bio: "",
         links: [],
@@ -71,28 +71,29 @@ exports.createUserAccount = async (req, res) => {
         interests: [],
         // Add other profile fields with default values if needed
       });
-    } else {
-      await SProfile.create({
-        user: newUser._id,
-        startupName: "",
-        description: "",
-        missionStatement: "",
-        offerings: [],
-        founders: [],
-        industry: "",
-        location: "",
-        websiteUrl: "",
-        contactInformation: {
-          email: "",
-          phone: "",
-          socialMedia: {
-            "twitter": "https://twitter.com/techstartup",
-            "linkedin": "https://linkedin.com/company/techstartup"
-          },
-        },
-        // Add other profile fields with default values if needed
-      });
     }
+    // if (role == "startup") {
+    //   await SProfile.create({
+    //     user: newUser._id,
+    //     startupName: "",
+    //     description: "",
+    //     missionStatement: "",
+    //     offerings: [],
+    //     founders: [],
+    //     industry: "",
+    //     location: "",
+    //     websiteUrl: "",
+    //     contactInformation: {
+    //       email: "",
+    //       phone: "",
+    //       socialMedia: {
+    //         twitter: "https://twitter.com/techstartup",
+    //         linkedin: "https://linkedin.com/company/techstartup",
+    //       },
+    //     },
+    //     // Add other profile fields with default values if needed
+    //   });
+    // }
 
     console.log("User Account Created Successfully!");
 

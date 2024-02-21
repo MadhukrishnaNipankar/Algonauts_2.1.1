@@ -71,6 +71,10 @@ const profileSchema = new mongoose.Schema(
     logoUrl: {
       type: String,
     },
+    isRegistered: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true }
 ); // Automatically add createdAt and updatedAt fields
