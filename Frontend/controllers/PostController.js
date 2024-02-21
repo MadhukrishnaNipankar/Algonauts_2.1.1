@@ -72,7 +72,6 @@ export const getFeeds = async (authToken) => {
 
 export const likePost = async (postId, isLiked, authToken) => {
   try {
-    console.log(isLiked)
     const response = await fetch(`http://localhost:8000/api/v1/blog/like`, {
       method: "POST",
       headers: {
@@ -83,6 +82,35 @@ export const likePost = async (postId, isLiked, authToken) => {
         "post_id": postId,
         "like": isLiked
       })
+    });
+
+    const responseData = await response.json();
+    if (!response.ok) {
+      throw new Error(responseData.message || "Failed to like post");
+    }
+
+    console.log("Post liked successfully!");
+    return responseData;
+  } catch (error) {
+    console.error("Error while liking post:", error.message);
+    throw error;
+  }
+};
+
+export const commentPost = async (postId, comment, authToken) => {
+  try {
+    const response = await fetch(`http://localhost:8000/api/v1/blog/comment`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${authToken}`
+      },
+      body:JSON.stringify(
+        {
+          "post_id": postId,
+          "comment": comment
+        }
+      )
     });
 
     const responseData = await response.json();

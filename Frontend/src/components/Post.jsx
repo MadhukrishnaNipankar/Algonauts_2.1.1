@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Card, CardBody, Badge } from "reactstrap";
 import { FaHeart } from "react-icons/fa";
 import { useLocation } from "react-router-dom";
-import { getPost, likePost } from "../../controllers/PostController";
-import Spinner from "./Spinner";
+import { getPost, likePost, commentPost } from "../../controllers/PostController";
 import { formatDateTime } from "../utils/dateConversion.js";
 import { FcLike, FcLikePlaceholder, FcComments } from "react-icons/fc";
 import { jwtDecode } from "jwt-decode";
@@ -44,9 +43,20 @@ const Post = () => {
     }
   }
 
-  const addComment = ()=>{
-    console.log(comment)
+  const addComment = async () => {
+    const token = sessionStorage.getItem("token");
+    try {
+      const response = await commentPost(postID, comment, token);
+      console.log(response.message)
+      onClose();
+    } catch (error) {
+      alert(error.message);
+    } finally {
+
+    }
   }
+
+
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -69,7 +79,7 @@ const Post = () => {
       }
     };
     fetchData();
-  }, [isLiked]);
+  }, [isLiked, comment]);
 
   return (
     <div style={styles.wrapper}>
