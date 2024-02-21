@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation } from "react-router-dom";
-import { Card, Heading, Divider, CardBody, Stack, Badge, Text, Image } from '@chakra-ui/react'
+import { Card, Heading, Divider, CardBody, Stack, Badge, Text, Image, Button } from '@chakra-ui/react'
+import { SlUserFollow, SlUserUnfollow } from "react-icons/sl";
 const SearchResult = () => {
   const location = useLocation();
   const data = location.state?.data;
@@ -81,6 +82,8 @@ const SearchResult = () => {
         </div>
       }
 
+
+
       {
         startups?.length > 0 &&
         <div className='mt-3'>
@@ -105,12 +108,13 @@ export default SearchResult
 
 const UserCard = ({ name, bio, skills, img }) => {
   return (
-    <Card maxW='sm'>
+    <Card maxW='sm' style={{width:"30rem"}}>
       <CardBody>
         <Image
           src={img}
           alt='image'
           borderRadius='lg'
+          style={{textAlign:"center", margin:"auto"}}
         />
         <Stack mt='6' spacing='3'>
           <Heading size='md'>{name}</Heading>
@@ -126,6 +130,7 @@ const UserCard = ({ name, bio, skills, img }) => {
               })
             }
           </div>
+
         </Stack>
       </CardBody>
     </Card>
@@ -135,18 +140,22 @@ const UserCard = ({ name, bio, skills, img }) => {
 
 const StartUpCard = ({ startupName, description, offerings, img }) => {
   return (
-    <Card maxW='sm'>
-      <CardBody>
+    <Card maxW='sm' style={{width:"30rem"}}>
+      <CardBody >
         <Image
           src={img}
-          alt='image'
+          alt='user image'
           borderRadius='lg'
+          style={{textAlign:"center", margin:"auto"}}
         />
-        <Stack mt='6' spacing='3'>
+        <Stack mt='6' spacing='3' style={{height:" 80%"}}>
           <Heading size='md'>{startupName}</Heading>
           <Text>
             {description}
           </Text>
+          <Button colorScheme='blue' style={{position:"absolute",top:"4px",right:"4px"}} leftIcon={<SlUserFollow />}
+          >Follow
+          </Button>
           <div className='d-flex gap-3 flex-wrap'>
             {
               offerings?.map((offering, index) => {
@@ -156,6 +165,7 @@ const StartUpCard = ({ startupName, description, offerings, img }) => {
               })
             }
           </div>
+
         </Stack>
       </CardBody>
     </Card>
