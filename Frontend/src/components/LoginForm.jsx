@@ -9,6 +9,8 @@ import { jwtDecode } from "jwt-decode";
 import { loginUser } from "../../controllers/LoginController";
 import Spinner from "./Spinner";
 import { LoginContext } from "../context/LoginContext";
+import { Input, Textarea } from '@chakra-ui/react'
+
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -61,7 +63,7 @@ const LoginForm = () => {
             {/* <label htmlFor="email" className="input-label">
               Email
             </label> */}
-            <input
+            <Input
               type="email"
               id="email"
               name="email"
@@ -75,7 +77,7 @@ const LoginForm = () => {
 
           <div className="text-field">
             {/* <label htmlFor="password">Password</label> */}
-            <input
+            <Input
               id="password"
               type="password"
               name="password"
