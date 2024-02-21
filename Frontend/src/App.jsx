@@ -63,10 +63,10 @@ const router = createBrowserRouter([
         path: "/blog",
         element: <Blog />
       },
-      {
-        path: "/post",
-        element: <Post />
-      },
+        {
+          path: "/post/:postID",
+          element: <Post />
+        },
       {
         path: "/all-posts",
         element: <AllPosts />

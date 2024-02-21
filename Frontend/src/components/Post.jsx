@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Card, CardBody, Badge } from "reactstrap";
 import { FaHeart } from "react-icons/fa";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { getPost, likePost, commentPost } from "../../controllers/PostController";
 import { formatDateTime } from "../utils/dateConversion.js";
-import { FcLike, FcLikePlaceholder, FcComments } from "react-icons/fc";
+import { FcLike, FcLikePlaceholder } from "react-icons/fc";
+import { FaShare  } from "react-icons/fa6";
+import { FaCommentAlt } from "react-icons/fa";
 import { jwtDecode } from "jwt-decode";
+import { useParams } from 'react-router-dom';
+import { RWebShare } from "react-web-share";
+
 import {
   Divider, Button, Modal,
   ModalOverlay,
@@ -17,18 +22,16 @@ import {
   useDisclosure,
   FormControl,
   Input,
-  FormLabel 
+  FormLabel
 } from '@chakra-ui/react'
-
 const Post = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
-
+  const { postID } = useParams();
   const initialRef = React.useRef(null)
   const finalRef = React.useRef(null)
-  const location = useLocation();
   const [isLiked, setIsLiked] = useState(null);
   const [comment, setComment] = useState("");
-  const postID = location.state?.postId;
+  const navigate = useNavigate();
 
   const likeHandler = async () => {
     const tempLiked = !isLiked;
@@ -63,6 +66,12 @@ const Post = () => {
   useEffect(() => {
     const fetchData = async () => {
       const token = sessionStorage.getItem("token");
+
+      if (!token) {
+        navigate("/");
+        return;
+      }
+
       setLoading(true); // Set loading to true before making the API call
 
       try {
@@ -89,9 +98,21 @@ const Post = () => {
           <div key={p._id} style={styles.postContainer}>
             <UserPost post={p} isLiked={isLiked} likeHandler={likeHandler} />
             <Comments comments={p.comments} />
-            <Button onClick={onOpen} leftIcon={<FcComments />} colorScheme='teal' variant='outline'>
+            <Button onClick={onOpen} leftIcon={<FaCommentAlt />} colorScheme='teal' variant='outline'>
               Comment
             </Button>
+
+            <RWebShare
+              data={{
+                text: `See this post on BizReady`,
+                url: `http://localhost:5173/post/${postID}`,
+                title: `${p.title}`,
+              }}
+            >
+              <Button colorScheme='green' leftIcon={<FaShare />} className="ms-3">
+              Share
+            </Button>
+            </RWebShare>
 
             <Modal
               initialFocusRef={initialRef}
@@ -106,7 +127,7 @@ const Post = () => {
                 <ModalBody pb={6}>
                   <FormControl>
                     <FormLabel>Comment</FormLabel>
-                    <Input ref={initialRef} value={comment} onChange={e=>setComment(e.target.value)} placeholder='Drop a comment here...' />
+                    <Input ref={initialRef} value={comment} onChange={e => setComment(e.target.value)} placeholder='Drop a comment here...' />
                   </FormControl>
                 </ModalBody>
 
@@ -193,14 +214,20 @@ const Comments = ({ comments }) => {
       <Card style={styles.card}>
         <CardBody>
           <h3>Comments</h3>
-          <hr style={{ margin: "2rem 0" }} />
-          {comments.map((comment) => (
-            <div key={comment.user._id} className="d-flex flex-column gap-2">
-              <strong>{comment.user.name}</strong>
-              <p className="ms-3 mb-0">{comment.content}</p>
-              <Divider />
-            </div>
-          ))}
+          <hr />
+          {
+            comments.length == 0 ?
+              <strong>No Comments Yet!</strong> :
+              <>
+                {comments.map((comment) => (
+                  <div key={comment.user._id} className="d-flex flex-column gap-2">
+                    <strong>{comment.user.name}</strong>
+                    <p className="ms-3 mb-0">{comment.content}</p>
+                    <Divider />
+                  </div>
+                ))}
+              </>
+          }
         </CardBody>
       </Card>
     </div>
