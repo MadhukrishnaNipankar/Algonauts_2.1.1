@@ -2,18 +2,30 @@ import React, { useEffect, useState } from "react";
 import { Card, CardBody, Badge } from "reactstrap";
 import { FaHeart } from "react-icons/fa";
 import { useLocation } from "react-router-dom";
-import { getPost } from "../../controllers/PostController";
+import { getPost, likePost } from "../../controllers/PostController";
 import Spinner from "./Spinner";
 import { formatDateTime } from "../utils/dateConversion.js";
 import { FcLike, FcLikePlaceholder} from "react-icons/fc";
 const Post = () => {
   const location = useLocation();
   const [isLiked, setIsLiked] = useState(false);
-  const likeHandler = ()=>{
-    setIsLiked(!isLiked);
-  }
+
+ 
+
   const postID = location.state?.postId;
 
+  const likeHandler = async () => {
+    setIsLiked(!isLiked);
+    const token = sessionStorage.getItem("token");
+    try {
+      const response = await likePost(postID, isLiked, token);
+      console.log(response.message, "data");
+    } catch (error) {
+      alert(error.message);
+    } finally {
+
+    }
+  }
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(false);
 

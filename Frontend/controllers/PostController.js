@@ -69,3 +69,31 @@ export const getFeeds = async (authToken) => {
     throw error;
   }
 };
+
+export const likePost = async (postId, isLiked, authToken) => {
+  try {
+    const response = await fetch(`http://localhost:8000/api/v1/blog/like`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${authToken}`
+      },
+      body:{
+        "post_id": postId,
+        "like": isLiked
+      }
+    });
+    console.log(response)
+
+    const responseData = await response.json();
+    if (!response.ok) {
+      throw new Error(responseData.message || "Failed to like post");
+    }
+
+    console.log("Post liked successfully!");
+    return responseData;
+  } catch (error) {
+    console.error("Error while liking post:", error.message);
+    throw error;
+  }
+};
